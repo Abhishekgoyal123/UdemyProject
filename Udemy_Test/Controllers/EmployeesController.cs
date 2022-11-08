@@ -10,7 +10,7 @@ using Udemy_Test;
 
 namespace Udemy_Test.Controllers
 {
-    [Authorize]
+   
     public class EmployeesController : Controller
     {
         private eShoppingCodiEntities db = new eShoppingCodiEntities();

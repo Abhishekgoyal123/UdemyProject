@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Udemy_Test.Models;
+using Udemy_Test;
 
 namespace Udemy_Test.Controllers
 {
@@ -27,6 +28,13 @@ namespace Udemy_Test.Controllers
 
         public ActionResult Login(Membership model)
         {
+            eShoppingCodiEntities db = new eShoppingCodiEntities();
+            model.Password = PasswordEncrypt.Encrypt(model.Password);
+            bool isvalid = db.Users.Any(x => x.UserName == model.UserName && x.Password == model.Password );
+            if (isvalid)
+            {
+                return RedirectToAction("Index", "Employees");
+            }
             return View();
         }
 
@@ -38,9 +46,14 @@ namespace Udemy_Test.Controllers
 
         [HttpPost]
 
-        public ActionResult Signup(Membership model)
+        public ActionResult Signup(User model)
         {
-            return View();
+             eShoppingCodiEntities db = new eShoppingCodiEntities();
+            model.Password = PasswordEncrypt.Encrypt(model.Password);
+            db.Users.Add(model);
+            db.SaveChanges();
+            
+            return RedirectToAction("login");
         }
     }
 } 
