@@ -20,6 +20,7 @@
         <AssociationConnector Association="eShoppingCodiModel.FK__Product__Manufac__2C3393D0" ManuallyRouted="false" />
         <AssociationConnector Association="eShoppingCodiModel.FK__Product__Sub_Cat__2B3F6F97" ManuallyRouted="false" />
         <EntityTypeShape EntityType="eShoppingCodiModel.User" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="eShoppingCodiModel.UserRole" Width="1.5" PointX="9.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

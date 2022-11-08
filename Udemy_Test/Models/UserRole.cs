@@ -7,19 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Udemy_Test
+namespace Udemy_Test.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class UserRole
     {
-        public int EmpNo { get; set; }
-        public string EmpName { get; set; }
-        public string Designation { get; set; }
-        public int Salary { get; set; }
-        public int DeptNo { get; set; }
-    
-        public virtual Department Department { get; set; }
+        public int role_id { get; set; }
+        public Nullable<int> user_id { get; set; }
+        public string role_name { get; set; }
     }
 }

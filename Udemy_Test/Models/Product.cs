@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Udemy_Test
+namespace Udemy_Test.Models
 {
     using System;
     using System.Collections.Generic;

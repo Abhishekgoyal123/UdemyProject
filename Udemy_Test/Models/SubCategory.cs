@@ -7,24 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Udemy_Test
+namespace Udemy_Test.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class SubCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public SubCategory()
         {
-            this.SubCategories = new HashSet<SubCategory>();
+            this.Products = new HashSet<Product>();
         }
     
+        public int SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public decimal BasePrice { get; set; }
     
+        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubCategory> SubCategories { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Udemy_Test.User
+﻿@model Udemy_Test.Models.User
 
 @{
     ViewBag.Title = "Signup";
@@ -32,12 +32,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="SignUp" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Click to Login", "Login")
+    @Html.ActionLink("Back to List", "Index")
 </div>

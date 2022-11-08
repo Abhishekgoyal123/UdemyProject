@@ -7,13 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Udemy_Test
+namespace Udemy_Test.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class test1
+    public partial class test
     {
-        public int DeptNo { get; set; }
+        public int C_DeptNo { get; set; }
     }
 }

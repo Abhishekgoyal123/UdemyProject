@@ -110,6 +110,14 @@ warning 6002: The table/view 'eShoppingCodi.dbo.test1' does not have a primary k
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="role_name" Type="nchar" MaxLength="10" />
+        </EntityType>
         <Association Name="FK__Employee__DeptNo__3B75D760">
           <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -167,6 +175,7 @@ warning 6002: The table/view 'eShoppingCodi.dbo.test1' does not have a primary k
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExployeeSkills" EntityType="Self.ExployeeSkills" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ExployeeSkills].[EmpNo] AS [EmpNo], 
@@ -381,6 +390,7 @@ warning 6002: The table/view 'eShoppingCodi.dbo.test1' does not have a primary k
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="eShoppingCodiModel.User" />
+          <EntitySet Name="UserRoles" EntityType="eShoppingCodiModel.UserRole" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -389,6 +399,14 @@ warning 6002: The table/view 'eShoppingCodi.dbo.test1' does not have a primary k
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="role_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -500,6 +518,15 @@ warning 6002: The table/view 'eShoppingCodi.dbo.test1' does not have a primary k
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="eShoppingCodiModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Udemy_Test
+namespace Udemy_Test.Models
 {
     using System;
     using System.Data.Entity;
@@ -36,7 +36,6 @@ namespace Udemy_Test
         public virtual DbSet<test> tests { get; set; }
         public virtual DbSet<test1> test1 { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
-        public System.Data.Entity.DbSet<Udemy_Test.Models.Membership> Memberships { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }

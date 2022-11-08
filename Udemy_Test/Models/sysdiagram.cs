@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Udemy_Test
+namespace Udemy_Test.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ExployeeSkill
+    public partial class sysdiagram
     {
-        public int EmpNo { get; set; }
-        public int ProjectId { get; set; }
-        public int Experience { get; set; }
-        public string Skills { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

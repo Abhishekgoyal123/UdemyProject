@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using Udemy_Test.Models;
 namespace Udemy_Test
 {
     public class WebRoleProvider : RoleProvider
@@ -11,6 +12,7 @@ namespace Udemy_Test
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
+            
             throw new NotImplementedException();
         }
 
@@ -26,7 +28,7 @@ namespace Udemy_Test
 
         public override string[] FindUsersInRole(string roleName, string usernameToMatch)
         {
-            eShoppingCodiEntities db = new eShoppingCodiEntities();
+            
             throw new NotImplementedException();
         }
 

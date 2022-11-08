@@ -6,16 +6,20 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Udemy_Test.Models;
 using Udemy_Test;
 
 namespace Udemy_Test.Controllers
 {
-   
+    [Authorize]
     public class EmployeesController : Controller
     {
+        
         private eShoppingCodiEntities db = new eShoppingCodiEntities();
         [HttpGet]
         // GET: Employees
+
+        [Authorize(Roles ="trainer")]
         public ActionResult Index()
         {
             var employees = db.Employees.Include(e => e.Department);
