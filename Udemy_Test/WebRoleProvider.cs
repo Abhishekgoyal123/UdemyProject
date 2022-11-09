@@ -39,7 +39,14 @@ namespace Udemy_Test
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException();
+            eShoppingCodiEntities context = new eShoppingCodiEntities();
+            
+                var result = (from user in context.Users
+                              join role in context.UserRoles on user.id equals role.user_id
+                              where user.UserName == username
+                              select role.role_name).ToArray();
+                return result;
+            
         }
 
         public override string[] GetUsersInRole(string roleName)

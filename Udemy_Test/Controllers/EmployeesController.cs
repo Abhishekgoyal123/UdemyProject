@@ -11,7 +11,7 @@ using Udemy_Test;
 
 namespace Udemy_Test.Controllers
 {
-    [Authorize]
+    
     public class EmployeesController : Controller
     {
         
@@ -19,7 +19,7 @@ namespace Udemy_Test.Controllers
         [HttpGet]
         // GET: Employees
 
-        [Authorize(Roles ="trainer")]
+        [Authorize(Roles ="User")]
         public ActionResult Index()
         {
             var employees = db.Employees.Include(e => e.Department);
