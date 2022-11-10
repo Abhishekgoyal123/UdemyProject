@@ -14,13 +14,11 @@ namespace Udemy_Test.Controllers
         // GET: Account
         public ActionResult Index()
         {
-
             return View();
         }
 
         public ActionResult Login()
         {
-
             return View();
         }
 

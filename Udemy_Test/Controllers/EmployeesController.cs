@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Udemy_Test.Models;
 using Udemy_Test;
+using Udemy_Test.Filter;
 
 namespace Udemy_Test.Controllers
 {
@@ -19,6 +20,7 @@ namespace Udemy_Test.Controllers
         [HttpGet]
         // GET: Employees
 
+        [CustomFilter]
         
         public ActionResult Index()
         {
@@ -27,6 +29,7 @@ namespace Udemy_Test.Controllers
         }
 
         // GET: Employees/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
