@@ -8,7 +8,6 @@ using Udemy_Test;
 
 namespace Udemy_Test.Controllers
 {
-    
     public class AccountController : Controller
     {
         // GET: Account

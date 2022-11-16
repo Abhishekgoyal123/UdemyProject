@@ -11,8 +11,9 @@ namespace Udemy_Test.Filter
     {
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-            if(filterContext.HttpContext.User.Identity.IsAuthenticated)
+            if(filterContext.HttpContext.User.IsInRole(Roles) Identity.IsAuthenticated)
             {
+               
                 filterContext.Result = new HttpUnauthorizedResult(); 
             }
         }
@@ -24,7 +25,6 @@ namespace Udemy_Test.Filter
                 filterContext.Result = new ViewResult()
                 {
                     ViewName = "Error"
-
                 };
             }  
         }

@@ -50,7 +50,8 @@ namespace WebApplication3.Models
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
+
+
         public string Email { get; set; }
 
         [Required]
@@ -64,8 +65,10 @@ namespace WebApplication3.Models
 
     public class RegisterViewModel
     {
+        public string Name { get; set; }
+
         [Required]
-        [EmailAddress]
+        
         [Display(Name = "Email")]
         public string Email { get; set; }
 
