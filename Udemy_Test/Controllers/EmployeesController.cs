@@ -12,20 +12,27 @@ using Udemy_Test.Filter;
 
 namespace Udemy_Test.Controllers
 {
-    [Authorize(Roles = "User")]
+    
     public class EmployeesController : Controller
     {
         
         private eShoppingCodiEntities db = new eShoppingCodiEntities();
+        public UserRole role = new UserRole();
+
         [HttpGet]
         // GET: Employees
 
-        [CustomFilter]
+        
         
         public ActionResult Index()
         {
-            var employees = db.Employees.Include(e => e.Department);
-            return View(employees.ToList());
+            
+                var employees = db.Employees.Include(e => e.Department);
+                return View(employees.ToList());
+
+            
+            //return View("Error");
+            
         }
 
         // GET: Employees/Details/5

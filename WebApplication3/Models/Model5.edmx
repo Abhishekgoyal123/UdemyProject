@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UdemyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Udemy.dbo.CourseMapping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CourseMapping">
+          <Key>
+            <PropertyRef Name="CourseMappingId" />
+          </Key>
+          <Property Name="UserId" Type="int" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CourseMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseTrainer">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="20" />
+          <Property Name="CourseDescription" Type="varchar" MaxLength="100" />
+          <Property Name="CourseLevels" Type="varchar" MaxLength="20" />
+          <Property Name="CourseLanguage" Type="varchar" MaxLength="20" />
+          <Property Name="CourseSkills" Type="varchar" MaxLength="20" />
+          <Property Name="CousrePrice" Type="int" />
+          <Property Name="CourseThumbNail" Type="image" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Udemy.dbo.CourseUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CourseUser">
+          <Key>
+            <PropertyRef Name="CourseUserId" />
+          </Key>
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CourseReviews" Type="varchar" MaxLength="20" />
+          <Property Name="CourseRatings" Type="int" />
+          <Property Name="CourseComments" Type="varchar" MaxLength="100" />
+          <Property Name="CourseUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RoleMapping">
+          <Key>
+            <PropertyRef Name="RoleMappingId" />
+          </Key>
+          <Property Name="UserId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="RoleMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FistName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__CourseMap__Cours__2A4B4B5E">
+          <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
+          <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseTrainer">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseMapping">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMap__UserI__29572725">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseUse__Cours__276EDEB3">
+          <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
+          <End Role="CourseUser" Type="Self.CourseUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseTrainer">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseUser">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleMappi__RoleI__2F10007B">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="RoleMapping" Type="Self.RoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleMapping">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleMappi__UserI__2E1BDC42">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="RoleMapping" Type="Self.RoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UdemyModelStoreContainer">
+          <EntitySet Name="CourseTrainer" EntityType="Self.CourseTrainer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseMapping" EntityType="Self.CourseMapping" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CourseMapping].[UserId] AS [UserId], 
+    [CourseMapping].[CourseId] AS [CourseId], 
+    [CourseMapping].[CourseMappingId] AS [CourseMappingId]
+    FROM [dbo].[CourseMapping] AS [CourseMapping]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CourseUser" EntityType="Self.CourseUser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CourseUser].[CourseId] AS [CourseId], 
+    [CourseUser].[CourseReviews] AS [CourseReviews], 
+    [CourseUser].[CourseRatings] AS [CourseRatings], 
+    [CourseUser].[CourseComments] AS [CourseComments], 
+    [CourseUser].[CourseUserId] AS [CourseUserId]
+    FROM [dbo].[CourseUser] AS [CourseUser]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RoleMapping" EntityType="Self.RoleMapping" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RoleMapping].[UserId] AS [UserId], 
+    [RoleMapping].[RoleId] AS [RoleId], 
+    [RoleMapping].[RoleMappingId] AS [RoleMappingId]
+    FROM [dbo].[RoleMapping] AS [RoleMapping]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__CourseMap__Cours__2A4B4B5E" Association="Self.FK__CourseMap__Cours__2A4B4B5E">
+            <End Role="CourseTrainer" EntitySet="CourseTrainer" />
+            <End Role="CourseMapping" EntitySet="CourseMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMap__UserI__29572725" Association="Self.FK__CourseMap__UserI__29572725">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CourseMapping" EntitySet="CourseMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseUse__Cours__276EDEB3" Association="Self.FK__CourseUse__Cours__276EDEB3">
+            <End Role="CourseTrainer" EntitySet="CourseTrainer" />
+            <End Role="CourseUser" EntitySet="CourseUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleMappi__RoleI__2F10007B" Association="Self.FK__RoleMappi__RoleI__2F10007B">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleMapping" EntitySet="RoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleMappi__UserI__2E1BDC42" Association="Self.FK__RoleMappi__UserI__2E1BDC42">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoleMapping" EntitySet="RoleMapping" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UdemyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CourseTrainer">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CourseLevels" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseLanguage" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseSkills" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CousrePrice" Type="Int32" />
+          <Property Name="CourseThumbNail" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CourseMappings" Relationship="Self.FK__CourseMap__Cours__2A4B4B5E" FromRole="CourseTrainer" ToRole="CourseMapping" />
+          <NavigationProperty Name="CourseUsers" Relationship="Self.FK__CourseUse__Cours__276EDEB3" FromRole="CourseTrainer" ToRole="CourseUser" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoleMappings" Relationship="Self.FK__RoleMappi__RoleI__2F10007B" FromRole="Roles" ToRole="RoleMapping" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FistName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CourseMappings" Relationship="Self.FK__CourseMap__UserI__29572725" FromRole="Users" ToRole="CourseMapping" />
+          <NavigationProperty Name="RoleMappings" Relationship="Self.FK__RoleMappi__UserI__2E1BDC42" FromRole="Users" ToRole="RoleMapping" />
+        </EntityType>
+        <EntityType Name="CourseMapping">
+          <Key>
+            <PropertyRef Name="CourseMappingId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseMap__Cours__2A4B4B5E" FromRole="CourseMapping" ToRole="CourseTrainer" />
+          <NavigationProperty Name="User" Relationship="Self.FK__CourseMap__UserI__29572725" FromRole="CourseMapping" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CourseUser">
+          <Key>
+            <PropertyRef Name="CourseUserId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseReviews" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseRatings" Type="Int32" />
+          <Property Name="CourseComments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CourseUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseUse__Cours__276EDEB3" FromRole="CourseUser" ToRole="CourseTrainer" />
+        </EntityType>
+        <EntityType Name="RoleMapping">
+          <Key>
+            <PropertyRef Name="RoleMappingId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="RoleMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RoleMappi__RoleI__2F10007B" FromRole="RoleMapping" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="Self.FK__RoleMappi__UserI__2E1BDC42" FromRole="RoleMapping" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__CourseMap__Cours__2A4B4B5E">
+          <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
+          <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseTrainer">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseMapping">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseUse__Cours__276EDEB3">
+          <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
+          <End Role="CourseUser" Type="Self.CourseUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseTrainer">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseUser">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleMappi__RoleI__2F10007B">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="RoleMapping" Type="Self.RoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RoleMapping">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMap__UserI__29572725">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleMappi__UserI__2E1BDC42">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="RoleMapping" Type="Self.RoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RoleMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UdemyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CourseTrainers" EntityType="Self.CourseTrainer" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="CourseMappings" EntityType="Self.CourseMapping" />
+          <EntitySet Name="CourseUsers" EntityType="Self.CourseUser" />
+          <EntitySet Name="RoleMappings" EntityType="Self.RoleMapping" />
+          <AssociationSet Name="FK__CourseMap__Cours__2A4B4B5E" Association="Self.FK__CourseMap__Cours__2A4B4B5E">
+            <End Role="CourseTrainer" EntitySet="CourseTrainers" />
+            <End Role="CourseMapping" EntitySet="CourseMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseUse__Cours__276EDEB3" Association="Self.FK__CourseUse__Cours__276EDEB3">
+            <End Role="CourseTrainer" EntitySet="CourseTrainers" />
+            <End Role="CourseUser" EntitySet="CourseUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleMappi__RoleI__2F10007B" Association="Self.FK__RoleMappi__RoleI__2F10007B">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RoleMapping" EntitySet="RoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMap__UserI__29572725" Association="Self.FK__CourseMap__UserI__29572725">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CourseMapping" EntitySet="CourseMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleMappi__UserI__2E1BDC42" Association="Self.FK__RoleMappi__UserI__2E1BDC42">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RoleMapping" EntitySet="RoleMappings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UdemyModelStoreContainer" CdmEntityContainer="UdemyEntities">
+          <EntitySetMapping Name="CourseTrainers">
+            <EntityTypeMapping TypeName="UdemyModel.CourseTrainer">
+              <MappingFragment StoreEntitySet="CourseTrainer">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="CourseLevels" ColumnName="CourseLevels" />
+                <ScalarProperty Name="CourseLanguage" ColumnName="CourseLanguage" />
+                <ScalarProperty Name="CourseSkills" ColumnName="CourseSkills" />
+                <ScalarProperty Name="CousrePrice" ColumnName="CousrePrice" />
+                <ScalarProperty Name="CourseThumbNail" ColumnName="CourseThumbNail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="UdemyModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UdemyModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="UdemyModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FistName" ColumnName="FistName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseMappings">
+            <EntityTypeMapping TypeName="UdemyModel.CourseMapping">
+              <MappingFragment StoreEntitySet="CourseMapping">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseMappingId" ColumnName="CourseMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseUsers">
+            <EntityTypeMapping TypeName="UdemyModel.CourseUser">
+              <MappingFragment StoreEntitySet="CourseUser">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseReviews" ColumnName="CourseReviews" />
+                <ScalarProperty Name="CourseRatings" ColumnName="CourseRatings" />
+                <ScalarProperty Name="CourseComments" ColumnName="CourseComments" />
+                <ScalarProperty Name="CourseUserId" ColumnName="CourseUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMappings">
+            <EntityTypeMapping TypeName="UdemyModel.RoleMapping">
+              <MappingFragment StoreEntitySet="RoleMapping">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleMappingId" ColumnName="RoleMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

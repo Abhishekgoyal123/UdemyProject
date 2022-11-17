@@ -12,24 +12,27 @@ namespace WebApplication3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class CourseTrainer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public CourseTrainer()
         {
             this.CourseMappings = new HashSet<CourseMapping>();
-            this.RoleMappings = new HashSet<RoleMapping>();
+            this.CourseUsers = new HashSet<CourseUser>();
         }
     
-        public int UserId { get; set; }
-        public string FistName { get; set; }
-        public string LastName { get; set; }
-        public string UserName { get; set; }
-        public string UserPassword { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
+        public string CourseDescription { get; set; }
+        public string CourseLevels { get; set; }
+        public string CourseLanguage { get; set; }
+        public string CourseSkills { get; set; }
+        public Nullable<int> CousrePrice { get; set; }
+        public byte[] CourseThumbNail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseMapping> CourseMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RoleMapping> RoleMappings { get; set; }
+        public virtual ICollection<CourseUser> CourseUsers { get; set; }
     }
 }

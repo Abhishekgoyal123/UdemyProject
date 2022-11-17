@@ -7,29 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication3.Models
+namespace WebApplication6.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.CourseMappings = new HashSet<CourseMapping>();
-            this.RoleMappings = new HashSet<RoleMapping>();
-        }
-    
         public int UserId { get; set; }
         public string FistName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string UserPassword { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseMapping> CourseMappings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RoleMapping> RoleMappings { get; set; }
     }
 }
