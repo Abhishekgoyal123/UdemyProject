@@ -11,11 +11,11 @@ namespace Udemy_Test.Filter
     {
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-            //if(filterContext.HttpContext.User.IsInRole(Roles) Identity.IsAuthenticated)
-            //{
+            ////if(filterContext.HttpContext.User.IsInRole(Roles) Identity.IsAuthenticated)
+            ////{
                
-            //    filterContext.Result = new HttpUnauthorizedResult(); 
-            //}
+            ////    filterContext.Result = new HttpUnauthorizedResult(); 
+            ////}
         }
 
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)

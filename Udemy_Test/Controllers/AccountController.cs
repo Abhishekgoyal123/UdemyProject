@@ -27,33 +27,22 @@ namespace Udemy_Test.Controllers
         public ActionResult Login(User model, UserRole role)
         {
             eShoppingCodiEntities db = new eShoppingCodiEntities();
-            string username = model.UserName;
+            string localusername = model.UserName;
             model.Password = PasswordEncrypt.Encrypt(model.Password);
             bool isvalid = db.Users.Any(x => x.UserName == model.UserName && x.Password == model.Password );
-            //int id = model.id;
+           // int id = 
             if (isvalid)
             {
-                var abc = from user in context.Users
-                          join userRole in context.UserRoles on user.id equals userRole.user_id
-                          where user.UserName == username
-                          select userRole;
 
+                var abc = (from user in context.Users
+                           join userRole in context.UserRoles on user.id equals userRole.user_id
+                           where user.UserName == localusername
+                           select userRole.role_name).First();
 
-
-
-                //var isValid1 = (from user in context.Users.ToList()
-                //              join roles in context.UserRoles.ToList()
-                //              on user.id equals roles.user_id
-                //              where user.id == model.id && roles.role_name = "trainer"
-
-
-
-
-
-                //if (abc == "trainer")
-                //{
-                //    return RedirectToAction("Index", "Employees");
-                //}
+                if (abc == "Trainer")
+                {
+                    return RedirectToAction("Index", "Employees");
+                }
 
             }
             return View();
@@ -61,19 +50,24 @@ namespace Udemy_Test.Controllers
 
         public ActionResult Signup()
         {
-
+            ViewData["role_name"] = new SelectList(context.UserRoles.ToList(), "role_name", "role_name");
             return View();
         }
 
         [HttpPost]
 
-        public ActionResult Signup(User model)
+        public ActionResult Signup(User model, UserRole role)
         {
              eShoppingCodiEntities db = new eShoppingCodiEntities();
             model.Password = PasswordEncrypt.Encrypt(model.Password);
+
+           // role.user_id = model.id;
             db.Users.Add(model);
             db.SaveChanges();
-            
+            role.user_id = model.id;
+            db.UserRoles.Add(role);
+            db.SaveChanges();
+
             return RedirectToAction("login");
         }
     }

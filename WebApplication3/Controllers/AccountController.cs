@@ -70,11 +70,11 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         
 
-        public ActionResult Login(Membership model)
+        public ActionResult Login(User model)
         {
             eShoppingCodiEntities db = new eShoppingCodiEntities();
-            model.Password = PasswordEncrypt.Encrypt(model.Password);
-            bool isvalid = db.User.Any(x => x.UserName == model.UserName && x.Password == model.Password);
+            model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
+            bool isvalid = db.User.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
             if (isvalid)
             {
                 return RedirectToAction("Index", "Employees");
@@ -136,7 +136,7 @@ namespace WebApplication3.Controllers
         public ActionResult Register(User model)
         {
             eShoppingCodiEntities db = new eShoppingCodiEntities();
-            model.Password = PasswordEncrypt.Encrypt(model.Password);
+            model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             db.User.Add(model);
             db.SaveChanges();
 
