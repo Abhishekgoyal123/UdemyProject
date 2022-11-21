@@ -15,5 +15,10 @@ namespace Udemy_Project.Controllers
 
             return View();
         }
+
+        public ActionResult AddCourseFeedBack()
+        {
+            return View();
+        }
     }
 }
