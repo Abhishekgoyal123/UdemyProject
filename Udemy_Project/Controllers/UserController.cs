@@ -9,8 +9,10 @@ namespace Udemy_Project.Controllers
     public class UserController : Controller
     {
         // GET: User
-        public ActionResult Index()
+        public ActionResult UserHomePage()
         {
+            ViewBag.Message = "Welcome to User Home Page";
+
             return View();
         }
     }

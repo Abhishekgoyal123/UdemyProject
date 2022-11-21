@@ -10,8 +10,10 @@ namespace Udemy_Project.Controllers
     {
         UdemyEntities context = new UdemyEntities();
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult AdminHomePage()
         {
+            ViewBag.Message = "Welcome to Admin Home Page";
+
             return View();
         }
 

@@ -233,11 +233,12 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Signup.cshtml" />
     <Content Include="Views\Admin\AddCourse.cshtml" />
+    <Content Include="Views\Admin\AdminHomePage.cshtml" />
+    <Content Include="Views\Trainer\TrainerHomePage.cshtml" />
+    <Content Include="Views\User\UserHomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Trainer\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

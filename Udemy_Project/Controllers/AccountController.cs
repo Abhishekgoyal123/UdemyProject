@@ -47,17 +47,17 @@ namespace Udemy_Project.Controllers
 
                 if (roleCheck == "Trainer")
                 {
-                    return RedirectToAction("Index", "Trainer");
+                    return RedirectToAction("TrainerHomePage", "Trainer");
                 }
 
                 else if(roleCheck == "User")
                 {
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("UserHomePage", "User");
                 }
 
                else
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("AdminHomePage", "Admin");
                 }
             }
             else
