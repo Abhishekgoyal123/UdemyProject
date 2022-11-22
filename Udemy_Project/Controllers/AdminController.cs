@@ -24,13 +24,13 @@ namespace Udemy_Project.Controllers
 
         [HttpGet]
 
-        public ActionResult GetAllCourse()
-        {
-            // use tuple to get result both from courseTrainer and CourseUserFeedbacks table
-            var CourseList = context.CourseTrainers.ToList();
-            var CourseuserFeedBack = context.CourseUserFeedbacks.ToList();
-            return View();
-        }
+        //public ActionResult GetAllCourse()
+        //{
+        //    // use tuple to get result both from courseTrainer and CourseUserFeedbacks table
+        //    var CourseList = context.CourseTrainers.ToList();
+        //    var CourseuserFeedBack = context.CourseUserFeedbacks.ToList();
+        //    return View();
+        //}
 
         [HttpPost]
 
@@ -41,19 +41,19 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult DeleteCourse(int CourseId)
-        {
-            // add functionality : if course is enrolled by student, then it cannot be deleted.
-            var record = context.CourseTrainers.Find(CourseId);
-            context.CourseTrainers.Remove(record);
-            context.SaveChanges();
+        //[HttpPost]
+        //public ActionResult DeleteCourse(int CourseId)
+        //{
+        //    // add functionality : if course is enrolled by student, then it cannot be deleted.
+        //    var record = context.CourseTrainers.Find(CourseId);
+        //    context.CourseTrainers.Remove(record);
+        //    context.SaveChanges();
 
-            var record1 = context.CourseUserFeedbacks.Find(CourseId);
-            context.CourseUserFeedbacks.Remove(record1);
-            context.SaveChanges();
-            return View();
-        }
+        //    var record1 = context.CourseUserFeedbacks.Find(CourseId);
+        //    context.CourseUserFeedbacks.Remove(record1);
+        //    context.SaveChanges();
+        //    return View();
+        //}
 
 
     }

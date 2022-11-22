@@ -17,6 +17,8 @@
         <AssociationConnector Association="UdemyModel.FK__RoleMappi__RoleI__2F10007B" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__CourseMap__UserI__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__RoleMappi__UserI__2E1BDC42" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UdemyModel.CourseFeedBack" Width="1.5" PointX="3" PointY="12.75" />
+        <AssociationConnector Association="UdemyModel.FK__CourseFee__Cours__3D5E1FD2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

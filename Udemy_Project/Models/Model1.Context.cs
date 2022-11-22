@@ -30,7 +30,9 @@ namespace Udemy_Project.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<CourseMapping> CourseMappings { get; set; }
-        public virtual DbSet<CourseUserFeedback> CourseUserFeedbacks { get; set; }
+
+        //public virtual DbSet<CourseUserFeedback> CourseUserFeedbacks { get; set; }
         public virtual DbSet<RoleMapping> RoleMappings { get; set; }
+        public virtual DbSet<CourseFeedBack> CourseFeedBacks { get; set; }
     }
 }

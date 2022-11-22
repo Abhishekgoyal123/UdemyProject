@@ -1,0 +1,72 @@
+﻿@using Udemy_Project.Models
+@model Tuple<List<CourseTrainer>, List<CourseUserFeedback>>
+@{
+    ViewBag.Title = "ListAllCourses";
+}
+
+<h2>ListAllCourses</h2>
+
+@if (@ViewBag.ID == null)
+{
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Course_Id
+                </th>
+                <th>
+                    Course_Name
+                </th>
+                <th>
+                    Course_Description
+                </th>
+                <th>
+                    Course_Levels
+                </th>
+                <th>
+                    Course_Language
+                </th>
+                <th>
+                    Course_Skills
+                </th>
+                <th>
+                    Course_Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Item1)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseLevels)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseLanguage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseSkills)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CousrePrice)
+                    </td>
+                    <td>
+                        @Html.ActionLink("ShowUserReviews", "ShowUserReviews", new { id = item.CourseId})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}

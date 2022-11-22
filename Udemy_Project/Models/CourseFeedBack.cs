@@ -12,13 +12,12 @@ namespace Udemy_Project.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseUserFeedback
+    public partial class CourseFeedBack
     {
         public Nullable<int> CourseId { get; set; }
         public string CourseReviews { get; set; }
         public Nullable<int> CourseRatings { get; set; }
         public string CourseComments { get; set; }
-        public int CourseUserId { get; set; }
         public int ReviewId { get; set; }
     
         public virtual CourseTrainer CourseTrainer { get; set; }

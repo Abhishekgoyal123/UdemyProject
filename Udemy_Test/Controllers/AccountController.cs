@@ -50,7 +50,10 @@ namespace Udemy_Test.Controllers
 
         public ActionResult Signup()
         {
-            ViewData["role_name"] = new SelectList(context.UserRoles.ToList(), "role_name", "role_name");
+            List<UserRole> rolelist = context.UserRoles.ToList();
+            
+            rolelist.RemoveAt(1);
+            ViewData["role_name"] = new SelectList(rolelist, "role_name", "role_name");
             return View();
         }
 

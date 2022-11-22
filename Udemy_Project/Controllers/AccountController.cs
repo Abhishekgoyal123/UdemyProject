@@ -24,6 +24,11 @@ namespace Udemy_Project.Controllers
 
         public ActionResult Signup()
         {
+            List<Role> rolelist = context.Roles.ToList();
+
+            rolelist.RemoveAt(0);
+            ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
+            
             return View();
         }
 
