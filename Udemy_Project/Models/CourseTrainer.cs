@@ -17,9 +17,9 @@ namespace Udemy_Project.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CourseTrainer()
         {
+            this.CourseFeedBacks = new HashSet<CourseFeedBack>();
             this.CourseMappings = new HashSet<CourseMapping>();
             this.CourseUserFeedbacks = new HashSet<CourseUserFeedback>();
-            this.CourseFeedBacks = new HashSet<CourseFeedBack>();
         }
     
         public int CourseId { get; set; }
@@ -32,10 +32,10 @@ namespace Udemy_Project.Models
         public string CourseThumbNail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseFeedBack> CourseFeedBacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseMapping> CourseMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseUserFeedback> CourseUserFeedbacks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseFeedBack> CourseFeedBacks { get; set; }
     }
 }

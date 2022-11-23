@@ -10,7 +10,7 @@ namespace Udemy_Project.Controllers
 {
     public class AccountController : Controller
     {
-        UdemyEntities context = new UdemyEntities();
+        UdemyEntities1 context = new UdemyEntities1();
         // GET: Account
         public ActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace Udemy_Project.Controllers
 
         [HttpPost]
 
-        public ActionResult Login(User model, Role role)
+        public ActionResult Login(User model)
         {
           
             string localusername = model.UserName;
@@ -43,43 +43,53 @@ namespace Udemy_Project.Controllers
 
             if (isvalid)
             {
-
                 var roleCheck = (from user in context.Users
                            join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
                            join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
                            where user.UserName == localusername
                            select roles.RoleName).First();
-
+                
                 if (roleCheck == "Trainer")
                 {
+                    TempData["UserName"] = model.UserName;
                     return RedirectToAction("TrainerHomePage", "Trainer");
                 }
-
+               
                 else if(roleCheck == "User")
                 {
+                    TempData["UserName"] = model.UserName;
                     return RedirectToAction("UserHomePage", "User");
                 }
 
                else
                 {
+                    TempData["UserName"] = model.UserName;
                     return RedirectToAction("AdminHomePage", "Admin");
                 }
             }
             else
                 return View("Error");
-            
+            //TempData.Keep();
         }
 
         [HttpPost]
-        public ActionResult Signup(User model,Role role)
+        public ActionResult Signup(User model,RoleMapping roleMapping, Role role1)
         {
-            
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
 
-            // role.user_id = model.id;
+            //role.UserId = model.UserId;
             context.Users.Add(model);
             context.SaveChanges();
+
+            var roleId = (from role in context.Roles
+                         where role.RoleName == role1.RoleName
+                         select role.RoleId).First();
             //role.user_id = model.id;
+            roleMapping.UserId = model.UserId;
+            roleMapping.RoleId = roleId;
+
+            context.RoleMappings.Add(roleMapping);
+            context.SaveChanges();
             //context.UserRoles.Add(role);
             //context.SaveChanges();
 

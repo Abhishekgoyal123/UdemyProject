@@ -18,7 +18,6 @@ namespace Udemy_Project.Models
         public string CourseReviews { get; set; }
         public Nullable<int> CourseRatings { get; set; }
         public string CourseComments { get; set; }
-        public int CourseUserId { get; set; }
         public int ReviewId { get; set; }
     
         public virtual CourseTrainer CourseTrainer { get; set; }

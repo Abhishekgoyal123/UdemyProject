@@ -16,7 +16,7 @@ namespace Udemy_Project.Models
     {
         public Nullable<int> UserId { get; set; }
         public Nullable<int> RoleId { get; set; }
-        public int RoleMappingId { get; set; }
+        public int RoleMapId { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual User User { get; set; }

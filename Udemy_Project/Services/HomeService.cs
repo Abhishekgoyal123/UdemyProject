@@ -8,7 +8,7 @@ namespace Udemy_Project.Services
 {
     public class HomeService
     {
-        UdemyEntities context = new UdemyEntities();
+        UdemyEntities1 context = new UdemyEntities1();
         public Tuple<List<CourseTrainer>, List<CourseUserFeedback>> ListAllCourses(int id)
         {
             List<CourseTrainer> courseTrainer = new List<CourseTrainer>();

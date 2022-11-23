@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<Udemy_Project.Models.CourseTrainer>
 
 @{
-    ViewBag.Title = "ListAllCourses";
+    ViewBag.Title = "GetAllCourse";
 }
 
-<h2>ListAllCourses</h2>
+<h2>GetAllCourse</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -56,7 +59,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.CousrePrice)
         </td>
+        
         <td>
+            @Html.ActionLink("Edit", "EditCourse", new { CourseId = item.CourseId }) |
+            @Html.ActionLink("Delete", "Delete3", new { CourseId = item.CourseId }) |
             @Html.ActionLink("ShowUserReviews", "GetFeedback", new { id = item.CourseId })
         </td>
     </tr>

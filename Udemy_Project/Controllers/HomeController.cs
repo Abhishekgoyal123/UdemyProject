@@ -9,7 +9,7 @@ namespace Udemy_Project.Controllers
 {
     public class HomeController : Controller
     {
-        UdemyEntities context = new UdemyEntities();
+        UdemyEntities1 context = new UdemyEntities1();
         public ActionResult Index()
         {
             return View();
@@ -29,13 +29,13 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
+        
         //public ActionResult ListAllCourses(int? id)
         //{
         //    List<CourseTrainer> courseTrainer = new List<CourseTrainer>();
-        //    List<CourseUserFeedback> courseUserFeedback = new List<CourseUserFeedback>();
+        //    List<CourseFeedBack> courseFeedBack = new List<CourseFeedBack>();
 
-
-        //    Tuple<List<CourseTrainer>, List<CourseUserFeedback>> tuple = null;
+        //    Tuple<List<CourseTrainer>, List<CourseFeedBack>> tuple = null;
 
         //    courseTrainer = context.CourseTrainers.ToList();
 
@@ -43,19 +43,34 @@ namespace Udemy_Project.Controllers
 
         //    if (id == null || id == 0)
         //    {
-        //        courseUserFeedback = context.CourseUserFeedbacks.ToList();
+        //        courseFeedBack = context.CourseFeedBacks.ToList();
         //    }
         //    else
-        //        courseUserFeedback = context.CourseUserFeedbacks.ToList().Where(a => a.CourseUserId == id).ToList();
+        //        courseFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id).ToList();
 
-        //    tuple = new Tuple<List<CourseTrainer>, List<CourseUserFeedback>>(courseTrainer, courseUserFeedback);
+        //    tuple = new Tuple<List<CourseTrainer>, List<CourseFeedBack>>(courseTrainer, courseFeedBack);
         //    return View(tuple);
         //}
 
-        public ActionResult ShowReviews(int? id)
-        {
-            return RedirectToAction("Index", new { id = id });
+        //public ActionResult ShowReviews(int? id)
+        //{
+        //    //return RedirectToAction("ListAllCourses", new { id = id });
+        //    return View(new { id = id });
 
+        //}
+
+        [HttpGet]
+        public ActionResult ListAllCourses()
+        {
+            var CourseList = context.CourseTrainers.ToList();
+            
+            return View(CourseList);
+        }
+
+        public ActionResult GetFeedback(int id)
+        {
+            var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id);
+            return View(CourseuserFeedBack);
         }
     }
 }

@@ -13,10 +13,10 @@ namespace Udemy_Project.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UdemyEntities : DbContext
+    public partial class UdemyEntities1 : DbContext
     {
-        public UdemyEntities()
-            : base("name=UdemyEntities")
+        public UdemyEntities1()
+            : base("name=UdemyEntities1")
         {
         }
     
@@ -25,14 +25,13 @@ namespace Udemy_Project.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CourseFeedBack> CourseFeedBacks { get; set; }
+        public virtual DbSet<CourseMapping> CourseMappings { get; set; }
         public virtual DbSet<CourseTrainer> CourseTrainers { get; set; }
+        public virtual DbSet<CourseUserFeedback> CourseUserFeedbacks { get; set; }
+        public virtual DbSet<RoleMapping> RoleMappings { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<CourseMapping> CourseMappings { get; set; }
-
-        //public virtual DbSet<CourseUserFeedback> CourseUserFeedbacks { get; set; }
-        public virtual DbSet<RoleMapping> RoleMappings { get; set; }
-        public virtual DbSet<CourseFeedBack> CourseFeedBacks { get; set; }
     }
 }

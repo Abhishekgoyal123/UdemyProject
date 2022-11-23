@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="86f7bd866efd4b68b9c4a01b85e49ccd" Name="Diagram1">
-        <EntityTypeShape EntityType="UdemyModel.CourseTrainer" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="UdemyModel.Role" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="UdemyModel.sysdiagram" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="UdemyModel.User" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="UdemyModel.CourseMapping" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UdemyModel.CourseUserFeedback" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="UdemyModel.RoleMapping" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="cd6cece9d16146f0ae4774ee633f42db" Name="Diagram1">
+        <EntityTypeShape EntityType="UdemyModel.CourseFeedBack" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.CourseMapping" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.CourseTrainer" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.CourseUserFeedback" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.RoleMapping" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.Role" Width="1.5" PointX="3.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.sysdiagram" Width="1.5" PointX="5.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UdemyModel.User" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="UdemyModel.FK__CourseFee__Cours__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__CourseMap__Cours__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="UdemyModel.FK__CourseMap__UserI__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__CourseUse__Cours__276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__RoleMappi__RoleI__2F10007B" ManuallyRouted="false" />
-        <AssociationConnector Association="UdemyModel.FK__CourseMap__UserI__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__RoleMappi__UserI__2E1BDC42" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="UdemyModel.CourseFeedBack" Width="1.5" PointX="3" PointY="12.75" />
-        <AssociationConnector Association="UdemyModel.FK__CourseFee__Cours__3D5E1FD2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

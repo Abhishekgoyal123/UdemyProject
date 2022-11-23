@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="UdemyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="UdemyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CourseFeedBack">
           <Key>
             <PropertyRef Name="ReviewId" />
@@ -15,8 +15,6 @@
           <Property Name="CourseComments" Type="varchar" MaxLength="100" />
           <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Udemy.dbo.CourseMapping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CourseMapping">
           <Key>
             <PropertyRef Name="CourseMappingId" />
@@ -48,15 +46,13 @@ warning 6002: The table/view 'Udemy.dbo.CourseMapping' does not have a primary k
           <Property Name="CourseComments" Type="varchar" MaxLength="100" />
           <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RoleMapping">
           <Key>
-            <PropertyRef Name="RoleMappingId" />
+            <PropertyRef Name="RoleMapId" />
           </Key>
           <Property Name="UserId" Type="int" />
           <Property Name="RoleId" Type="int" />
-          <Property Name="RoleMappingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -159,25 +155,13 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
         </Association>
         <EntityContainer Name="UdemyModelStoreContainer">
           <EntitySet Name="CourseFeedBack" EntityType="Self.CourseFeedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseMapping" EntityType="Self.CourseMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseTrainer" EntityType="Self.CourseTrainer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseUserFeedback" EntityType="Self.CourseUserFeedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMapping" EntityType="Self.RoleMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CourseMapping" EntityType="Self.CourseMapping" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [CourseMapping].[UserId] AS [UserId], 
-    [CourseMapping].[CourseId] AS [CourseId], 
-    [CourseMapping].[CourseMappingId] AS [CourseMappingId]
-    FROM [dbo].[CourseMapping] AS [CourseMapping]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="RoleMapping" EntityType="Self.RoleMapping" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RoleMapping].[UserId] AS [UserId], 
-    [RoleMapping].[RoleId] AS [RoleId], 
-    [RoleMapping].[RoleMappingId] AS [RoleMappingId]
-    FROM [dbo].[RoleMapping] AS [RoleMapping]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__CourseFee__Cours__3D5E1FD2" Association="Self.FK__CourseFee__Cours__3D5E1FD2">
             <End Role="CourseTrainer" EntitySet="CourseTrainer" />
             <End Role="CourseFeedBack" EntitySet="CourseFeedBack" />
@@ -203,10 +187,32 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
             <End Role="RoleMapping" EntitySet="RoleMapping" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UdemyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CourseFeedBack">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseReviews" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseRatings" Type="Int32" />
+          <Property Name="CourseComments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseFee__Cours__3D5E1FD2" FromRole="CourseFeedBack" ToRole="CourseTrainer" />
+        </EntityType>
+        <EntityType Name="CourseMapping">
+          <Key>
+            <PropertyRef Name="CourseMappingId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseMap__Cours__2A4B4B5E" FromRole="CourseMapping" ToRole="CourseTrainer" />
+          <NavigationProperty Name="User" Relationship="Self.FK__CourseMap__UserI__29572725" FromRole="CourseMapping" ToRole="Users" />
+        </EntityType>
         <EntityType Name="CourseTrainer">
           <Key>
             <PropertyRef Name="CourseId" />
@@ -219,9 +225,30 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
           <Property Name="CourseSkills" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CousrePrice" Type="Int32" />
           <Property Name="CourseThumbNail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CourseFeedBacks" Relationship="Self.FK__CourseFee__Cours__3D5E1FD2" FromRole="CourseTrainer" ToRole="CourseFeedBack" />
           <NavigationProperty Name="CourseMappings" Relationship="Self.FK__CourseMap__Cours__2A4B4B5E" FromRole="CourseTrainer" ToRole="CourseMapping" />
           <NavigationProperty Name="CourseUserFeedbacks" Relationship="Self.FK__CourseUse__Cours__276EDEB3" FromRole="CourseTrainer" ToRole="CourseUserFeedback" />
-          <NavigationProperty Name="CourseFeedBacks" Relationship="UdemyModel.FK__CourseFee__Cours__3D5E1FD2" FromRole="CourseTrainer" ToRole="CourseFeedBack" />
+        </EntityType>
+        <EntityType Name="CourseUserFeedback">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseReviews" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseRatings" Type="Int32" />
+          <Property Name="CourseComments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseUse__Cours__276EDEB3" FromRole="CourseUserFeedback" ToRole="CourseTrainer" />
+        </EntityType>
+        <EntityType Name="RoleMapping">
+          <Key>
+            <PropertyRef Name="RoleMapId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="RoleMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RoleMappi__RoleI__2F10007B" FromRole="RoleMapping" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="Self.FK__RoleMappi__UserI__2E1BDC42" FromRole="RoleMapping" ToRole="Users" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -253,39 +280,18 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
           <NavigationProperty Name="CourseMappings" Relationship="Self.FK__CourseMap__UserI__29572725" FromRole="Users" ToRole="CourseMapping" />
           <NavigationProperty Name="RoleMappings" Relationship="Self.FK__RoleMappi__UserI__2E1BDC42" FromRole="Users" ToRole="RoleMapping" />
         </EntityType>
-        <EntityType Name="CourseMapping">
-          <Key>
-            <PropertyRef Name="CourseMappingId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="CourseId" Type="Int32" />
-          <Property Name="CourseMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseMap__Cours__2A4B4B5E" FromRole="CourseMapping" ToRole="CourseTrainer" />
-          <NavigationProperty Name="User" Relationship="Self.FK__CourseMap__UserI__29572725" FromRole="CourseMapping" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="CourseUserFeedback">
-          <Key>
-            <PropertyRef Name="CourseUserId" />
-            <PropertyRef Name="ReviewId" />
-          </Key>
-          <Property Name="CourseId" Type="Int32" />
-          <Property Name="CourseReviews" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CourseRatings" Type="Int32" />
-          <Property Name="CourseComments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CourseUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseUse__Cours__276EDEB3" FromRole="CourseUserFeedback" ToRole="CourseTrainer" />
-          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="RoleMapping">
-          <Key>
-            <PropertyRef Name="RoleMappingId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="RoleId" Type="Int32" />
-          <Property Name="RoleMappingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RoleMappi__RoleI__2F10007B" FromRole="RoleMapping" ToRole="Roles" />
-          <NavigationProperty Name="User" Relationship="Self.FK__RoleMappi__UserI__2E1BDC42" FromRole="RoleMapping" ToRole="Users" />
-        </EntityType>
+        <Association Name="FK__CourseFee__Cours__3D5E1FD2">
+          <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
+          <End Role="CourseFeedBack" Type="Self.CourseFeedBack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseTrainer">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseFeedBack">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__CourseMap__Cours__2A4B4B5E">
           <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
           <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
@@ -295,6 +301,18 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
             </Principal>
             <Dependent Role="CourseMapping">
               <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMap__UserI__29572725">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CourseMapping">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -322,18 +340,6 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseMap__UserI__29572725">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="CourseMapping" Type="Self.CourseMapping" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="CourseMapping">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__RoleMappi__UserI__2E1BDC42">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="RoleMapping" Type="Self.RoleMapping" Multiplicity="*" />
@@ -346,16 +352,25 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="UdemyEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="UdemyEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CourseFeedBacks" EntityType="Self.CourseFeedBack" />
+          <EntitySet Name="CourseMappings" EntityType="Self.CourseMapping" />
           <EntitySet Name="CourseTrainers" EntityType="Self.CourseTrainer" />
+          <EntitySet Name="CourseUserFeedbacks" EntityType="Self.CourseUserFeedback" />
+          <EntitySet Name="RoleMappings" EntityType="Self.RoleMapping" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="CourseMappings" EntityType="Self.CourseMapping" />
-          <EntitySet Name="CourseUserFeedbacks" EntityType="Self.CourseUserFeedback" />
-          <EntitySet Name="RoleMappings" EntityType="Self.RoleMapping" />
+          <AssociationSet Name="FK__CourseFee__Cours__3D5E1FD2" Association="Self.FK__CourseFee__Cours__3D5E1FD2">
+            <End Role="CourseTrainer" EntitySet="CourseTrainers" />
+            <End Role="CourseFeedBack" EntitySet="CourseFeedBacks" />
+          </AssociationSet>
           <AssociationSet Name="FK__CourseMap__Cours__2A4B4B5E" Association="Self.FK__CourseMap__Cours__2A4B4B5E">
             <End Role="CourseTrainer" EntitySet="CourseTrainers" />
+            <End Role="CourseMapping" EntitySet="CourseMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMap__UserI__29572725" Association="Self.FK__CourseMap__UserI__29572725">
+            <End Role="Users" EntitySet="Users" />
             <End Role="CourseMapping" EntitySet="CourseMappings" />
           </AssociationSet>
           <AssociationSet Name="FK__CourseUse__Cours__276EDEB3" Association="Self.FK__CourseUse__Cours__276EDEB3">
@@ -366,49 +381,37 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RoleMapping" EntitySet="RoleMappings" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseMap__UserI__29572725" Association="Self.FK__CourseMap__UserI__29572725">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="CourseMapping" EntitySet="CourseMappings" />
-          </AssociationSet>
           <AssociationSet Name="FK__RoleMappi__UserI__2E1BDC42" Association="Self.FK__RoleMappi__UserI__2E1BDC42">
             <End Role="Users" EntitySet="Users" />
             <End Role="RoleMapping" EntitySet="RoleMappings" />
           </AssociationSet>
-          <EntitySet Name="CourseFeedBacks" EntityType="UdemyModel.CourseFeedBack" />
-          <AssociationSet Name="FK__CourseFee__Cours__3D5E1FD2" Association="UdemyModel.FK__CourseFee__Cours__3D5E1FD2">
-            <End Role="CourseTrainer" EntitySet="CourseTrainers" />
-            <End Role="CourseFeedBack" EntitySet="CourseFeedBacks" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="CourseFeedBack">
-          <Key>
-            <PropertyRef Name="ReviewId" />
-          </Key>
-          <Property Name="CourseId" Type="Int32" />
-          <Property Name="CourseReviews" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CourseRatings" Type="Int32" />
-          <Property Name="CourseComments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CourseTrainer" Relationship="UdemyModel.FK__CourseFee__Cours__3D5E1FD2" FromRole="CourseFeedBack" ToRole="CourseTrainer" />
-        </EntityType>
-        <Association Name="FK__CourseFee__Cours__3D5E1FD2">
-          <End Type="UdemyModel.CourseTrainer" Role="CourseTrainer" Multiplicity="0..1" />
-          <End Type="UdemyModel.CourseFeedBack" Role="CourseFeedBack" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CourseTrainer">
-              <PropertyRef Name="CourseId" />
-            </Principal>
-            <Dependent Role="CourseFeedBack">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="UdemyModelStoreContainer" CdmEntityContainer="UdemyEntities">
+        <EntityContainerMapping StorageEntityContainer="UdemyModelStoreContainer" CdmEntityContainer="UdemyEntities1">
+          <EntitySetMapping Name="CourseFeedBacks">
+            <EntityTypeMapping TypeName="UdemyModel.CourseFeedBack">
+              <MappingFragment StoreEntitySet="CourseFeedBack">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseReviews" ColumnName="CourseReviews" />
+                <ScalarProperty Name="CourseRatings" ColumnName="CourseRatings" />
+                <ScalarProperty Name="CourseComments" ColumnName="CourseComments" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseMappings">
+            <EntityTypeMapping TypeName="UdemyModel.CourseMapping">
+              <MappingFragment StoreEntitySet="CourseMapping">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseMappingId" ColumnName="CourseMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CourseTrainers">
             <EntityTypeMapping TypeName="UdemyModel.CourseTrainer">
               <MappingFragment StoreEntitySet="CourseTrainer">
@@ -420,6 +423,26 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
                 <ScalarProperty Name="CourseSkills" ColumnName="CourseSkills" />
                 <ScalarProperty Name="CousrePrice" ColumnName="CousrePrice" />
                 <ScalarProperty Name="CourseThumbNail" ColumnName="CourseThumbNail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseUserFeedbacks">
+            <EntityTypeMapping TypeName="UdemyModel.CourseUserFeedback">
+              <MappingFragment StoreEntitySet="CourseUserFeedback">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseReviews" ColumnName="CourseReviews" />
+                <ScalarProperty Name="CourseRatings" ColumnName="CourseRatings" />
+                <ScalarProperty Name="CourseComments" ColumnName="CourseComments" />
+                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMappings">
+            <EntityTypeMapping TypeName="UdemyModel.RoleMapping">
+              <MappingFragment StoreEntitySet="RoleMapping">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleMapId" ColumnName="RoleMapId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -450,46 +473,6 @@ warning 6002: The table/view 'Udemy.dbo.RoleMapping' does not have a primary key
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CourseMappings">
-            <EntityTypeMapping TypeName="UdemyModel.CourseMapping">
-              <MappingFragment StoreEntitySet="CourseMapping">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="CourseMappingId" ColumnName="CourseMappingId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CourseUserFeedbacks">
-            <EntityTypeMapping TypeName="UdemyModel.CourseUserFeedback">
-              <MappingFragment StoreEntitySet="CourseUserFeedback">
-                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="CourseReviews" ColumnName="CourseReviews" />
-                <ScalarProperty Name="CourseRatings" ColumnName="CourseRatings" />
-                <ScalarProperty Name="CourseComments" ColumnName="CourseComments" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoleMappings">
-            <EntityTypeMapping TypeName="UdemyModel.RoleMapping">
-              <MappingFragment StoreEntitySet="RoleMapping">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="RoleMappingId" ColumnName="RoleMappingId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CourseFeedBacks">
-            <EntityTypeMapping TypeName="UdemyModel.CourseFeedBack">
-              <MappingFragment StoreEntitySet="CourseFeedBack">
-                <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
-                <ScalarProperty Name="CourseComments" ColumnName="CourseComments" />
-                <ScalarProperty Name="CourseRatings" ColumnName="CourseRatings" />
-                <ScalarProperty Name="CourseReviews" ColumnName="CourseReviews" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

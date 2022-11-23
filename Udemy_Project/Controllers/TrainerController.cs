@@ -9,7 +9,7 @@ namespace Udemy_Project.Controllers
 {
     public class TrainerController : Controller
     {
-        UdemyEntities context = new UdemyEntities();
+        UdemyEntities1 context = new UdemyEntities1();
         // GET: Trainer
         public ActionResult TrainerHomePage()
         {
@@ -23,6 +23,7 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
+
         [HttpGet]
 
         public ActionResult GetAllCourse()
@@ -30,7 +31,13 @@ namespace Udemy_Project.Controllers
             // use tuple to get result both from courseTrainer and CourseUserFeedbacks table
             var CourseList = context.CourseTrainers.ToList();
             //var CourseuserFeedBack = context.CourseUserFeedbacks.ToList();
-            return View();
+            return View(CourseList);
+        }
+
+        public ActionResult GetFeedback(int id)
+        {
+            var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id);
+            return View(CourseuserFeedBack);
         }
 
         [HttpPost]
@@ -41,29 +48,40 @@ namespace Udemy_Project.Controllers
             context.SaveChanges();
             return View();
         }
+        
+        public ActionResult Delete3(int? CourseId)
+        {
+            var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
+                                       where CourseMapping.UserId == CourseId
+                                       select CourseMapping).Count();
 
-        //[HttpPost]
-        //public ActionResult DeleteCourse(int CourseId)
-        //{
+            if (noOfStudentEnrolled == 0)
+            {
+                var record = context.CourseTrainers.Find(CourseId);
+                context.CourseTrainers.Remove(record);
+                context.SaveChanges();
+            }
+            return RedirectToAction("GetAllCourse");
+        }
 
-        //    var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
-        //                               where CourseMapping.UserId == CourseId
-        //                               select CourseMapping).Count();
+        public ActionResult EditCourse()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditCourse(int? courseId, CourseTrainer courseDetail)
+        {
+            var record = context.CourseTrainers.Find(courseId);
+            record.CourseName = courseDetail.CourseName;
+            record.CourseDescription = courseDetail.CourseDescription;
+            record.CourseLevels = courseDetail.CourseLevels;
+            record.CourseLanguage = courseDetail.CourseLanguage;
+            record.CourseSkills = courseDetail.CourseSkills;
+            record.CousrePrice = courseDetail.CousrePrice;
 
-        //    if(noOfStudentEnrolled == 0)
-        //    {
-        //        var record = context.CourseTrainers.Find(CourseId);
-        //        context.CourseTrainers.Remove(record);
-        //        context.SaveChanges();
-
-        //        // need to change CourseUserFeedbacks to courseFeedBack ( new table )
-        //        var record1 = context.CourseUserFeedbacks.Find(CourseId);
-        //        context.CourseUserFeedbacks.Remove(record1);
-        //        context.SaveChanges();
-        //    }
-            // add functionality : if course is enrolled by student, then it cannot be deleted.
+            context.SaveChanges();
             
-        //    return View();
-        //}
+            return RedirectToAction("GetAllCourse");
+        }
     }
 }

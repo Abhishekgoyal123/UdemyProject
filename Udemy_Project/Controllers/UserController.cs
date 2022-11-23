@@ -9,12 +9,12 @@ namespace Udemy_Project.Controllers
 {
     public class UserController : Controller
     {
-        UdemyEntities context = new UdemyEntities();
+        UdemyEntities1 context = new UdemyEntities1();
         // GET: User
         public ActionResult UserHomePage()
         {
             ViewBag.Message = "Welcome to User Home Page";
-
+            string abc = TempData["UserName"].ToString();
             return View();
         }
 
