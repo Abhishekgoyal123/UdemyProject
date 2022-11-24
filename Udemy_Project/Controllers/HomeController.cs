@@ -72,5 +72,18 @@ namespace Udemy_Project.Controllers
             var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id);
             return View(CourseuserFeedBack);
         }
+
+        //public ActionResult SearchCourses(string searchParameter)
+        //{
+        //    IQueryable<CourseTrainer> result = null;
+
+        //    List<CourseTrainer> resultList = new List<CourseTrainer>();
+
+        //    searchParameter.Split(" ");
+
+        //    string abc = "csdf";
+        //    string[] a = abc.Split(" ");
+        //    return View();
+        //}
     }
 }

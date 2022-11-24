@@ -75,7 +75,8 @@ namespace Udemy_Project.Controllers
             courseMapping.CourseId = entity.CourseId;
             context.CourseMappings.Add(courseMapping);
             context.SaveChanges();
-            return View();
+
+            return RedirectToAction("GetPublishedCourse");
         }
         
         public ActionResult Delete3(int? CourseId)

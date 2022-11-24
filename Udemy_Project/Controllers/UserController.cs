@@ -18,7 +18,7 @@ namespace Udemy_Project.Controllers
             ViewBag.Message = "Welcome to User Home Page";
             string abc = TempData["UserName"].ToString();
             int userId = Convert.ToInt32(TempData["UserId"]);
-            //TempData.Keep();
+            TempData.Keep();
             //return View();
             return RedirectToAction("GetPurchasedCourses");
         }
@@ -78,32 +78,31 @@ namespace Udemy_Project.Controllers
             if(isFeedbackExist == 1)
             {
                 var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId).FirstOrDefault();
-                var recordToDelete = context.CourseFeedBacks.Find(res);
-                context.CourseFeedBacks.Remove(recordToDelete);
+                //var recordToDelete = context.CourseFeedBacks.Find(res);
+                context.CourseFeedBacks.Remove(res);
                 context.SaveChanges();
-
             }
 
-            return RedirectToAction("GetPurchasedCourses");
+            return RedirectToAction("ShowCourseFeedback");
         }
 
-        public ActionResult DeleteFeedBack(int? courseId)
-        {
+        //public ActionResult DeleteFeedBack(int? courseId)
+        //{
 
-            var isFeedbackExist = (from courseFeedBack in context.CourseFeedBacks
-                                   where courseFeedBack.CourseId == courseId
-                                   select courseFeedBack).Count();
+        //    var isFeedbackExist = (from courseFeedBack in context.CourseFeedBacks
+        //                           where courseFeedBack.CourseId == courseId
+        //                           select courseFeedBack).Count();
 
-            if (isFeedbackExist == 1)
-            {
-                var recordToDelete = context.CourseFeedBacks.Find(courseId);
-                context.CourseFeedBacks.Remove(recordToDelete);
-                context.SaveChanges();
+        //    if (isFeedbackExist == 1)
+        //    {
+        //        var recordToDelete = context.CourseFeedBacks.Find(courseId);
+        //        context.CourseFeedBacks.Remove(recordToDelete);
+        //        context.SaveChanges();
 
-            }
+        //    }
 
-            return RedirectToAction("GetPurchasedCourses");
-        }
+        //    return RedirectToAction("GetPurchasedCourses");
+        //}
 
         public ActionResult EditCourseFeedback()
         {
@@ -113,10 +112,13 @@ namespace Udemy_Project.Controllers
         [HttpPost]
         public ActionResult EditCourseFeedback(int? courseId, CourseFeedBack courseFeedBack)
         {
-            var recordToUpdate = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId).ToList();
+            var recordToUpdate = context.CourseFeedBacks.Where(a => a.CourseId == courseId).FirstOrDefault();
+            recordToUpdate.CourseReviews = courseFeedBack.CourseReviews;
+            recordToUpdate.CourseRatings = courseFeedBack.CourseRatings;
+
+            context.SaveChanges();
             
-            int ab= 1;
-            return RedirectToAction("GetPurchasedCourses");
+            return RedirectToAction("ShowCourseFeedback");
         }
 
         public ActionResult ShowCourseFeedback(int? courseId)

@@ -40,5 +40,10 @@ namespace Udemy_Project.Services
         {
             throw new NotImplementedException();
         }
+
+        public void GetFeedback(int id)
+        {
+            var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id);
+        }
     }
 }
