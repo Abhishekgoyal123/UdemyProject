@@ -47,17 +47,23 @@ namespace Udemy_Project.Controllers
                            join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
                            join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
                            where user.UserName == localusername
-                           select roles.RoleName).First();
+                           select roles.RoleName).FirstOrDefault();
+
+                var userId = (from user in context.Users
+                             where user.UserName == localusername
+                             select user.UserId).FirstOrDefault();
                 
                 if (roleCheck == "Trainer")
                 {
                     TempData["UserName"] = model.UserName;
+                    TempData["UserId"] = userId;
                     return RedirectToAction("TrainerHomePage", "Trainer");
                 }
                
                 else if(roleCheck == "User")
                 {
                     TempData["UserName"] = model.UserName;
+                    TempData["UserId"] = userId;
                     return RedirectToAction("UserHomePage", "User");
                 }
 

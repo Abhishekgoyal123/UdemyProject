@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Udemy_Project.Models.CourseFeedBack>
+
+@{
+    ViewBag.Title = "ShowCourseFeedback";
+}
+
+<h2>ShowCourseFeedback</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseReviews)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseRatings)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseReviews)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseRatings)
+        </td>
+    </tr>
+}
+
+</table>

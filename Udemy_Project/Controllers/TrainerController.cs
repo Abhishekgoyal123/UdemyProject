@@ -15,7 +15,11 @@ namespace Udemy_Project.Controllers
         {
             ViewBag.Message = "Welcome to Trainer Home Page";
 
-            return View();
+            string abc = TempData["UserName"].ToString();
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            //TempData.Keep();
+            return RedirectToAction("GetPublishedCourse");
+            
         }
 
         public ActionResult AddCourse()
@@ -26,12 +30,31 @@ namespace Udemy_Project.Controllers
 
         [HttpGet]
 
-        public ActionResult GetAllCourse()
+        public ActionResult GetPublishedCourse()
         {
-            // use tuple to get result both from courseTrainer and CourseUserFeedbacks table
-            var CourseList = context.CourseTrainers.ToList();
-            //var CourseuserFeedBack = context.CourseUserFeedbacks.ToList();
-            return View(CourseList);
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            //List<CourseMapping> courseId = new List<CourseMapping>();
+            List<int?> courseId = new List<int?>();
+
+            List<CourseTrainer> publishedCourse = new List<CourseTrainer>();
+            // use list or array for storing courseId
+            courseId = (from courseMapping in context.CourseMappings
+                        where courseMapping.UserId == userId
+                        select courseMapping.CourseId).ToList();
+
+            foreach (var item in courseId)
+            {
+                var abc = (from courseTrainer in context.CourseTrainers
+                           where courseTrainer.CourseId == item
+                           select courseTrainer).ToList();
+
+                foreach (var i in abc)
+                {
+                    publishedCourse.Add(i);
+                }
+            }
+            TempData.Keep();
+            return View(publishedCourse);
         }
 
         public ActionResult GetFeedback(int id)
@@ -42,9 +65,15 @@ namespace Udemy_Project.Controllers
 
         [HttpPost]
 
-        public ActionResult AddCourse(CourseTrainer entity)
+        public ActionResult AddCourse(CourseTrainer entity, CourseMapping courseMapping)
         {
+            int userId = Convert.ToInt32(TempData["UserId"]);
             var result = context.CourseTrainers.Add(entity);
+            context.SaveChanges();
+
+            courseMapping.UserId = userId;
+            courseMapping.CourseId = entity.CourseId;
+            context.CourseMappings.Add(courseMapping);
             context.SaveChanges();
             return View();
         }
