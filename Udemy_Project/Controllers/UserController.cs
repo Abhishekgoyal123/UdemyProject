@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Udemy_Project.Models;
+using Udemy_Project;
 
 namespace Udemy_Project.Controllers
 {
@@ -12,15 +13,43 @@ namespace Udemy_Project.Controllers
     {
         UdemyEntities1 context = new UdemyEntities1();
         // GET: User
+        [Authorize(Roles ="User")]
         public ActionResult UserHomePage()                                          // instead of first redirecting to UserHomePage() and then redirecting to GetPurchasedCourses(), 
                                                                                     // IS IT BETTER TO KEEP ONLY ONE ACTION METHOD => GetPurchasedCourses()
         {
+            // CONFIRM PASSWORD 
             ViewBag.Message = "Welcome to User Home Page";
             string abc = TempData["UserName"].ToString();
-            int userId = Convert.ToInt32(TempData["UserId"]);
+            int UserId = Convert.ToInt32(TempData["UserId"]);
+
+            var noOfCoursePurchased = (from courseMapping in context.CourseMappings
+                                       where courseMapping.UserId == UserId
+                                       select courseMapping).Count();
+
+            // check if user has purchased any course or not
+
+            if (noOfCoursePurchased!=0)
+            {
+                return RedirectToAction("GetPurchasedCourses");
+            }
+            else
+            {
+                //redirect to list of all courses
+                return RedirectToAction("ListAllCourses");
+                
+            }
             TempData.Keep();
             //return View();
-            return RedirectToAction("GetPurchasedCourses");
+            //return RedirectToAction("GetPurchasedCourses");
+
+        }
+
+        public ActionResult ListAllCourses()
+        {
+            var CourseList = context.CourseTrainers.ToList();
+
+            return View(CourseList);
+            
         }
 
         public ActionResult AddCourseFeedBack()
@@ -31,6 +60,7 @@ namespace Udemy_Project.Controllers
         // MERGE GetPurchasedCourses INTO USERHOMEPAGE()
         public ActionResult GetPurchasedCourses()
         {
+            
             int userId = Convert.ToInt32(TempData["UserId"]);
             //List<CourseMapping> courseId = new List<CourseMapping>();
             List<int?> courseId = new List<int?>();

@@ -36,7 +36,6 @@ namespace Udemy_Project.Controllers
 
         public ActionResult Login(User model)
         {
-          
             string localusername = model.UserName;
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
@@ -44,30 +43,30 @@ namespace Udemy_Project.Controllers
             if (isvalid)
             {
                 var roleCheck = (from user in context.Users
-                           join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
-                           join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
-                           where user.UserName == localusername
-                           select roles.RoleName).FirstOrDefault();
+                                 join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
+                                 join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
+                                 where user.UserName == localusername
+                                 select roles.RoleName).FirstOrDefault();
 
                 var userId = (from user in context.Users
-                             where user.UserName == localusername
-                             select user.UserId).FirstOrDefault();
-                
+                              where user.UserName == localusername
+                              select user.UserId).FirstOrDefault();
+
                 if (roleCheck == "Trainer")
                 {
                     TempData["UserName"] = model.UserName;
                     TempData["UserId"] = userId;
                     return RedirectToAction("TrainerHomePage", "Trainer");
                 }
-               
-                else if(roleCheck == "User")
+
+                else if (roleCheck == "User")
                 {
                     TempData["UserName"] = model.UserName;
                     TempData["UserId"] = userId;
                     return RedirectToAction("UserHomePage", "User");
                 }
 
-               else
+                else
                 {
                     TempData["UserName"] = model.UserName;
                     return RedirectToAction("AdminHomePage", "Admin");
@@ -75,7 +74,8 @@ namespace Udemy_Project.Controllers
             }
             else
                 return View("Error");
-            //TempData.Keep();
+            TempData.Keep();
+            //return RedirectToAction("UserHomePage", "User");
         }
 
         [HttpPost]

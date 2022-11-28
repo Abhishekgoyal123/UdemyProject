@@ -59,6 +59,9 @@ namespace Udemy_Project.Controllers
 
         //}
 
+
+
+
         [HttpGet]
         public ActionResult ListAllCourses()
         {
@@ -73,17 +76,17 @@ namespace Udemy_Project.Controllers
             return View(CourseuserFeedBack);
         }
 
-        //public ActionResult SearchCourses(string searchParameter)
-        //{
-        //    IQueryable<CourseTrainer> result = null;
+        public ActionResult SearchCourses(string searchParameter)
+        {
+            IQueryable<CourseTrainer> result = null;
 
-        //    List<CourseTrainer> resultList = new List<CourseTrainer>();
+            List<CourseTrainer> resultList = new List<CourseTrainer>();
 
-        //    searchParameter.Split(" ");
+            var res=searchParameter.Split(' ');
 
-        //    string abc = "csdf";
-        //    string[] a = abc.Split(" ");
-        //    return View();
-        //}
+            string abc = "csdf";
+            string[] a = abc.Split(' ');
+            return View();
+        }
     }
 }

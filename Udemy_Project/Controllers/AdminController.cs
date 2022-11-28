@@ -22,6 +22,31 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
+        public ActionResult RegisterAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult RegisterAdmin(User model, RoleMapping roleMapping)
+        {
+            model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
+
+            //role.UserId = model.UserId;
+            context.Users.Add(model);
+            context.SaveChanges();
+
+            roleMapping.UserId = model.UserId;
+            roleMapping.RoleId = 1;
+
+            context.RoleMappings.Add(roleMapping);
+            context.SaveChanges();
+            
+            return RedirectToAction("GetAllCourse");
+            
+        }
+
         [HttpGet]
 
         public ActionResult GetAllCourse()

@@ -11,7 +11,8 @@ namespace Udemy_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +23,19 @@ namespace Udemy_Project.Models
         }
     
         public int UserId { get; set; }
+
+        [Required]
         public string FistName { get; set; }
+
+        [Required]
         public string LastName { get; set; }
+
+        [Required]
         public string UserName { get; set; }
+
+        [Required]
+
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string UserPassword { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

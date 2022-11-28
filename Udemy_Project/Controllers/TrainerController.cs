@@ -17,9 +17,34 @@ namespace Udemy_Project.Controllers
 
             string abc = TempData["UserName"].ToString();
             int userId = Convert.ToInt32(TempData["UserId"]);
-            //TempData.Keep();
-            return RedirectToAction("GetPublishedCourse");
             
+
+            var noOfCoursePublished = (from courseMapping in context.CourseMappings
+                                       where courseMapping.UserId == userId
+                                       select courseMapping).Count();
+
+
+            if (noOfCoursePublished != 0)
+            {
+                return RedirectToAction("GetPublishedCourse");
+            }
+            else
+            {
+               
+                return RedirectToAction("AddCourse");
+
+            }
+            TempData.Keep();
+            
+            
+        }
+
+        public ActionResult GetAllCourse()
+        {
+            var CourseList = context.CourseTrainers.ToList();
+
+            return View(CourseList);
+
         }
 
         public ActionResult AddCourse()
@@ -32,6 +57,8 @@ namespace Udemy_Project.Controllers
 
         public ActionResult GetPublishedCourse()
         {
+
+            // add functionality : if trianer has 0 published  ourse redirect to add  course
             int userId = Convert.ToInt32(TempData["UserId"]);
             //List<CourseMapping> courseId = new List<CourseMapping>();
             List<int?> courseId = new List<int?>();

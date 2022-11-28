@@ -180,6 +180,7 @@
     <Compile Include="Services\HomeService.cs" />
     <Compile Include="Services\Icrud.cs" />
     <Compile Include="Services\TrainerCRUD.cs" />
+    <Compile Include="WebRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -253,6 +254,8 @@
     <Content Include="Views\User\ShowCourseFeedback.cshtml" />
     <Content Include="Views\Trainer\GetPublishedCourse.cshtml" />
     <Content Include="Views\Trainer\AddCourse.cshtml" />
+    <Content Include="Views\User\ListAllCourses.cshtml" />
+    <Content Include="Views\Admin\RegisterAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
