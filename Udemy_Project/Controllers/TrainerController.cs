@@ -34,7 +34,7 @@ namespace Udemy_Project.Controllers
                 return RedirectToAction("AddCourse");
 
             }
-            TempData.Keep();
+            //TempData.Keep();
             
             
         }

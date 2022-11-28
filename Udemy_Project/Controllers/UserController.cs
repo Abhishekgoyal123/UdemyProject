@@ -13,7 +13,7 @@ namespace Udemy_Project.Controllers
     {
         UdemyEntities1 context = new UdemyEntities1();
         // GET: User
-        [Authorize(Roles ="User")]
+        
         public ActionResult UserHomePage()                                          // instead of first redirecting to UserHomePage() and then redirecting to GetPurchasedCourses(), 
                                                                                     // IS IT BETTER TO KEEP ONLY ONE ACTION METHOD => GetPurchasedCourses()
         {
@@ -155,6 +155,39 @@ namespace Udemy_Project.Controllers
         {
             var record = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId);
             return View(record);
+        }
+
+        public ActionResult BuyMultipleCourse(int? courseId, CourseMapping courseMapping)
+        {
+            int? totalPrice = 0;
+            int userId = Convert.ToInt32(TempData["UserId"]);
+
+            var priceArray = (from courseTrainer in context.CourseTrainers
+                         where courseTrainer.CourseId == courseId
+                         select courseTrainer.CousrePrice).ToArray();
+
+            for(int i = 0; i < priceArray.Count(); i++)
+            {
+                courseMapping.UserId = userId;
+                courseMapping.CourseId = priceArray[i];
+
+                totalPrice = totalPrice + priceArray[i];
+            }
+
+            return RedirectToAction("GetPurchasedCourses");
+        }
+
+        public ActionResult AddToCart(int? courseId)
+        {
+            List<CourseTrainer> list  = new List<CourseTrainer>();
+            var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).ToList();
+            
+            foreach(var item in courseInCart)
+            {
+                list.Add(item);
+            }
+            return View(list);
+
         }
     }
 }

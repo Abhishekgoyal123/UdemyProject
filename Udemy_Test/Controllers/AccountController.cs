@@ -73,5 +73,10 @@ namespace Udemy_Test.Controllers
 
             return RedirectToAction("login");
         }
+
+        public ActionResult abc()
+        {
+            return View();
+        }
     }
 } 

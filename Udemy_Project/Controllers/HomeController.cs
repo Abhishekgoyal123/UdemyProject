@@ -12,7 +12,7 @@ namespace Udemy_Project.Controllers
         UdemyEntities1 context = new UdemyEntities1();
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("SearchCourses");
         }
 
         public ActionResult About()
@@ -29,7 +29,7 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
-        
+
         //public ActionResult ListAllCourses(int? id)
         //{
         //    List<CourseTrainer> courseTrainer = new List<CourseTrainer>();
@@ -66,7 +66,7 @@ namespace Udemy_Project.Controllers
         public ActionResult ListAllCourses()
         {
             var CourseList = context.CourseTrainers.ToList();
-            
+
             return View(CourseList);
         }
 
@@ -76,17 +76,49 @@ namespace Udemy_Project.Controllers
             return View(CourseuserFeedBack);
         }
 
-        public ActionResult SearchCourses(string searchParameter)
+        public ActionResult SearchCourses()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SearchCourses(string ProductName)
+        {
+            TempData["SearchParameter"] = ProductName;
+            TempData.Keep();
+            return RedirectToAction("SearchResult");
+        }
+        //public ActionResult SearchCourses()
+        //{
+        //    return View();
+        //}
+        
+        public ActionResult SearchResult()
+        {
+            string searchParameter = TempData["SearchParameter"].ToString();
             IQueryable<CourseTrainer> result = null;
 
             List<CourseTrainer> resultList = new List<CourseTrainer>();
 
-            var res=searchParameter.Split(' ');
+            var res = searchParameter.Split(' ');
 
-            string abc = "csdf";
-            string[] a = abc.Split(' ');
-            return View();
+            result = from courseTrainer in context.CourseTrainers
+                     select courseTrainer;
+
+            for (int i = 0; i < res.Length; i++)
+            {
+                foreach (var item in result)
+                {
+                    if (item.CourseName.Contains(res[i]) || item.CourseDescription.Contains(res[i]) || item.CourseLevels.Contains(res[i]) || item.CourseLanguage.Contains(res[i]) || item.CourseSkills.Contains(res[i]))
+                    {
+                         resultList.Add(item);
+                    }
+                }
+
+            }
+            return View(resultList.Distinct());
         }
     }
 }
+
+    

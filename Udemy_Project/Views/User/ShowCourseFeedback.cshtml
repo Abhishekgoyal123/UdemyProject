@@ -17,22 +17,27 @@
         <th>
             @Html.DisplayNameFor(model => model.CourseRatings)
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseReviews)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseRatings)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseReviews)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseRatings)
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div>
+    @Html.ActionLink("Back to Courses", "GetPurchasedCourse")
+</div>

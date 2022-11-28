@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "abc";
+}
+
+<h2>abc</h2>
+
+<body>
+    @using (Html.BeginForm())
+            {
+                <form method="post" asp-controller="Home" asp-action="Index">
+
+                    @* <span>Product Name :  </span>*@
+                    <h2>Get your Product :</h2>
+                    <input type="text" placeholder="Search Product.." name="ProductName" />
+                    <input type="submit" value="Search" />
+                    <br />
+                    <br />
+                </form>
+                    }
+
+                
+</body>
+

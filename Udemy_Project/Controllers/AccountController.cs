@@ -74,7 +74,7 @@ namespace Udemy_Project.Controllers
             }
             else
                 return View("Error");
-            TempData.Keep();
+           // TempData.Keep();
             //return RedirectToAction("UserHomePage", "User");
         }
 

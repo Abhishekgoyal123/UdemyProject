@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<Udemy_Project.Models.CourseTrainer>
 
 @{
-    ViewBag.Title = "ListAllCourses";
+    ViewBag.Title = "AddToCart";
 }
 
-<h2>ListAllCourses</h2>
+<h2>AddToCart</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -32,6 +29,7 @@
         <th>
             @Html.DisplayNameFor(model => model.CousrePrice)
         </th>
+        
         <th></th>
     </tr>
 
@@ -58,7 +56,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.CousrePrice)
         </td>
-      
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+           
+        </td>
     </tr>
 }
 
