@@ -148,6 +148,7 @@
     <Compile Include="Models\CourseUserFeedback.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ListModel.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -258,7 +259,7 @@
     <Content Include="Views\Admin\RegisterAdmin.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
     <Content Include="Views\Home\SearchCourses.cshtml" />
-    <Content Include="Views\User\AddToCart.cshtml" />
+    <Content Include="Views\User\ViewCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

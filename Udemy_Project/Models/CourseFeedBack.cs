@@ -11,13 +11,19 @@ namespace Udemy_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CourseFeedBack
     {
         public Nullable<int> CourseId { get; set; }
         public string CourseReviews { get; set; }
+
+        [Required]
+        [Range(1, 5, ErrorMessage ="Please rate Course out of 5")]
         public Nullable<int> CourseRatings { get; set; }
         public string CourseComments { get; set; }
+
+        
         public int ReviewId { get; set; }
     
         public virtual CourseTrainer CourseTrainer { get; set; }

@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
      @Scripts.Render("~/bundles/modernizr")
 </head>
-<body @*style="background-image: url(https://manycam.com/blog/wp-content/uploads/2020/08/Blog-online-education-background-ideas.png); background-repeat: no-repeat; background-size: cover "*@>
+<body style="background-color: lightpink" >
    
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -21,6 +21,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("List", "UserHomePage", "User,", new { @class = "nav-link" })
+                    }
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

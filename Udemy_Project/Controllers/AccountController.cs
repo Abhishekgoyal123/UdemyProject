@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Udemy_Project.Models;
 using Udemy_Project;
+using System.Web.Security;
 
 namespace Udemy_Project.Controllers
 {
@@ -42,6 +43,8 @@ namespace Udemy_Project.Controllers
 
             if (isvalid)
             {
+                FormsAuthentication.SetAuthCookie(model.UserName, false);
+
                 var roleCheck = (from user in context.Users
                                  join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
                                  join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
@@ -73,7 +76,7 @@ namespace Udemy_Project.Controllers
                 }
             }
             else
-                return View("Error");
+                return View();
            // TempData.Keep();
             //return RedirectToAction("UserHomePage", "User");
         }
