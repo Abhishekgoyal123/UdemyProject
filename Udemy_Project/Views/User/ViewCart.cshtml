@@ -8,6 +8,7 @@
 
 
 <table class="table">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CourseId)
@@ -31,8 +32,9 @@
             @Html.DisplayNameFor(model => model.CousrePrice)
         </th>
        
-        <th></th>
     </tr>
+        </thead>
+    <tbody>
 
 @foreach (var item in Model) {
     <tr>
@@ -57,13 +59,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.CousrePrice)
         </td>
+        <td>
+            @Html.ActionLink("Remove From Cart", "RemoveFromCart", new { courseId = item.CourseId })
+        </td>
     </tr>
 }
-
-    <div>
-        <h3>
-           Total price =  @TempData["Total Price"]
-        </h3>
-    </div>
-
+</tbody>
 </table>
+<div style="display:flex; justify-content:flex-end">
+    <h3 style="border:1px solid black ; padding:5px;">
+        Total price =  @TempData["Total Price"]
+    </h3>
+</div>

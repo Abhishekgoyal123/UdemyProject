@@ -1,12 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "AdminHomePage";
-}
-
-<h2>AdminHomePage</h2>
-
-<h3>@ViewBag.Message</h3>
-
-<h3>
-    Welcome @TempData["UserName"].ToString();
+﻿<h3> 
+    Welcome @TempData["UserName"].ToString() to Admin Home Page;
 </h3>
+
+<h4>
+    @Html.ActionLink("Get All courses", "GetAllCourse")
+</h4>
+
+<h4>
+    @Html.ActionLink("Register Admin", "RegisterAdmin")
+</h4>

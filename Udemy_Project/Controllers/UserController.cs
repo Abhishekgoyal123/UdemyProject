@@ -46,6 +46,11 @@ namespace Udemy_Project.Controllers
 
         }
 
+        //public ActionResult SearchCourses()
+        //{
+
+        //}
+
         public ActionResult ListAllCourses()
         {
             var CourseList = context.CourseTrainers.ToList();
@@ -146,12 +151,8 @@ namespace Udemy_Project.Controllers
 
         public ActionResult EditCourseFeedback(int? courseId)
         {
-            //courseFeedBack.CourseRatings = Convert.ToInt32(TempData["CourseFeedback"]);
-
-            //return View();
-
            var record = context.CourseFeedBacks.Where(a => a.CourseId == courseId).FirstOrDefault();
-           // TempData["record"] = record.CourseReviews;
+           
             return View(record);
 
         }
@@ -210,6 +211,7 @@ namespace Udemy_Project.Controllers
 
         public ActionResult ViewCart()
         {
+            // work on remove from cart functionality
             int?totalPrice = 0;
             TempData["Cart"] = ListModel.ctList;
 
@@ -219,7 +221,16 @@ namespace Udemy_Project.Controllers
                 
             }
             TempData["Total Price"] = totalPrice;
+            TempData.Keep();
             return View(ListModel.ctList);
+        }
+
+        public ActionResult RemoveFromCart(int courseId)
+        {
+            var courseToRemove = ListModel.ctList.Where(m => m.CourseId == courseId).FirstOrDefault();
+             bool isremoved = ListModel.ctList.Remove(courseToRemove);
+            
+            return RedirectToAction("ViewCart");
         }
 
     }

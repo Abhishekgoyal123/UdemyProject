@@ -51,6 +51,9 @@ namespace Udemy_Project.Controllers
                                  where user.UserName == localusername
                                  select roles.RoleName).FirstOrDefault();
 
+                List<User> UserName = new List<User>();
+                TempData["UsernameList"] = UserName;
+                
                 var userId = (from user in context.Users
                               where user.UserName == localusername
                               select user.UserId).FirstOrDefault();
@@ -102,6 +105,12 @@ namespace Udemy_Project.Controllers
             //context.UserRoles.Add(role);
             //context.SaveChanges();
 
+            return RedirectToAction("login");
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
             return RedirectToAction("login");
         }
     }

@@ -8,40 +8,25 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.CourseReviews)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CourseRatings)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseComments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReviewId)
-        </th>
-        <th></th>
+       
+       
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.CourseReviews)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CourseRatings)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

@@ -24,13 +24,19 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.ActionLink("List", "UserHomePage", "User,", new { @class = "nav-link" })
+                        @Html.ActionLink("Log Out", "Logout", "Account", new { area = "" }, new { @class = "navbar-brand" })
+
                     }
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                    <li>@Html.ActionLink("Sign Up", "SignUp", "Account")</li>
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })</li>
+                        <li>@Html.ActionLink("Sign Up", "SignUp", "Account", new { area = "" }, new { @class = "navbar-brand" })</li>
+
+                    }
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+
                 </ul>
             </div>
         </div>

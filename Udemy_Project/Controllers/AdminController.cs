@@ -17,11 +17,6 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
-        public ActionResult AddCourse()
-        {
-            return View();
-        }
-
         public ActionResult RegisterAdmin()
         {
             return View();
@@ -31,20 +26,23 @@ namespace Udemy_Project.Controllers
 
         public ActionResult RegisterAdmin(User model, RoleMapping roleMapping)
         {
-            model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
+            if (ModelState.IsValid)
+            {
+                model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
 
-            //role.UserId = model.UserId;
-            context.Users.Add(model);
-            context.SaveChanges();
+                //role.UserId = model.UserId;
+                context.Users.Add(model);
+                context.SaveChanges();
 
-            roleMapping.UserId = model.UserId;
-            roleMapping.RoleId = 1;
+                roleMapping.UserId = model.UserId;
+                roleMapping.RoleId = 1;
 
-            context.RoleMappings.Add(roleMapping);
-            context.SaveChanges();
-            
-            return RedirectToAction("GetAllCourse");
-            
+                context.RoleMappings.Add(roleMapping);
+                context.SaveChanges();
+                return RedirectToAction("GetAllCourse");
+            }
+            else
+                return View();
         }
 
         [HttpGet]
@@ -63,14 +61,14 @@ namespace Udemy_Project.Controllers
             return View(CourseuserFeedBack);
         }
 
-        [HttpPost]
+        //[HttpPost]
 
-        public ActionResult AddCourse(CourseTrainer entity)
-        {
-            var result = context.CourseTrainers.Add(entity);
-            context.SaveChanges();
-            return View();
-        }
+        //public ActionResult AddCourse(CourseTrainer entity)
+        //{
+        //    var result = context.CourseTrainers.Add(entity);
+        //    context.SaveChanges();
+        //    return View();
+        //}
 
         public ActionResult Delete3(int? CourseId)
         {
@@ -87,9 +85,10 @@ namespace Udemy_Project.Controllers
             return RedirectToAction("GetAllCourse");
         }
 
-        public ActionResult EditCourse()
+        public ActionResult EditCourse(int? courseId)
         {
-            return View();
+            var record = context.CourseTrainers.Where(a => a.CourseId == courseId).FirstOrDefault();
+            return View(record);
         }
         [HttpPost]
         public ActionResult EditCourse(int? courseId, CourseTrainer courseDetail)

@@ -238,7 +238,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Signup.cshtml" />
-    <Content Include="Views\Admin\AddCourse.cshtml" />
     <Content Include="Views\Admin\AdminHomePage.cshtml" />
     <Content Include="Views\Trainer\TrainerHomePage.cshtml" />
     <Content Include="Views\User\UserHomePage.cshtml" />
@@ -260,6 +259,7 @@
     <Content Include="Views\Home\SearchResult.cshtml" />
     <Content Include="Views\Home\SearchCourses.cshtml" />
     <Content Include="Views\User\ViewCart.cshtml" />
+    <Content Include="Views\Admin\EditCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,70 +4,93 @@
     ViewBag.Title = "Signup";
 }
 
-
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <body style="background-color: lightpink;">
+<body style="background-color: lightpink;">
 
-        <div class="form-horizontal" style="padding: 20px; display: flex;align-items: center; justify-content: center;">
-            <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; font-size: large; border: 1px groove black; width: 450px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
-                <h2>Signup</h2>
-                <h4>User</h4>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
-                    @Html.LabelFor(model => model.FistName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.FistName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FistName, "", new { @class = "text-danger" })
-                    </div>
+    <div class="form-horizontal" style="padding: 20px; display: flex;align-items: center; justify-content: center;">
+        <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; font-size: large; border: 1px groove black; width: 450px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
+            <h2>Signup</h2>
+            <h4>User</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
+                @Html.LabelFor(model => model.FistName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FistName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FistName, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
-                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
-                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group" style="display:flex;gap:65px;align-items:center;justify-content:center">
-                    @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group" style="display:flex;gap:65px;align-items:center;justify-content:center">
+                @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
-                    @Html.Label("Select Role", htmlAttributes: new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("RoleName")
-
-                    </div>
+            <div class="form-group" style="display:flex;gap:75px;align-items:center;justify-content:center">
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" onchange="Validate()">
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    
+                    @*@Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })*@
                 </div>
+            </div>
 
-                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="SignUp" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
+
+            <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
+                @Html.Label("Select Role", htmlAttributes: new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownList("RoleName")
+
+                </div>
+            </div>
+
+            <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="SignUp" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
     this.style.color='white'"
                            onMouseOut="this.style.backgroundColor = 'white';
-    this.style.color='black'"/>
-                    </div>
+    this.style.color='black'" onclick="Validate()" />
                 </div>
             </div>
         </div>
-        </body>
+    </div>
+    
+    <script type="text/javascript">
+        
+        function Validate() {
+            var password = document.getElementById("UserPassword").value;
+
+            var abc = @Convert.to TempData["UsernameList"]
+            var confirmPassword = document.getElementById("ConfirmPassword").value;
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+           
+        }
+    </script>
+</body>
         }
 
         <div>
