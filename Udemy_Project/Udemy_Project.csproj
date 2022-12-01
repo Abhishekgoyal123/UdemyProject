@@ -259,6 +259,7 @@
     <Content Include="Views\Home\SearchCourses.cshtml" />
     <Content Include="Views\User\ViewCart.cshtml" />
     <Content Include="Views\Admin\EditCourse.cshtml" />
+    <Content Include="Views\Trainer\CourseStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

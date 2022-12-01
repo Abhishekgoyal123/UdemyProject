@@ -142,15 +142,30 @@ namespace Udemy_Project.Controllers
 
         public ActionResult CourseStats(int? CourseId)
         {
+            TempData["CourseId"] = CourseId;
             var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
                                        where CourseMapping.CourseId == CourseId
                                        select CourseMapping).Count();
+
+            TempData["noOfStudentEnrolled"] = noOfStudentEnrolled;
 
             var AverageRatings = (from courseFeedback in context.CourseFeedBacks
                                  where courseFeedback.CourseId == CourseId
                                  select courseFeedback.CourseRatings).Average();
 
             return View();
+        }
+
+        public JsonResult noOfStudentEnrolled()
+        {
+            int CourseId = Convert.ToInt32(TempData["CourseId"]);
+            var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
+                                       where CourseMapping.CourseId == CourseId
+                                       select CourseMapping).Count();
+
+            TempData["noOfStudentEnrolled"] = noOfStudentEnrolled;
+
+            return Json(noOfStudentEnrolled, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -183,7 +183,7 @@ namespace Udemy_Project.Controllers
 
             context.SaveChanges();
 
-            return RedirectToAction("ShowCourseFeedback");
+            //return RedirectToAction("ShowCourseFeedback");
             return View();
         }
 
@@ -219,12 +219,21 @@ namespace Udemy_Project.Controllers
 
         public ActionResult AddToCart(int? courseId)
         {
-            
+            TempData["courseId"] = courseId;
             var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
             ListModel.ctList.Add((CourseTrainer)courseInCart);
             return RedirectToAction("ListAllCourses");
 
         }
+
+        //public JsonResult addtoCart(int? courseId)
+        //{
+
+        //    var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
+        //    ListModel.ctList.Add(courseInCart);
+        //    return Json(ListModel.ctList, JsonRequestBehavior.AllowGet);
+
+        //}
 
         public ActionResult ViewCart()
         {

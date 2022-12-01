@@ -35,41 +35,47 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseLevels)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseLanguage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseSkills)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CousrePrice)
-        </td>
-        <td onclick="addedToCart()" >
-            @Html.ActionLink("Add To Cart", "AddToCart", new { courseId = item.CourseId })
-        </td>
-      
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseLevels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseLanguage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseSkills)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CousrePrice)
+            </td>
+            <td onclick="addedToCart()">
+                @*@Html.ActionLink("Add To Cart", "AddToCart", new { courseId = item.CourseId })*@
+                @using (Html.BeginForm("AddToCart", "User", new { courseId = item.CourseId }))
+                {
+                    <input type="submit" value="Add To Cart"  id="btnGet"/>
+                }
+            </td>
+
+        </tr>
+    }
 
 </table>
 <script type="text/javascript">
 
     function addedToCart() {
-        
-            alert('Added To Cart Successfully.');
+
+        alert('Added To Cart Successfully.');
     }
 </script>
+

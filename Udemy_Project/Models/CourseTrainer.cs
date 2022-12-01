@@ -30,7 +30,7 @@ namespace Udemy_Project.Models
         public string CourseSkills { get; set; }
         public Nullable<int> CousrePrice { get; set; }
         public string CourseThumbNail { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseFeedBack> CourseFeedBacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
