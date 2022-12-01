@@ -1,11 +1,14 @@
-﻿<h3> 
-    Welcome @TempData["UserName"].ToString() to Admin Home Page;
-</h3>
+﻿<div style="display:flex; flex-direction:column; justify-content:center; align-items:center ; height:75vh">
+    <h3>
+        Welcome to Admin Home Page;
+    </h3>
 
-<h4>
-    @Html.ActionLink("Get All courses", "GetAllCourse")
-</h4>
+    @*@TempData["UserName"].ToString()*@
+    <h4 style="border: 1px groove black; border-radius:8px; padding:8px;">
+        @Html.ActionLink("Get All courses", "GetAllCourse")
+    </h4>
 
-<h4>
-    @Html.ActionLink("Register Admin", "RegisterAdmin")
-</h4>
+    <h4 style="border: 1px groove black; border-radius:8px; padding:8px;">
+        @Html.ActionLink("Register Admin", "RegisterAdmin")
+    </h4>
+</div>

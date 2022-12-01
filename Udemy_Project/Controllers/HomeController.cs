@@ -9,7 +9,7 @@ namespace Udemy_Project.Controllers
 {
     public class HomeController : Controller
     {
-        UdemyEntities1 context = new UdemyEntities1();
+        UdemyEntities4 context = new UdemyEntities4();
         public ActionResult Index()
         {
             return RedirectToAction("SearchCourses");

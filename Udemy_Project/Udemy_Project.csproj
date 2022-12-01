@@ -242,7 +242,6 @@
     <Content Include="Views\Trainer\TrainerHomePage.cshtml" />
     <Content Include="Views\User\UserHomePage.cshtml" />
     <Content Include="Views\User\AddCourseFeedBack.cshtml" />
-    <Content Include="Views\Trainer\GetAllCourse.cshtml" />
     <Content Include="Views\Trainer\GetFeedback.cshtml" />
     <Content Include="Views\Home\ListAllCourses.cshtml" />
     <Content Include="Views\Home\GetFeedback.cshtml" />

@@ -11,7 +11,7 @@ namespace Udemy_Project.Controllers
 {
     public class AccountController : Controller
     {
-        UdemyEntities1 context = new UdemyEntities1();
+        UdemyEntities4 context = new UdemyEntities4();
         // GET: Account
         public ActionResult Index()
         {
@@ -40,32 +40,32 @@ namespace Udemy_Project.Controllers
             string localusername = model.UserName;
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
-
+            FormsAuthentication.SetAuthCookie(model.UserName, false);
             if (isvalid)
             {
-                FormsAuthentication.SetAuthCookie(model.UserName, false);
 
-                var roleCheck = (from user in context.Users
-                                 join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
-                                 join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
-                                 where user.UserName == localusername
-                                 select roles.RoleName).FirstOrDefault();
+                //var roleCheck = (from user in context.Users
+                //                 join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
+                //                 join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
+                //                 where user.UserName == localusername
+                //                 select roles.RoleName).FirstOrDefault();
 
-                List<User> UserName = new List<User>();
-                TempData["UsernameList"] = UserName;
+                //List<User> UserName = new List<User>();
+                //TempData["UsernameList"] = UserName;
                 
                 var userId = (from user in context.Users
                               where user.UserName == localusername
                               select user.UserId).FirstOrDefault();
+                
 
-                if (roleCheck == "Trainer")
+                if (Roles.IsUserInRole(model.UserName,"Trainer"))
                 {
                     TempData["UserName"] = model.UserName;
                     TempData["UserId"] = userId;
                     return RedirectToAction("TrainerHomePage", "Trainer");
                 }
 
-                else if (roleCheck == "User")
+                else if (Roles.IsUserInRole(model.UserName, "User"))
                 {
                     TempData["UserName"] = model.UserName;
                     TempData["UserId"] = userId;
@@ -79,7 +79,7 @@ namespace Udemy_Project.Controllers
                 }
             }
             else
-                return View();
+                return View("Error");
            // TempData.Keep();
             //return RedirectToAction("UserHomePage", "User");
         }

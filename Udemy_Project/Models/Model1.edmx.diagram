@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd6cece9d16146f0ae4774ee633f42db" Name="Diagram1">
+      <Diagram DiagramId="59a9d37ddbe5470581b9f14357e2656c" Name="Diagram1">
         <EntityTypeShape EntityType="UdemyModel.CourseFeedBack" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="UdemyModel.CourseMapping" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="UdemyModel.CourseTrainer" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="UdemyModel.Role" Width="1.5" PointX="3.75" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="UdemyModel.sysdiagram" Width="1.5" PointX="5.75" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="UdemyModel.User" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="UdemyModel.FK__CourseFee__Cours__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="UdemyModel.FK__CourseFee__Cours__47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__CourseMap__Cours__2A4B4B5E" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__CourseMap__UserI__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="UdemyModel.FK__CourseUse__Cours__276EDEB3" ManuallyRouted="false" />

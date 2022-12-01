@@ -10,7 +10,7 @@ namespace Udemy_Project.Services
 {
     public class TrainerCRUD : Icrud<CourseTrainer, int>
     {
-        UdemyEntities1 context = new UdemyEntities1();
+        UdemyEntities4 context = new UdemyEntities4();
 
 
         Task<CourseTrainer> Icrud<CourseTrainer, int>.CreateAsync(CourseTrainer entity)

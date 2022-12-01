@@ -37,15 +37,15 @@ namespace Udemy_Project
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string UserName)
         {
             
-            UdemyEntities1 context = new UdemyEntities1();
+            UdemyEntities4 context = new UdemyEntities4();
             
                 var result = (from user in context.Users
                               join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
                               join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
-                              where user.UserName == username
+                              where user.UserName == UserName
                               select roles.RoleName).ToArray();
             return result;
             
@@ -58,7 +58,15 @@ namespace Udemy_Project
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
+            string[] abc = GetRolesForUser(username);
+
+            if (roleName == abc[0])
+            {
+                return true;
+            }
+            else
+                return false;
+            
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

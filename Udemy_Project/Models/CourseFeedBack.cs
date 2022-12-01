@@ -19,11 +19,9 @@ namespace Udemy_Project.Models
         public string CourseReviews { get; set; }
 
         [Required]
-        [Range(1, 5, ErrorMessage ="Please rate Course out of 5")]
+        [Range(1, 5, ErrorMessage = "Please rate Course out of 5")]
         public Nullable<int> CourseRatings { get; set; }
-        public string CourseComments { get; set; }
-
-        
+        public Nullable<int> UserId { get; set; }
         public int ReviewId { get; set; }
     
         public virtual CourseTrainer CourseTrainer { get; set; }

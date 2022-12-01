@@ -59,7 +59,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.CousrePrice)
         </td>
-        <td>
+        <td onclick="RemoveFromCart()">
             @Html.ActionLink("Remove From Cart", "RemoveFromCart", new { courseId = item.CourseId })
         </td>
     </tr>
@@ -71,3 +71,11 @@
         Total price =  @TempData["Total Price"]
     </h3>
 </div>
+
+<script type="text/javascript">
+
+    function RemoveFromCart() {
+
+        alert('Removed From Cart Successfully.');
+    }
+</script>

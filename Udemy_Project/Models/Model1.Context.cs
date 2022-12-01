@@ -13,10 +13,10 @@ namespace Udemy_Project.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UdemyEntities1 : DbContext
+    public partial class UdemyEntities4 : DbContext
     {
-        public UdemyEntities1()
-            : base("name=UdemyEntities1")
+        public UdemyEntities4()
+            : base("name=UdemyEntities4")
         {
         }
     

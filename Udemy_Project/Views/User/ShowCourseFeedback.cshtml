@@ -22,12 +22,20 @@
     @foreach (var item in Model)
     {
         <tr>
-            
+
             <td>
                 @Html.DisplayFor(modelItem => item.CourseReviews)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CourseRatings)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit FeedBack", "EditCourseFeedback", new { courseid = item.CourseId })
+            </td>
+
+            <td onclick="deleteFeedback()">
+                @Html.ActionLink("Delete Feedback", "DeleteCourseFeedBack", new { courseid = item.CourseId })
             </td>
         </tr>
     }
@@ -37,3 +45,11 @@
 <div>
     @Html.ActionLink("Back to Courses", "GetPurchasedCourse")
 </div>
+
+<script type="text/javascript">
+
+    function deleteFeedback() {
+
+            alert('feedback deleted successfully.');
+    }
+</script>

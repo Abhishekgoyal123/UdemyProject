@@ -8,14 +8,15 @@ using Udemy_Project;
 
 namespace Udemy_Project.Controllers
 {
-    [Authorize(Roles = "User")]
+   
     public class UserController : Controller
     {
-        UdemyEntities1 context = new UdemyEntities1();
+        UdemyEntities4 context = new UdemyEntities4();
         // GET: User
 
         ListModel lm = new ListModel();
 
+        [Authorize(Roles = "User")]
         public ActionResult UserHomePage()                                          // instead of first redirecting to UserHomePage() and then redirecting to GetPurchasedCourses(), 
                                                                                     // IS IT BETTER TO KEEP ONLY ONE ACTION METHOD => GetPurchasedCourses()
         {
@@ -23,6 +24,7 @@ namespace Udemy_Project.Controllers
             ViewBag.Message = "Welcome to User Home Page";
             string abc = TempData["UserName"].ToString();
             int UserId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
 
             var noOfCoursePurchased = (from courseMapping in context.CourseMappings
                                        where courseMapping.UserId == UserId
@@ -40,7 +42,7 @@ namespace Udemy_Project.Controllers
                 return RedirectToAction("ListAllCourses");
 
             }
-            TempData.Keep();
+            //TempData.Keep();
             //return View();
             //return RedirectToAction("GetPurchasedCourses");
 
@@ -68,6 +70,7 @@ namespace Udemy_Project.Controllers
         public ActionResult GetPurchasedCourses()
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
             //List<CourseMapping> courseId = new List<CourseMapping>();
             List<int?> courseId = new List<int?>();
 
@@ -90,6 +93,7 @@ namespace Udemy_Project.Controllers
             }
 
             Session["abc"] = purchasedCourse;
+            TempData.Keep();
             // use foreach to itertate over coursemapping to get list of courseid based on userid
             //var result = context.CourseTrainers.ToList().Where(a=> a.)
             return View(purchasedCourse);
@@ -98,14 +102,18 @@ namespace Udemy_Project.Controllers
         [HttpPost]
         public ActionResult AddCourseFeedBack(int? courseId, CourseFeedBack courseFeedback)
         {
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
             if (ModelState.IsValid)
             {
                 courseFeedback.CourseId = courseId;
-
+               courseFeedback.UserId = userId;
+                
                 var result = context.CourseFeedBacks.Add(courseFeedback);
 
                 //CourseFeedBack feedback = new CourseFeedBack();
                 TempData["CourseFeedback"] = courseFeedback;
+                TempData.Keep();
                 context.SaveChanges();
             }
             
@@ -115,6 +123,8 @@ namespace Udemy_Project.Controllers
 
         public ActionResult DeleteCourseFeedBack(int? courseId)
         {
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
 
             var isFeedbackExist = (from courseFeedBack in context.CourseFeedBacks
                                    where courseFeedBack.CourseId == courseId
@@ -122,7 +132,7 @@ namespace Udemy_Project.Controllers
 
             if (isFeedbackExist == 1)
             {
-                var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId).FirstOrDefault();
+                var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
                 //var recordToDelete = context.CourseFeedBacks.Find(res);
                 context.CourseFeedBacks.Remove(res);
                 context.SaveChanges();
@@ -151,7 +161,9 @@ namespace Udemy_Project.Controllers
 
         public ActionResult EditCourseFeedback(int? courseId)
         {
-           var record = context.CourseFeedBacks.Where(a => a.CourseId == courseId).FirstOrDefault();
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
+            var record = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
            
             return View(record);
 
@@ -160,7 +172,9 @@ namespace Udemy_Project.Controllers
         [HttpPost]
         public ActionResult EditCourseFeedback(int? courseId, CourseFeedBack courseFeedBack)
         {
-            var recordToUpdate = context.CourseFeedBacks.Where(a => a.CourseId == courseId).FirstOrDefault();
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
+            var recordToUpdate = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
 
             //TempData["RecordToUpdate"] = recordToUpdate.CourseReviews;
 
@@ -170,11 +184,14 @@ namespace Udemy_Project.Controllers
             context.SaveChanges();
 
             return RedirectToAction("ShowCourseFeedback");
+            return View();
         }
 
         public ActionResult ShowCourseFeedback(int? courseId)
         {
-            var record = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId);
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
+            var record = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId && a.UserId == userId);
 
             return View(record);
         }
@@ -184,7 +201,7 @@ namespace Udemy_Project.Controllers
             //List<CourseTrainer> trainers = TempData["Cart"];
            // int? totalPrice = 0;
             int userId = Convert.ToInt32(TempData["UserId"]);
-
+            TempData.Keep();
             var priceArray = (from courseTrainer in context.CourseTrainers
                               where courseTrainer.CourseId == courseId
                               select courseTrainer.CousrePrice).ToArray();
@@ -222,7 +239,7 @@ namespace Udemy_Project.Controllers
             }
             TempData["Total Price"] = totalPrice;
             TempData.Keep();
-            return View(ListModel.ctList);
+            return View(ListModel.ctList.Distinct());
         }
 
         public ActionResult RemoveFromCart(int courseId)

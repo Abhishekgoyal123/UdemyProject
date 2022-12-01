@@ -66,10 +66,8 @@
 
             <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="SignUp" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
-    this.style.color='white'"
-                           onMouseOut="this.style.backgroundColor = 'white';
-    this.style.color='black'" onclick="Validate()" />
+                    <button type="submit" id="signUp" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
+    this.style.color='white'" onMouseOut="this.style.backgroundColor = 'white';this.style.color='black'" onclick="Validate()">SignUp</button>
                 </div>
             </div>
         </div>
@@ -79,14 +77,16 @@
         
         function Validate() {
             var password = document.getElementById("UserPassword").value;
-
-            var abc = @Convert.to TempData["UsernameList"]
             var confirmPassword = document.getElementById("ConfirmPassword").value;
+            var signUpButton = document.getElementById("signUp");
             if (password != confirmPassword) {
                 alert("Passwords do not match.");
-                return false;
+                signUpButton.disabled = true;
             }
-            return true;
+            else {
+                signUpButton.disabled = false;
+                
+            }
            
         }
     </script>

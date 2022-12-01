@@ -9,14 +9,16 @@ namespace Udemy_Project.Controllers
 {
     public class TrainerController : Controller
     {
-        UdemyEntities1 context = new UdemyEntities1();
+        UdemyEntities4 context = new UdemyEntities4();
         // GET: Trainer
+        [Authorize(Roles ="Trainer")]
         public ActionResult TrainerHomePage()
         {
             ViewBag.Message = "Welcome to Trainer Home Page";
 
             string abc = TempData["UserName"].ToString();
             int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
             
 
             var noOfCoursePublished = (from courseMapping in context.CourseMappings
@@ -39,13 +41,7 @@ namespace Udemy_Project.Controllers
             
         }
 
-        public ActionResult GetAllCourse()
-        {
-            var CourseList = context.CourseTrainers.ToList();
-
-            return View(CourseList);
-
-        }
+        
 
         public ActionResult AddCourse()
         {
@@ -60,6 +56,7 @@ namespace Udemy_Project.Controllers
 
             // add functionality : if trianer has 0 published  ourse redirect to add  course
             int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
             //List<CourseMapping> courseId = new List<CourseMapping>();
             List<int?> courseId = new List<int?>();
 
@@ -95,6 +92,7 @@ namespace Udemy_Project.Controllers
         public ActionResult AddCourse(CourseTrainer entity, CourseMapping courseMapping)
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
             var result = context.CourseTrainers.Add(entity);
             context.SaveChanges();
 
@@ -109,7 +107,7 @@ namespace Udemy_Project.Controllers
         public ActionResult Delete3(int? CourseId)
         {
             var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
-                                       where CourseMapping.UserId == CourseId
+                                       where CourseMapping.CourseId == CourseId
                                        select CourseMapping).Count();
 
             if (noOfStudentEnrolled == 0)
@@ -118,12 +116,13 @@ namespace Udemy_Project.Controllers
                 context.CourseTrainers.Remove(record);
                 context.SaveChanges();
             }
-            return RedirectToAction("GetAllCourse");
+            return RedirectToAction("GetPublishedCourse");
         }
 
-        public ActionResult EditCourse()
+        public ActionResult EditCourse(int? courseId)
         {
-            return View();
+            var record = context.CourseTrainers.Find(courseId);
+            return View(record);
         }
         [HttpPost]
         public ActionResult EditCourse(int? courseId, CourseTrainer courseDetail)
@@ -138,7 +137,20 @@ namespace Udemy_Project.Controllers
 
             context.SaveChanges();
             
-            return RedirectToAction("GetAllCourse");
+            return RedirectToAction("GetPublishedCourse");
+        }
+
+        public ActionResult CourseStats(int? CourseId)
+        {
+            var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
+                                       where CourseMapping.CourseId == CourseId
+                                       select CourseMapping).Count();
+
+            var AverageRatings = (from courseFeedback in context.CourseFeedBacks
+                                 where courseFeedback.CourseId == CourseId
+                                 select courseFeedback.CourseRatings).Average();
+
+            return View();
         }
     }
 }

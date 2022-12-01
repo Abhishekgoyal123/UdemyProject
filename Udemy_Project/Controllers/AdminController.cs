@@ -8,7 +8,7 @@ namespace Udemy_Project.Controllers
 {
     public class AdminController : Controller
     {
-        UdemyEntities1 context = new UdemyEntities1();
+        UdemyEntities4 context = new UdemyEntities4();
         // GET: Admin
         public ActionResult AdminHomePage()
         {

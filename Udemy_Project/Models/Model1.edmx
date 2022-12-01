@@ -10,9 +10,9 @@
             <PropertyRef Name="ReviewId" />
           </Key>
           <Property Name="CourseId" Type="int" />
-          <Property Name="CourseReviews" Type="varchar" MaxLength="20" />
+          <Property Name="CourseReviews" Type="varchar" MaxLength="50" />
           <Property Name="CourseRatings" Type="int" />
-          <Property Name="CourseComments" Type="varchar" MaxLength="100" />
+          <Property Name="UserId" Type="int" />
           <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseMapping">
@@ -81,7 +81,7 @@
           <Property Name="UserName" Type="varchar" MaxLength="20" />
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__CourseFee__Cours__3D5E1FD2">
+        <Association Name="FK__CourseFee__Cours__47DBAE45">
           <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
           <End Role="CourseFeedBack" Type="Self.CourseFeedBack" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,7 +162,7 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CourseFee__Cours__3D5E1FD2" Association="Self.FK__CourseFee__Cours__3D5E1FD2">
+          <AssociationSet Name="FK__CourseFee__Cours__47DBAE45" Association="Self.FK__CourseFee__Cours__47DBAE45">
             <End Role="CourseTrainer" EntitySet="CourseTrainer" />
             <End Role="CourseFeedBack" EntitySet="CourseFeedBack" />
           </AssociationSet>
@@ -197,11 +197,11 @@
             <PropertyRef Name="ReviewId" />
           </Key>
           <Property Name="CourseId" Type="Int32" />
-          <Property Name="CourseReviews" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CourseReviews" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CourseRatings" Type="Int32" />
-          <Property Name="CourseComments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
           <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseFee__Cours__3D5E1FD2" FromRole="CourseFeedBack" ToRole="CourseTrainer" />
+          <NavigationProperty Name="CourseTrainer" Relationship="Self.FK__CourseFee__Cours__47DBAE45" FromRole="CourseFeedBack" ToRole="CourseTrainer" />
         </EntityType>
         <EntityType Name="CourseMapping">
           <Key>
@@ -225,7 +225,7 @@
           <Property Name="CourseSkills" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CousrePrice" Type="Int32" />
           <Property Name="CourseThumbNail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CourseFeedBacks" Relationship="Self.FK__CourseFee__Cours__3D5E1FD2" FromRole="CourseTrainer" ToRole="CourseFeedBack" />
+          <NavigationProperty Name="CourseFeedBacks" Relationship="Self.FK__CourseFee__Cours__47DBAE45" FromRole="CourseTrainer" ToRole="CourseFeedBack" />
           <NavigationProperty Name="CourseMappings" Relationship="Self.FK__CourseMap__Cours__2A4B4B5E" FromRole="CourseTrainer" ToRole="CourseMapping" />
           <NavigationProperty Name="CourseUserFeedbacks" Relationship="Self.FK__CourseUse__Cours__276EDEB3" FromRole="CourseTrainer" ToRole="CourseUserFeedback" />
         </EntityType>
@@ -280,7 +280,7 @@
           <NavigationProperty Name="CourseMappings" Relationship="Self.FK__CourseMap__UserI__29572725" FromRole="Users" ToRole="CourseMapping" />
           <NavigationProperty Name="RoleMappings" Relationship="Self.FK__RoleMappi__UserI__2E1BDC42" FromRole="Users" ToRole="RoleMapping" />
         </EntityType>
-        <Association Name="FK__CourseFee__Cours__3D5E1FD2">
+        <Association Name="FK__CourseFee__Cours__47DBAE45">
           <End Role="CourseTrainer" Type="Self.CourseTrainer" Multiplicity="0..1" />
           <End Role="CourseFeedBack" Type="Self.CourseFeedBack" Multiplicity="*" />
           <ReferentialConstraint>
@@ -352,7 +352,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="UdemyEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="UdemyEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CourseFeedBacks" EntityType="Self.CourseFeedBack" />
           <EntitySet Name="CourseMappings" EntityType="Self.CourseMapping" />
           <EntitySet Name="CourseTrainers" EntityType="Self.CourseTrainer" />
@@ -361,7 +361,7 @@
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__CourseFee__Cours__3D5E1FD2" Association="Self.FK__CourseFee__Cours__3D5E1FD2">
+          <AssociationSet Name="FK__CourseFee__Cours__47DBAE45" Association="Self.FK__CourseFee__Cours__47DBAE45">
             <End Role="CourseTrainer" EntitySet="CourseTrainers" />
             <End Role="CourseFeedBack" EntitySet="CourseFeedBacks" />
           </AssociationSet>
@@ -391,14 +391,14 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="UdemyModelStoreContainer" CdmEntityContainer="UdemyEntities1">
+        <EntityContainerMapping StorageEntityContainer="UdemyModelStoreContainer" CdmEntityContainer="UdemyEntities4">
           <EntitySetMapping Name="CourseFeedBacks">
             <EntityTypeMapping TypeName="UdemyModel.CourseFeedBack">
               <MappingFragment StoreEntitySet="CourseFeedBack">
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="CourseReviews" ColumnName="CourseReviews" />
                 <ScalarProperty Name="CourseRatings" ColumnName="CourseRatings" />
-                <ScalarProperty Name="CourseComments" ColumnName="CourseComments" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
               </MappingFragment>
             </EntityTypeMapping>
