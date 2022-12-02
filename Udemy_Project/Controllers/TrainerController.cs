@@ -122,10 +122,12 @@ namespace Udemy_Project.Controllers
                 context.SaveChanges();
                 return RedirectToAction("GetPublishedCourse");
             }
-            return View(record);
-
+            else
+            {
+                return View(record);
+            }
+         
         }
-
         public JsonResult delete()
         {
             int abc = Convert.ToInt32(TempData["noOfStudentEnrolled"]);

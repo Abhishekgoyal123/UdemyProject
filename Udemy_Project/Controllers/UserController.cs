@@ -124,17 +124,20 @@ namespace Udemy_Project.Controllers
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
-
+            var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
+           
+            //9960008446
             var isFeedbackExist = (from courseFeedBack in context.CourseFeedBacks
                                    where courseFeedBack.CourseId == courseId
                                    select courseFeedBack).Count();
 
             if (isFeedbackExist!=0)
             {
-                var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
+                
                 //var recordToDelete = context.CourseFeedBacks.Find(res);
                 context.CourseFeedBacks.Remove(res);
                 context.SaveChanges();
+                return RedirectToAction("ShowCourseFeedback");
             }
 
             return RedirectToAction("ShowCourseFeedback");

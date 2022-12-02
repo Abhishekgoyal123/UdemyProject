@@ -10,7 +10,7 @@
     <body style="background-color: lightpink;">
 
         <div class="form-horizontal" style="padding: 20px; display: flex;align-items: center; justify-content: center;">
-            <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; font-size: large; border: 1px groove black; width: 450px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
+            <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; font-size: large; border: 1px groove black; width: 480px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
                 <h2>Signup</h2>
                 <h4>User</h4>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -32,13 +32,13 @@
 
                 <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
                     @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-10" >
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @onblur = "validateUserName()" } })
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group" style="display:flex;gap:65px;align-items:center;justify-content:center">
+                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
                     @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.PasswordFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" style="display:flex;gap:75px;align-items:center;justify-content:center">
+                <div class="form-group" style="display:flex;gap:45px;align-items:center;justify-content:center">
                     @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10" onchange="Validate()">
                         @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
@@ -74,23 +74,35 @@
                 </div>
             </div>
         </div>
+        <dialog id="dialog" style="position:absolute;top:50px;right:20px; padding:8px;color:red"></dialog>
 
         <script type="text/javascript">
-
+            const setDialog = (msg) => {
+                const dialog = document.getElementById("dialog");
+                dialog.innerHTML = msg;
+                dialog.open=true
+                setTimeout(() => { dialog.open=false; }, 6000)
+            }
             function Validate() {
                 var password = document.getElementById("UserPassword").value;
                 var confirmPassword = document.getElementById("ConfirmPassword").value;
                 var signUpButton = document.getElementById("signUp");
                 if (password != confirmPassword) {
-                    alert("Passwords do not match.");
+                    setDialog("Passwords do not match.");
                     signUpButton.disabled = true;
                 }
                 else {
                     signUpButton.disabled = false;
-
                 }
-
             }
+    function validateUserName() {
+        var userName = document.getElementById("UserName");
+        var a = @Html.Raw(Json.Encode(TempData["UsernameList"]));
+        console.log("Hi")
+        a.forEach((ele) => ele === userName.value ? setDialog11("Username Already Exists") : "")
+    }
+
+
         </script>
     </body>
 }
