@@ -83,10 +83,10 @@
                 dialog.open=true
                 setTimeout(() => { dialog.open=false; }, 6000)
             }
+                let signUpButton = document.getElementById("signUp");
             function Validate() {
                 var password = document.getElementById("UserPassword").value;
                 var confirmPassword = document.getElementById("ConfirmPassword").value;
-                var signUpButton = document.getElementById("signUp");
                 if (password != confirmPassword) {
                     setDialog("Passwords do not match.");
                     signUpButton.disabled = true;
@@ -95,12 +95,19 @@
                     signUpButton.disabled = false;
                 }
             }
-    function validateUserName() {
-        var userName = document.getElementById("UserName");
-        var a = @Html.Raw(Json.Encode(TempData["UsernameList"]));
-        console.log("Hi")
-        a.forEach((ele) => ele === userName.value ? setDialog11("Username Already Exists") : "")
-    }
+            function validateUserName() {
+                var userName = document.getElementById("UserName");
+
+                var a = @(Json.Encode(TempData["UsernameList"]));
+                
+
+                    if (a.includes(userName.value)) {
+                        setDialog("Username Already Exists");
+                        signUpButton.disabled = true;
+                    } else {
+                        signUpButton.disabled = false;
+                    }
+            }
 
 
         </script>

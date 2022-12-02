@@ -48,18 +48,10 @@ namespace Udemy_Project.Controllers
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
 
             TempData["LoginStatus"] = isvalid;
+            
             FormsAuthentication.SetAuthCookie(model.UserName, false);
             if (isvalid)
             {
-
-                //var roleCheck = (from user in context.Users
-                //                 join rolemapping in context.RoleMappings on user.UserId equals rolemapping.UserId
-                //                 join roles in context.Roles on rolemapping.RoleId equals roles.RoleId
-                //                 where user.UserName == localusername
-                //                 select roles.RoleName).FirstOrDefault();
-
-               
-
                         var userId = (from user in context.Users
                               where user.UserName == localusername
                               select user.UserId).FirstOrDefault();
@@ -96,9 +88,6 @@ namespace Udemy_Project.Controllers
         {
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
 
-           
-
-            
             //role.UserId = model.UserId;
             context.Users.Add(model);
             context.SaveChanges();

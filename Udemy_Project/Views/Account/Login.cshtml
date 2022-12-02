@@ -85,16 +85,16 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-@*<script type="text/javascript">
+<script type="text/javascript">
 
     function LoginStatus() {
-        var a = @TempData["LoginStatus"].ToString();
-        if (a == 'false')
+        var a = @(Convert.ToBoolean(TempData["LoginStatus"]));
+        if (a === false)
         {
             alert('Invalid Password');
         }
         
     }
-</script>*@
+</script>
 
  
