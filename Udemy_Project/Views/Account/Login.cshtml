@@ -4,15 +4,16 @@
     ViewBag.Title = "Login";
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
 
-<body style="background-color: lightpink;" >
+<body style="background-color: lightpink;">
 
-    <div class="form-horizontal" style="padding: 20px; display: flex;   gap: 40px; align-items: center; justify-content: center;">
-        <div style="padding: 20px; display: flex; flex-direction: column; gap: 40px; align-items: center; justify-content: center; font-size: larger; border: 1px groove black; width: 450px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
+    <div class="form-horizontal" style="padding: 20px; display: flex;   gap: 40px; align-items: center; justify-content: space-evenly;">
+        <div style="display:flex; flex-direction:column; gap:16px;"><img style="height:450px ;width:400px; border-radius:16px;" src="https://img.freepik.com/free-vector/course-app-concept-illustration_114360-6669.jpg?w=740&t=st=1669917424~exp=1669918024~hmac=4171872d04d2a9cabdc38189510a618fa6b4f4fd398b95abd7f7defd54ed4a8b" alt="Alternate Text" /></div>
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 40px; align-items: center; border-radius: 16px; justify-content: center; font-size: larger; border: 1px groove black; width: 450px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
             <h2>Login</h2>
             <h4>User Details</h4>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -31,18 +32,48 @@
                 </div>
             </div>
 
-            
+
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Log In" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
+                    <input type="submit" value="Log In"  id="btnGet" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
     this.style.color='white'"
                            onMouseOut="this.style.backgroundColor = 'white';
-    this.style.color='black'" />
+    this.style.color='black'" onclick="LoginStatus()" />
                 </div>
             </div>
         </div>
     </div>
+
+
+    @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    
+        
+        <script type="text/javascript">
+            $("#btnGet").click(function () { 
+                $.ajax({
+                    type: "POST",
+                    url: "/Account/Login",
+                    success: function () {
+                        @{
+                            var a = @TempData["LoginStatus"].ToString();
+                         }
+                        if (a == 'false') {
+                            alert("success");
+                        }
+                        
+                    },
+                    failure: function () {
+                        alert("failure");
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            });
+
+        </script>
+    }*@
 </body>
 }
 
@@ -53,3 +84,17 @@
 @section Scripts { 
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+@*<script type="text/javascript">
+
+    function LoginStatus() {
+        var a = @TempData["LoginStatus"].ToString();
+        if (a == 'false')
+        {
+            alert('Invalid Password');
+        }
+        
+    }
+</script>*@
+
+ 

@@ -8,7 +8,6 @@ using Udemy_Project;
 
 namespace Udemy_Project.Controllers
 {
-   
     public class UserController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();
@@ -130,7 +129,7 @@ namespace Udemy_Project.Controllers
                                    where courseFeedBack.CourseId == courseId
                                    select courseFeedBack).Count();
 
-            if (isFeedbackExist == 1)
+            if (isFeedbackExist!=0)
             {
                 var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
                 //var recordToDelete = context.CourseFeedBacks.Find(res);
@@ -196,23 +195,24 @@ namespace Udemy_Project.Controllers
             return View(record);
         }
 
-        public ActionResult BuyCourse(int? courseId, CourseMapping courseMapping)
+        public ActionResult BuyCourse(CourseMapping courseMapping)
         {
             //List<CourseTrainer> trainers = TempData["Cart"];
            // int? totalPrice = 0;
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
-            var priceArray = (from courseTrainer in context.CourseTrainers
-                              where courseTrainer.CourseId == courseId
-                              select courseTrainer.CousrePrice).ToArray();
 
-            for (int i = 0; i < priceArray.Count(); i++)
+            var abc = (IEnumerable<CourseTrainer>)TempData["CartList"];
+            TempData.Keep();
+
+            foreach(var item in abc)
             {
                 courseMapping.UserId = userId;
-                courseMapping.CourseId = priceArray[i];
-
-                //totalPrice = totalPrice + priceArray[i];
+                courseMapping.CourseId = item.CourseId;
+                context.CourseMappings.Add(courseMapping);
+                context.SaveChanges();
             }
+
 
             return RedirectToAction("GetPurchasedCourses");
         }
@@ -239,7 +239,6 @@ namespace Udemy_Project.Controllers
         {
             // work on remove from cart functionality
             int?totalPrice = 0;
-            TempData["Cart"] = ListModel.ctList;
 
             foreach(var item in ListModel.ctList)
             {
@@ -247,6 +246,8 @@ namespace Udemy_Project.Controllers
                 
             }
             TempData["Total Price"] = totalPrice;
+
+            TempData["CartList"] = ListModel.ctList;
             TempData.Keep();
             return View(ListModel.ctList.Distinct());
         }

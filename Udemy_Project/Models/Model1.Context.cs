@@ -12,6 +12,8 @@ namespace Udemy_Project.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class UdemyEntities4 : DbContext
     {
@@ -33,5 +35,15 @@ namespace Udemy_Project.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<sp_GetAllCourse_Result> sp_GetAllCourse()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAllCourse_Result>("sp_GetAllCourse");
+        }
+    
+        public virtual ObjectResult<sp_getCourse_Result> sp_getCourse()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getCourse_Result>("sp_getCourse");
+        }
     }
 }

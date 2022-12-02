@@ -1,19 +1,13 @@
-﻿@model IEnumerable<Udemy_Project.Models.CourseTrainer>
+﻿@model IEnumerable<Udemy_Project.Models.sp_getCourse_Result>
 
 @{
-    ViewBag.Title = "GetPublishedCourse";
+    ViewBag.Title = "sp_getCourse";
 }
 
-<h2>GetPublishedCourse</h2>
+<h2>sp_getCourse</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddCourse")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
@@ -33,15 +27,13 @@
             @Html.DisplayNameFor(model => model.CousrePrice)
         </th>
 
-        <th></th>
+
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseId)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.CourseName)
             </td>
@@ -60,27 +52,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CousrePrice)
             </td>
-
             <td>
-                @Html.ActionLink("Edit", "EditCourse", new { courseId = item.CourseId }) |
-                @Html.ActionLink("Delete", "Delete3", new { courseId = item.CourseId })|
-                @Html.ActionLink("CourseStats", "CourseStats", new { courseId = item.CourseId })
-               
+                @Html.ActionLink("Edit", "EditCourse", new { CourseId = item.CourseId }) |
+                @Html.ActionLink("Delete", "Delete3", new { CourseId = item.CourseId }) |
+                @Html.ActionLink("ShowUserReviews", "GetFeedback", new { id = item.CourseId })
             </td>
         </tr>
     }
 
 </table>
-
-
-@*<script type="text/javascript">
-
-        function DeleteCourse() {
-            var a = @TempData["noOfStudentEnrolled"];
-                if (a != 0) {
-                    alert('Course cannot be deleted');
-            }
-
-        }
-    </script>*@
-

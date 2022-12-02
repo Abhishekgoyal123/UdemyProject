@@ -106,17 +106,31 @@ namespace Udemy_Project.Controllers
         
         public ActionResult Delete3(int? CourseId)
         {
+            var record = context.CourseTrainers.Find(CourseId);
             var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
                                        where CourseMapping.CourseId == CourseId
                                        select CourseMapping).Count();
 
+            noOfStudentEnrolled = noOfStudentEnrolled - 1;
+
+            TempData["noOfStudentEnrolled"] = noOfStudentEnrolled;
+
             if (noOfStudentEnrolled == 0)
             {
-                var record = context.CourseTrainers.Find(CourseId);
+                
                 context.CourseTrainers.Remove(record);
                 context.SaveChanges();
+                return RedirectToAction("GetPublishedCourse");
             }
-            return RedirectToAction("GetPublishedCourse");
+            return View(record);
+
+        }
+
+        public JsonResult delete()
+        {
+            int abc = Convert.ToInt32(TempData["noOfStudentEnrolled"]);
+            TempData.Keep();
+            return Json(abc, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult EditCourse(int? courseId)

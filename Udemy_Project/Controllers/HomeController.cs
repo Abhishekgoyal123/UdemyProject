@@ -119,15 +119,15 @@ namespace Udemy_Project.Controllers
             return View(resultList.Distinct());
         }
 
-        public ActionResult Filter()
-        {
-            List<Role> rolelist = context.CourseTrainers.
+        //public ActionResult Filter()
+        //{
+        //    List<Role> rolelist = context.CourseTrainers.
 
-            rolelist.RemoveAt(0);
-            ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
+        //    rolelist.RemoveAt(0);
+        //    ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 
     

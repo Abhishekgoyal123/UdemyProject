@@ -29,7 +29,13 @@ namespace Udemy_Project.Controllers
 
             rolelist.RemoveAt(0);
             ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
-            
+
+            var abc = (from user in context.Users
+                       select user.UserName).ToArray();
+
+
+            TempData["UsernameList"] = abc;
+
             return View();
         }
 
@@ -40,6 +46,8 @@ namespace Udemy_Project.Controllers
             string localusername = model.UserName;
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
+
+            TempData["LoginStatus"] = isvalid;
             FormsAuthentication.SetAuthCookie(model.UserName, false);
             if (isvalid)
             {
@@ -50,10 +58,9 @@ namespace Udemy_Project.Controllers
                 //                 where user.UserName == localusername
                 //                 select roles.RoleName).FirstOrDefault();
 
-                //List<User> UserName = new List<User>();
-                //TempData["UsernameList"] = UserName;
-                
-                var userId = (from user in context.Users
+               
+
+                        var userId = (from user in context.Users
                               where user.UserName == localusername
                               select user.UserId).FirstOrDefault();
                 
@@ -79,7 +86,7 @@ namespace Udemy_Project.Controllers
                 }
             }
             else
-                return View("Error");
+                return View("Login");
            // TempData.Keep();
             //return RedirectToAction("UserHomePage", "User");
         }
@@ -89,6 +96,9 @@ namespace Udemy_Project.Controllers
         {
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
 
+           
+
+            
             //role.UserId = model.UserId;
             context.Users.Add(model);
             context.SaveChanges();
