@@ -54,6 +54,7 @@ namespace Udemy_Project.Controllers
         //    //var CourseuserFeedBack = context.CourseUserFeedbacks.ToList();
         //    return View(CourseList);
         //}
+        
 
         public ActionResult sp_getCourse()
         {
@@ -78,17 +79,27 @@ namespace Udemy_Project.Controllers
 
         public ActionResult Delete3(int? CourseId)
         {
+            var record = context.CourseTrainers.Find(CourseId);
             var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
-                                       where CourseMapping.UserId == CourseId
+                                       where CourseMapping.CourseId == CourseId
                                        select CourseMapping).Count();
+
+            noOfStudentEnrolled--;
+
+            TempData["noOfStudentEnrolled"] = noOfStudentEnrolled;
 
             if (noOfStudentEnrolled == 0)
             {
-                var record = context.CourseTrainers.Find(CourseId);
+
                 context.CourseTrainers.Remove(record);
                 context.SaveChanges();
+                return RedirectToAction("sp_getCourse");
             }
-            return RedirectToAction("sp_getCourse");
+            else
+            {
+                return View(record);
+            }
+            
         }
 
         public ActionResult EditCourse(int? courseId)

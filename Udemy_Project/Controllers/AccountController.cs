@@ -9,6 +9,7 @@ using System.Web.Security;
 
 namespace Udemy_Project.Controllers
 {
+    
     public class AccountController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();
@@ -47,7 +48,7 @@ namespace Udemy_Project.Controllers
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
 
-            TempData["LoginStatus"] = isvalid;
+            //TempData["LoginStatus"] = isvalid.ToString().ToLower();
             
             FormsAuthentication.SetAuthCookie(model.UserName, false);
             if (isvalid)
@@ -78,11 +79,16 @@ namespace Udemy_Project.Controllers
                 }
             }
             else
+            {
+                int abc = 1;
+                TempData["abc"] = abc;
                 return View("Login");
+            }
+                
            // TempData.Keep();
             //return RedirectToAction("UserHomePage", "User");
         }
-
+       
         [HttpPost]
         public ActionResult Signup(User model,RoleMapping roleMapping, Role role1)
         {

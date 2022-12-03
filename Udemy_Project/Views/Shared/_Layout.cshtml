@@ -21,7 +21,7 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,193,233,1) 
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>*@
-                @Html.ActionLink("Udemy_Project", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Udemy_Project", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="display:flex; align-items:center;gap:30px">
@@ -37,9 +37,7 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,193,233,1) 
                         <li>@Html.ActionLink("Sign Up", "SignUp", "Account", new { area = "" }, new { @class = "navbar-brand" })</li>
 
                     }
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                   
 
                 </ul>
             </div>

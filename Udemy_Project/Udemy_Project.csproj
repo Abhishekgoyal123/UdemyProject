@@ -268,6 +268,10 @@
     <Content Include="Views\Trainer\CourseStats.cshtml" />
     <Content Include="Views\Admin\sp_getCourse.cshtml" />
     <Content Include="Views\Trainer\Delete3.cshtml" />
+    <Content Include="Views\User\DeleteCourseFeedBack.cshtml" />
+    <Content Include="Views\User\SearchCourses.cshtml" />
+    <Content Include="Views\User\SearchResult.cshtml" />
+    <Content Include="Views\Admin\Delete3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

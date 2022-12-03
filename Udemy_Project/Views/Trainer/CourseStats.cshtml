@@ -6,11 +6,15 @@
 <h2>CourseStats</h2>
 
 <input type="button" id="btnGet" value="noOfStudentEnrolled" />
+
+<input type="button" id="btnGet1" value="AveragePartings" />
+
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script type="text/javascript">
     $(function () {
-        
+
             $("#btnGet").click(function () {
                 $.ajax({
                     type: "GET",
@@ -20,6 +24,57 @@
                     dataType: "json",
                     success: function () {
                         alert("noOfStudentEnrolled = " + @TempData["noOfStudentEnrolled"]);
+                    },
+                    failure: function () {
+                        alert("failure");
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            });
+    });
+
+    @*$(function () {
+
+            $("#btnGet1").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Trainer/AverageRatings",
+                   /* data: { name: $("#txtName").val() },*/
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        alert("AverageRatings = " + @TempData["averageRatings"]);
+                    },
+                    failure: function () {
+                        alert("failure");
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            });
+        });*@
+</script>
+
+<script type="text/javascript">
+    $(function () {
+
+            $("#btnGet1").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Trainer/AverageRatings",
+                   /* data: { name: $("#txtName").val() },*/
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        if (@TempData["averageRatings"] == 0) {
+                            alert("course not purchased by any student")
+                        }
+                        else
+
+                        alert("AverageRatings = " + @TempData["averageRatings"]);
                     },
                     failure: function () {
                         alert("failure");

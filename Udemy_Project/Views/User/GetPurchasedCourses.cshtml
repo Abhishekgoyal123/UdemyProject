@@ -12,9 +12,7 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
@@ -33,41 +31,43 @@
         <th>
             @Html.DisplayNameFor(model => model.CousrePrice)
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseLevels)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseLanguage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseSkills)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CousrePrice)
-        </td>
-       
-        <td>
-            @Html.ActionLink("Add Feedback", "AddCourseFeedBack", new { courseId = item.CourseId }) 
+    @foreach (var item in Model)
+    {
+        <tr>
             
-            @Html.ActionLink("Show Feedback", "ShowCourseFeedback", new { courseId = item.CourseId }) 
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseLevels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseLanguage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseSkills)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CousrePrice)
+            </td>
 
-        </td>
-    </tr>
-}
+            <td id="btnGet">
+                @Html.ActionLink("Add Feedback", "AddCourseFeedBack", new { courseId = item.CourseId })
+
+            </td>
+            <td>
+                @Html.ActionLink("Show Feedback", "ShowCourseFeedback", new { courseId = item.CourseId })
+            </td>
+            
+        </tr>
+    }
 
 </table>
+

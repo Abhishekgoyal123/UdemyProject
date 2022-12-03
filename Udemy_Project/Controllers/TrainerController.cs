@@ -36,12 +36,7 @@ namespace Udemy_Project.Controllers
                 return RedirectToAction("AddCourse");
 
             }
-            //TempData.Keep();
-            
-            
         }
-
-        
 
         public ActionResult AddCourse()
         {
@@ -81,9 +76,9 @@ namespace Udemy_Project.Controllers
             return View(publishedCourse);
         }
 
-        public ActionResult GetFeedback(int id)
+        public ActionResult GetFeedback(int? courseId)
         {
-            var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id);
+            var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId);
             return View(CourseuserFeedBack);
         }
 
@@ -163,25 +158,36 @@ namespace Udemy_Project.Controllers
                                        where CourseMapping.CourseId == CourseId
                                        select CourseMapping).Count();
 
+            noOfStudentEnrolled = noOfStudentEnrolled - 1;
+
             TempData["noOfStudentEnrolled"] = noOfStudentEnrolled;
 
             var AverageRatings = (from courseFeedback in context.CourseFeedBacks
                                  where courseFeedback.CourseId == CourseId
                                  select courseFeedback.CourseRatings).Average();
 
+            if(AverageRatings == null)
+            {
+                TempData["averageRatings"] = 0;
+            }
+            else
+                TempData["averageRatings"] = AverageRatings;
+
             return View();
         }
 
         public JsonResult noOfStudentEnrolled()
         {
-            int CourseId = Convert.ToInt32(TempData["CourseId"]);
-            var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
-                                       where CourseMapping.CourseId == CourseId
-                                       select CourseMapping).Count();
-
-            TempData["noOfStudentEnrolled"] = noOfStudentEnrolled;
+            int noOfStudentEnrolled = Convert.ToInt32(TempData["noOfStudentEnrolled"]);
 
             return Json(noOfStudentEnrolled, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AverageRatings()
+        {
+            int AverageRatings = Convert.ToInt32(TempData["averageRatings"]);
+
+            return Json(AverageRatings, JsonRequestBehavior.AllowGet);
         }
     }
 }

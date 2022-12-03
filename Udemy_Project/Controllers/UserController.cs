@@ -60,9 +60,17 @@ namespace Udemy_Project.Controllers
 
         }
 
-        public ActionResult AddCourseFeedBack()
+        public ActionResult AddCourseFeedBack(int? courseId)
         {
-            return View();
+            int userId = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep();
+            int noOfFeedback = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).Count();
+            TempData["noOfFeedback"] = noOfFeedback;
+            if (noOfFeedback == 0)
+            {
+                return View();
+            }
+            return View("Error");
         }
 
         // MERGE GetPurchasedCourses INTO USERHOMEPAGE()
@@ -91,29 +99,27 @@ namespace Udemy_Project.Controllers
                 }
             }
 
-            Session["abc"] = purchasedCourse;
-            TempData.Keep();
-            // use foreach to itertate over coursemapping to get list of courseid based on userid
-            //var result = context.CourseTrainers.ToList().Where(a=> a.)
+            TempData["purchasedCourse"] = purchasedCourse;
+            
             return View(purchasedCourse);
         }
 
         [HttpPost]
         public ActionResult AddCourseFeedBack(int? courseId, CourseFeedBack courseFeedback)
         {
+            
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
-            if (ModelState.IsValid)
+
+            int noOfFeedback = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).Count();
+            if (ModelState.IsValid )
             {
                 courseFeedback.CourseId = courseId;
                courseFeedback.UserId = userId;
                 
                 var result = context.CourseFeedBacks.Add(courseFeedback);
-
-                //CourseFeedBack feedback = new CourseFeedBack();
-                TempData["CourseFeedback"] = courseFeedback;
-                TempData.Keep();
                 context.SaveChanges();
+                
             }
             
 
@@ -137,10 +143,10 @@ namespace Udemy_Project.Controllers
                 //var recordToDelete = context.CourseFeedBacks.Find(res);
                 context.CourseFeedBacks.Remove(res);
                 context.SaveChanges();
-                return RedirectToAction("ShowCourseFeedback");
+                return RedirectToAction("GetPurchasedCourses");
             }
 
-            return RedirectToAction("ShowCourseFeedback");
+            return RedirectToAction("GetPurchasedCourses");
         }
 
         //public ActionResult DeleteFeedBack(int? courseId)
@@ -185,8 +191,8 @@ namespace Udemy_Project.Controllers
 
             context.SaveChanges();
 
-            //return RedirectToAction("ShowCourseFeedback");
-            return View();
+            return RedirectToAction("GetPurchasedCourses");
+            //return View();
         }
 
         public ActionResult ShowCourseFeedback(int? courseId)
@@ -195,7 +201,18 @@ namespace Udemy_Project.Controllers
             TempData.Keep();
             var record = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId && a.UserId == userId);
 
-            return View(record);
+            var FeedbackExist = (from courseFeedBack in context.CourseFeedBacks
+                                   where courseFeedBack.CourseId == courseId && courseFeedBack.UserId == userId
+                                   select courseFeedBack).Count();
+
+            if (FeedbackExist != 0)
+            {
+                return View(record);
+            }
+            else
+            {
+                return RedirectToAction("GetPurchasedCourses");
+            }
         }
 
         public ActionResult BuyCourse(CourseMapping courseMapping)
@@ -205,10 +222,11 @@ namespace Udemy_Project.Controllers
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
 
-            var abc = (IEnumerable<CourseTrainer>)TempData["CartList"];
+            var cart = (IEnumerable<CourseTrainer>)TempData["CartList"];
             TempData.Keep();
-
-            foreach(var item in abc)
+           
+            var purchasedCourseList = (IEnumerable<CourseTrainer>)TempData["purchasedCourse"];
+            foreach (var item in cart)
             {
                 courseMapping.UserId = userId;
                 courseMapping.CourseId = item.CourseId;
@@ -216,12 +234,12 @@ namespace Udemy_Project.Controllers
                 context.SaveChanges();
             }
 
-
             return RedirectToAction("GetPurchasedCourses");
         }
 
         public ActionResult AddToCart(int? courseId)
         {
+            
             TempData["courseId"] = courseId;
             var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
             ListModel.ctList.Add((CourseTrainer)courseInCart);
@@ -229,14 +247,6 @@ namespace Udemy_Project.Controllers
 
         }
 
-        //public JsonResult addtoCart(int? courseId)
-        //{
-
-        //    var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
-        //    ListModel.ctList.Add(courseInCart);
-        //    return Json(ListModel.ctList, JsonRequestBehavior.AllowGet);
-
-        //}
 
         public ActionResult ViewCart()
         {
@@ -262,6 +272,47 @@ namespace Udemy_Project.Controllers
             
             return RedirectToAction("ViewCart");
         }
+
+        public ActionResult SearchCourses()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SearchCourses(string ProductName)
+        {
+            TempData["SearchParameter"] = ProductName;
+            //TempData.Keep();
+            return RedirectToAction("SearchResult");
+        }
+       
+        public ActionResult SearchResult()
+        {
+            string searchParameter = TempData["SearchParameter"].ToString();
+            IQueryable<CourseTrainer> result = null;
+
+            List<CourseTrainer> resultList = new List<CourseTrainer>();
+
+            var res = searchParameter.Split(' ');
+
+            result = from courseTrainer in context.CourseTrainers
+                     select courseTrainer;
+
+            for (int i = 0; i < res.Length; i++)
+            {
+                foreach (var item in result)
+                {
+                    if (item.CourseName.Contains(res[i]) || item.CourseDescription.Contains(res[i]) || item.CourseLevels.Contains(res[i]) || item.CourseLanguage.Contains(res[i]) || item.CourseSkills.Contains(res[i]))
+                    {
+                        resultList.Add(item);
+                    }
+                }
+
+            }
+            return View(resultList.Distinct());
+        }
+
+       
 
     }
 }

@@ -9,9 +9,7 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.CourseReviews)
         </th>
@@ -24,9 +22,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.CourseReviews)
         </td>
@@ -39,3 +35,7 @@
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Back to Published Course List", "GetPublishedCourse")
+</div>

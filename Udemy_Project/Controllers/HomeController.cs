@@ -85,7 +85,7 @@ namespace Udemy_Project.Controllers
         public ActionResult SearchCourses(string ProductName)
         {
             TempData["SearchParameter"] = ProductName;
-            TempData.Keep();
+            //TempData.Keep();
             return RedirectToAction("SearchResult");
         }
         //public ActionResult SearchCourses()
@@ -128,6 +128,11 @@ namespace Udemy_Project.Controllers
 
         //    return View();
         //}
+
+        public ActionResult BuyCourse(int? courseId)
+        {
+            return RedirectToAction("AddToCart", "User",(object)courseId);
+        }
     }
 
     

@@ -8,8 +8,8 @@
 
     @using (Html.BeginForm())
     {
-        <form method="post" asp-controller="Home" asp-action="Index">
-            <h2>Search Courses :</h2>
+        <form method="post" asp-controller="User" asp-action="SearchCourses">
+            <h2>Get your Product :</h2>
             <input type="text" placeholder="Search Product.." name="ProductName" />
             <input type="submit" value="Search" />
             <br />
@@ -17,6 +17,5 @@
         </form>
     }
 
-   
-</body>
+    </body>
 
