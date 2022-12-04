@@ -121,8 +121,6 @@ namespace Udemy_Project.Controllers
                 context.SaveChanges();
                 
             }
-            
-
             return View();
         }
 
@@ -201,11 +199,12 @@ namespace Udemy_Project.Controllers
             TempData.Keep();
             var record = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId && a.UserId == userId);
 
-            var FeedbackExist = (from courseFeedBack in context.CourseFeedBacks
+            var FeedbackCount = (from courseFeedBack in context.CourseFeedBacks
                                    where courseFeedBack.CourseId == courseId && courseFeedBack.UserId == userId
                                    select courseFeedBack).Count();
 
-            if (FeedbackExist != 0)
+            TempData["FeedbackCount"] = FeedbackCount;
+            if (FeedbackCount != 0)
             {
                 return View(record);
             }
@@ -239,10 +238,25 @@ namespace Udemy_Project.Controllers
 
         public ActionResult AddToCart(int? courseId)
         {
-            
+            int flag=0;
             TempData["courseId"] = courseId;
             var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
-            ListModel.ctList.Add((CourseTrainer)courseInCart);
+            var abc = (IEnumerable<CourseTrainer>)TempData["purchasedCourse"];
+            
+            foreach(var item in abc)
+            {
+                if (courseInCart.CourseId == item.CourseId)
+                {
+                    flag = 1;
+                    break;
+                }
+                
+            }
+            TempData["flag"] = flag;
+            if (flag == 0)
+            {
+                ListModel.ctList.Add((CourseTrainer)courseInCart);
+            }
             return RedirectToAction("ListAllCourses");
 
         }

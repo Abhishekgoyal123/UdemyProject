@@ -30,6 +30,7 @@ namespace Udemy_Project.Controllers
 
             rolelist.RemoveAt(0);
             ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
+          
 
             var abc = (from user in context.Users
                        select user.UserName).ToArray();
@@ -82,6 +83,7 @@ namespace Udemy_Project.Controllers
             {
                 int abc = 1;
                 TempData["abc"] = abc;
+                
                 return View("Login");
             }
                 
@@ -89,6 +91,7 @@ namespace Udemy_Project.Controllers
             //return RedirectToAction("UserHomePage", "User");
         }
        
+        
         [HttpPost]
         public ActionResult Signup(User model,RoleMapping roleMapping, Role role1)
         {

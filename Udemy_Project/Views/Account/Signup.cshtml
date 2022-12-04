@@ -7,7 +7,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <body style="background-color: lightpink;">
+    <body >
 
         <div class="form-horizontal" style="padding: 20px; display: flex;align-items: center; justify-content: center;">
             <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; font-size: large; border: 1px groove black; width: 480px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
@@ -115,7 +115,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Login", "Login")
+    @Html.ActionLink("Go to Login", "Login")
 </div>
 
 @section Scripts {

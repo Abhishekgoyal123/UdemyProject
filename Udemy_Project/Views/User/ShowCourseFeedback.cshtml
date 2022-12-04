@@ -8,7 +8,7 @@
 
 <table class="table">
     <tr>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.CourseReviews)
         </th>
@@ -46,10 +46,20 @@
     @Html.ActionLink("Back to Courses", "GetPurchasedCourses")
 </div>
 
+
+
+<dialog id="dialog" style="position:absolute;top:50px;right:20px; padding:8px;color:darkgreen"></dialog>
+
 <script type="text/javascript">
+    const setDialog = (msg) => {
+        const dialog = document.getElementById("dialog");
+        dialog.innerHTML = msg;
+        dialog.open = true
+        setTimeout(() => { dialog.open = false; }, 10000)
+    }
 
     function deleteFeedback() {
 
-            alert('feedback deleted successfully.');
+        setDialog('feedback deleted successfully.');
     }
-</script>
+</script>  

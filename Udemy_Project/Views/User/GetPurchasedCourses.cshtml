@@ -62,7 +62,7 @@
                 @Html.ActionLink("Add Feedback", "AddCourseFeedBack", new { courseId = item.CourseId })
 
             </td>
-            <td>
+            <td onclick="validateFeedBack()">
                 @Html.ActionLink("Show Feedback", "ShowCourseFeedback", new { courseId = item.CourseId })
             </td>
             
@@ -70,4 +70,18 @@
     }
 
 </table>
+
+<script type="text/javascript">
+
+        function validateFeedBack() {
+
+            var feedbackCount = @Convert.ToInt32(TempData["FeedbackCount"]);
+
+            if (feedbackCount == 0) {
+                alert("No Feedback Available");
+            }
+            }
+
+
+</script>
 

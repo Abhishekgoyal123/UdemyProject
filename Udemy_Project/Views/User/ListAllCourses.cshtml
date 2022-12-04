@@ -15,9 +15,7 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
@@ -42,9 +40,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseId)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.CourseName)
             </td>
@@ -67,7 +63,7 @@
                 @*@Html.ActionLink("Add To Cart", "AddToCart", new { courseId = item.CourseId })*@
                 @using (Html.BeginForm("AddToCart", "User", new { courseId = item.CourseId }))
                 {
-                    <input type="submit" value="Add To Cart"  id="btnGet"/>
+                    <input type="submit" value="Add To Cart"  id="btnGet" />
                 }
             </td>
 
@@ -78,8 +74,14 @@
 <script type="text/javascript">
 
     function addedToCart() {
-
-        alert('Added To Cart Successfully.');
+        var a = @Convert.ToInt32(TempData["flag"]);
+        if (a != 0) {
+            alert('course already purchased')
+        }
+        else {
+            alert('Added To Cart Successfully.');
+        }
+       
     }
 </script>
 
