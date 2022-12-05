@@ -11,7 +11,8 @@ namespace Udemy_Project.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CourseTrainer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,11 +24,19 @@ namespace Udemy_Project.Models
         }
     
         public int CourseId { get; set; }
+        [Required]
+        [MaxLength(20,ErrorMessage ="Course Name cannot be more than 20 characters")]
         public string CourseName { get; set; }
+        [Required]
+        [MaxLength(100, ErrorMessage = "Course description cannot be more than 100 characters")]
         public string CourseDescription { get; set; }
+        [Required]
         public string CourseLevels { get; set; }
+        [Required]
         public string CourseLanguage { get; set; }
+        [Required]
         public string CourseSkills { get; set; }
+        [Required]
         public Nullable<int> CousrePrice { get; set; }
         public string CourseThumbNail { get; set; }
     

@@ -4,6 +4,10 @@
     ViewBag.Title = "GetPurchasedCourses";
 }
 
+<h3>
+    Welcome @TempData["UserName"].ToString()
+</h3>
+
 <h2>GetPurchasedCourses</h2>
 
 <p>
@@ -62,8 +66,9 @@
                 @Html.ActionLink("Add Feedback", "AddCourseFeedBack", new { courseId = item.CourseId })
 
             </td>
-            <td onclick="validateFeedBack()">
+            <td onclick="validateFeedBack()" >
                 @Html.ActionLink("Show Feedback", "ShowCourseFeedback", new { courseId = item.CourseId })
+
             </td>
             
         </tr>
@@ -71,7 +76,7 @@
 
 </table>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
 
         function validateFeedBack() {
 
@@ -83,5 +88,5 @@
             }
 
 
-</script>
+</script>*@
 

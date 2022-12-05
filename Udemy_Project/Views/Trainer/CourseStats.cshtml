@@ -44,28 +44,6 @@
                 });
             });
     });
-
-    @*$(function () {
-
-            $("#btnGet1").click(function () {
-                $.ajax({
-                    type: "GET",
-                    url: "/Trainer/AverageRatings",
-                   /* data: { name: $("#txtName").val() },*/
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function () {
-                        alert("AverageRatings = " + @TempData["averageRatings"]);
-                    },
-                    failure: function () {
-                        alert("failure");
-                    },
-                    error: function () {
-                        alert("error");
-                    }
-                });
-            });
-        });*@
 </script>
 
 <script type="text/javascript">
@@ -75,7 +53,7 @@
                 $.ajax({
                     type: "GET",
                     url: "/Trainer/AverageRatings",
-                   /* data: { name: $("#txtName").val() },*/
+                 
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function () {
@@ -96,3 +74,7 @@
             });
         });
 </script>
+
+<div>
+    @Html.ActionLink("Back to Published Course List", "GetPublishedCourse")
+</div>

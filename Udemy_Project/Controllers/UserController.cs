@@ -16,12 +16,11 @@ namespace Udemy_Project.Controllers
         ListModel lm = new ListModel();
 
         [Authorize(Roles = "User")]
-        public ActionResult UserHomePage()                                          // instead of first redirecting to UserHomePage() and then redirecting to GetPurchasedCourses(), 
-                                                                                    // IS IT BETTER TO KEEP ONLY ONE ACTION METHOD => GetPurchasedCourses()
+        public ActionResult UserHomePage()                                          
         {
             // CONFIRM PASSWORD 
             ViewBag.Message = "Welcome to User Home Page";
-            string abc = TempData["UserName"].ToString();
+            string UserName = TempData["UserName"].ToString();
             int UserId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
 
@@ -54,6 +53,8 @@ namespace Udemy_Project.Controllers
 
         public ActionResult ListAllCourses()
         {
+            string UserName = TempData["UserName"].ToString();
+            TempData.Keep();
             var CourseList = context.CourseTrainers.ToList();
 
             return View(CourseList);
@@ -65,7 +66,7 @@ namespace Udemy_Project.Controllers
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
             int noOfFeedback = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).Count();
-            TempData["noOfFeedback"] = noOfFeedback;
+            
             if (noOfFeedback == 0)
             {
                 return View();
@@ -73,9 +74,10 @@ namespace Udemy_Project.Controllers
             return View("Error");
         }
 
-        // MERGE GetPurchasedCourses INTO USERHOMEPAGE()
+
         public ActionResult GetPurchasedCourses()
         {
+            string UserName = TempData["UserName"].ToString();
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
             //List<CourseMapping> courseId = new List<CourseMapping>();
@@ -112,16 +114,20 @@ namespace Udemy_Project.Controllers
             TempData.Keep();
 
             int noOfFeedback = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).Count();
-            if (ModelState.IsValid )
+            TempData["noOfFeedback"] = noOfFeedback;
+            if (ModelState.IsValid && noOfFeedback ==0)
             {
                 courseFeedback.CourseId = courseId;
-               courseFeedback.UserId = userId;
-                
+                courseFeedback.UserId = userId;
+
                 var result = context.CourseFeedBacks.Add(courseFeedback);
                 context.SaveChanges();
                 
+                return View();
+
             }
-            return View();
+            else
+                return View("Error");
         }
 
         public ActionResult DeleteCourseFeedBack(int? courseId)

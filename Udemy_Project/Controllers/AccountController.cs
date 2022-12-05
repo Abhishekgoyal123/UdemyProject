@@ -9,7 +9,6 @@ using System.Web.Security;
 
 namespace Udemy_Project.Controllers
 {
-    
     public class AccountController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();
@@ -30,11 +29,10 @@ namespace Udemy_Project.Controllers
 
             rolelist.RemoveAt(0);
             ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
-          
 
+           
             var abc = (from user in context.Users
                        select user.UserName).ToArray();
-
 
             TempData["UsernameList"] = abc;
 

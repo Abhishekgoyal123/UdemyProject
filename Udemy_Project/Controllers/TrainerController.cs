@@ -16,15 +16,13 @@ namespace Udemy_Project.Controllers
         {
             ViewBag.Message = "Welcome to Trainer Home Page";
 
-            string abc = TempData["UserName"].ToString();
+           // string userName = TempData["UserName"].ToString();
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
             
-
             var noOfCoursePublished = (from courseMapping in context.CourseMappings
                                        where courseMapping.UserId == userId
                                        select courseMapping).Count();
-
 
             if (noOfCoursePublished != 0)
             {
@@ -32,9 +30,7 @@ namespace Udemy_Project.Controllers
             }
             else
             {
-               
                 return RedirectToAction("AddCourse");
-
             }
         }
 
@@ -43,13 +39,11 @@ namespace Udemy_Project.Controllers
             return View();
         }
 
-
         [HttpGet]
 
         public ActionResult GetPublishedCourse()
         {
-
-            // add functionality : if trianer has 0 published  ourse redirect to add  course
+             //string userName = TempData["UserName"].ToString();
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
             //List<CourseMapping> courseId = new List<CourseMapping>();
@@ -79,6 +73,15 @@ namespace Udemy_Project.Controllers
         public ActionResult GetFeedback(int? courseId)
         {
             var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId);
+
+            var feedbackCount = (from courseFeedBack in context.CourseFeedBacks
+                                 where courseFeedBack.CourseId == courseId 
+                                 select courseFeedBack).Count();
+
+            if(feedbackCount == 0)
+            {
+                return Json(feedbackCount,JsonRequestBehavior.AllowGet);
+            }
             return View(CourseuserFeedBack);
         }
 
@@ -87,15 +90,19 @@ namespace Udemy_Project.Controllers
         public ActionResult AddCourse(CourseTrainer entity, CourseMapping courseMapping)
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
+           // string UserName = TempData["UserName"].ToString();
             TempData.Keep();
-            var result = context.CourseTrainers.Add(entity);
-            context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                var result = context.CourseTrainers.Add(entity);
+                context.SaveChanges();
 
-            courseMapping.UserId = userId;
-            courseMapping.CourseId = entity.CourseId;
-            context.CourseMappings.Add(courseMapping);
-            context.SaveChanges();
-
+                courseMapping.UserId = userId;
+                courseMapping.CourseId = entity.CourseId;
+                context.CourseMappings.Add(courseMapping);
+                context.SaveChanges();
+            }
+            
             return RedirectToAction("GetPublishedCourse");
         }
         
@@ -112,7 +119,6 @@ namespace Udemy_Project.Controllers
 
             if (noOfStudentEnrolled == 0)
             {
-                
                 context.CourseTrainers.Remove(record);
                 context.SaveChanges();
                 return RedirectToAction("GetPublishedCourse");
@@ -125,9 +131,9 @@ namespace Udemy_Project.Controllers
         }
         public JsonResult delete()
         {
-            int abc = Convert.ToInt32(TempData["noOfStudentEnrolled"]);
+            int noOfStudentEnrolled = Convert.ToInt32(TempData["noOfStudentEnrolled"]);
             TempData.Keep();
-            return Json(abc, JsonRequestBehavior.AllowGet);
+            return Json(noOfStudentEnrolled, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult EditCourse(int? courseId)
@@ -179,6 +185,7 @@ namespace Udemy_Project.Controllers
         public JsonResult noOfStudentEnrolled()
         {
             int noOfStudentEnrolled = Convert.ToInt32(TempData["noOfStudentEnrolled"]);
+            TempData.Keep();
 
             return Json(noOfStudentEnrolled, JsonRequestBehavior.AllowGet);
         }
@@ -186,8 +193,10 @@ namespace Udemy_Project.Controllers
         public JsonResult AverageRatings()
         {
             int AverageRatings = Convert.ToInt32(TempData["averageRatings"]);
-
+            TempData.Keep();
             return Json(AverageRatings, JsonRequestBehavior.AllowGet);
         }
+
+        
     }
 }

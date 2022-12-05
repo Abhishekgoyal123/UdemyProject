@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" id="btnGet" />
+                <input type="submit" value="Create" class="btn btn-default" id="btnGet" onclick="addFeddback()"/>
             </div>
         </div>
     </div>
@@ -46,34 +46,22 @@
 
 @*<script type="text/javascript">
 
-        function addFeddback() {
+    function addFeddback() {
+        var signupButton = document.getElementById("btnGet");
+        var a = @Convert.ToInt32(TempData["noOfFeedback"]);
+        
 
-                alert('Added feedback successfully.');
+        if (a != 0) {
+            signupButton.disabled = true;
+        }
+        else {
+
+            alert('Added feedback successfully.');
+        }
+            
         }
     </script>*@
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<script type="text/javascript">
-    $(function () {
 
-            $("#btnGet").click(function () {
-                $.ajax({
-                    type: "GET",
-                    url: "/User/AddCourseFeedBack",
-                   /* data: { name: $("#txtName").val() },*/
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function () {
-                        alert("noOfStudentEnrolled = " + @TempData["noOfStudentEnrolled"]);
-                    },
-                    failure: function () {
-                        alert("failure");
-                    },
-                    error: function () {
-                        alert("error");
-                    }
-                });
-            });
-        });
-</script>
+

@@ -16,6 +16,7 @@ namespace Udemy_Project.Models
     public partial class CourseFeedBack
     {
         public Nullable<int> CourseId { get; set; }
+        [Required]
         public string CourseReviews { get; set; }
 
         [Required]
