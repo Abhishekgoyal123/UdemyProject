@@ -79,17 +79,33 @@
 
 </table>
 
+<body>
+
+   
+        <form method="post" asp-controller="User" asp-action="SearchCourses">
+            <h2>Search Courses :</h2>
+            <input type="text" placeholder="Search Courses" name="ProductName" />
+            <input type="submit" value="Search" />
+            <br />
+            <br />
+        </form>
+    
+
+</body>
+
+    
+
 @*<script type="text/javascript">
 
-        function validateFeedBack() {
+            function validateFeedBack() {
 
-            var feedbackCount = @Convert.ToInt32(TempData["FeedbackCount"]);
+                var feedbackCount = @Convert.ToInt32(TempData["FeedbackCount"]);
 
-            if (feedbackCount == 0) {
-                alert("No Feedback Available");
-            }
-            }
+                if (feedbackCount == 0) {
+                    alert("No Feedback Available");
+                }
+                }
 
 
-</script>*@
+    </script>*@
 

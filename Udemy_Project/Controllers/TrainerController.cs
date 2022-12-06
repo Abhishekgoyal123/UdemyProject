@@ -7,6 +7,7 @@ using Udemy_Project.Models;
 
 namespace Udemy_Project.Controllers
 {
+    [Authorize]
     public class TrainerController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Udemy_Project.Models;
 namespace Udemy_Project.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();

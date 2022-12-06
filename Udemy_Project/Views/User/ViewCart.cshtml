@@ -73,9 +73,9 @@
         Total price =  @TempData["Total Price"]
     </h3>
 </div>
-<div style="display:flex; justify-content:center;align-items:center">
-    <button style="padding:6px">
-        @Html.ActionLink("Buy Now", "BuyCourse")
+<div style="display:flex; justify-content:center;align-items:center" >
+    <button style="padding:6px" id="PayNow" onload="abc()">
+        @Html.ActionLink("Pay Now", "Payment")
     </button>
 </div>
 <script type="text/javascript">
@@ -85,3 +85,19 @@
         alert('Removed From Cart Successfully.');
     }
 </script>
+
+<script type="text/javascript">
+
+    function abc() {
+        var abc = document.getElementById('PayNow');
+
+        var a = @Convert.ToInt32(TempData["Total Price"]);
+
+        if (a == 0) {
+            abc.disabled = true;
+        }
+        else
+            abc.disabled = false;
+    }
+
+    </script>

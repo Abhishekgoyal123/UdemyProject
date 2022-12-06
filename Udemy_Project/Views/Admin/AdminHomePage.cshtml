@@ -3,7 +3,7 @@
         Welcome @TempData["UserName"].ToString() to Admin Home Page;
     </h3>
 
-    @*@TempData["UserName"].ToString()*@
+   
     <h4 style="border: 1px groove black; border-radius:8px; padding:8px;">
         @Html.ActionLink("Get All courses", "sp_getCourse")
     </h4>
@@ -12,3 +12,4 @@
         @Html.ActionLink("Register Admin", "RegisterAdmin")
     </h4>
 </div>
+<a href="~/Views/Admin/AdminHomePage.cshtml">~/Views/Admin/AdminHomePage.cshtml</a>

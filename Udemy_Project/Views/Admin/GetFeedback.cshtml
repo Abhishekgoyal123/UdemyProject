@@ -1,10 +1,7 @@
 ﻿@model IEnumerable<Udemy_Project.Models.CourseFeedBack>
 
-@{
-    ViewBag.Title = "GetFeedback";
-}
 
-<h2>GetFeedback</h2>
+<h2>Users Feedback</h2>
 
 <table class="table">
     <tr>
@@ -15,8 +12,7 @@
         <th>
             @Html.DisplayNameFor(model => model.CourseRatings)
         </th>
-       
-       
+      
     </tr>
 
 @foreach (var item in Model) {

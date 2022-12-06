@@ -10,7 +10,7 @@ namespace Udemy_Project.Models
     {
 
         [Required]
-        public string CardNumber { get; set; }
+        public int CardNumber { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

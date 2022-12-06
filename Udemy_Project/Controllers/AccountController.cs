@@ -9,6 +9,7 @@ using System.Web.Security;
 
 namespace Udemy_Project.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();

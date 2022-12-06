@@ -8,6 +8,7 @@ using Udemy_Project;
 
 namespace Udemy_Project.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();
@@ -38,9 +39,7 @@ namespace Udemy_Project.Controllers
             {
                 //redirect to list of all courses
                 return RedirectToAction("ListAllCourses");
-
             }
-            
         }
         public ActionResult ListAllCourses()
         {
@@ -228,20 +227,29 @@ namespace Udemy_Project.Controllers
             var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
             var abc = (IEnumerable<CourseTrainer>)TempData["purchasedCourse"];
             TempData.Keep();
-            foreach(var item in abc)
-            {
-                if (courseInCart.CourseId == item.CourseId)
-                {
-                    flag = 1;
-                    break;
-                }
-                
-            }
-            TempData["flag"] = flag;
-            if (flag == 0)
+
+            if(abc == null)
             {
                 ListModel.ctList.Add((CourseTrainer)courseInCart);
             }
+            else
+            {
+                foreach (var item in abc)
+                {
+                    if (courseInCart.CourseId == item.CourseId)
+                    {
+                        flag = 1;
+                        break;
+                    }
+
+                }
+                TempData["flag"] = flag;
+                if (flag == 0)
+                {
+                    ListModel.ctList.Add((CourseTrainer)courseInCart);
+                }
+            }
+           
             return RedirectToAction("ListAllCourses");
 
         }
@@ -259,20 +267,20 @@ namespace Udemy_Project.Controllers
 
             TempData["CartList"] = ListModel.ctList;
             TempData.Keep();
-            return View(ListModel.ctList.Distinct());
+            return View(ListModel.ctList);
         }
 
         public ActionResult RemoveFromCart(int courseId)
         {
             var courseToRemove = ListModel.ctList.Where(m => m.CourseId == courseId).FirstOrDefault();
-             
+            ListModel.ctList.Remove(courseToRemove);
             return RedirectToAction("ViewCart");
         }
 
-        public ActionResult SearchCourses()
-        {
-            return View();
-        }
+        //public ActionResult SearchCourses()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public ActionResult SearchCourses(string ProductName)
@@ -306,5 +314,12 @@ namespace Udemy_Project.Controllers
             }
             return View(resultList.Distinct());
         }
+
+        public ActionResult Payment()
+        {
+            return View();
+        }
+
+        
     }
 }
