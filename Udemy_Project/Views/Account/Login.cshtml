@@ -32,14 +32,12 @@
                 </div>
             </div>
 
-
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Log In"  id="btnGet" class="btn btn-default" onMouseOver="this.style.backgroundColor = 'black';
     this.style.color='white'"
                            onMouseOut="this.style.backgroundColor = 'white';
-    this.style.color='black'" @*onclick="LoginStatus()"*@ />
+    this.style.color='black'" onclick="LoginStatus()" />
                 </div>
             </div>
         </div>
@@ -91,16 +89,15 @@
 @*<script type="text/javascript">
 
     function LoginStatus() {
-        setTimeout(() => {
-            var a = @(Convert.ToInt32(TempData["abc"]));
+        
+            var a = @(Convert.ToInt32(TempData["xy"]));
 
             if (a == 1) {
                 console.log("hi");
                 alert('Invalid Credentials');
             }
 
-        }, 200)
-    }*@
-<!--</script>-->
+    }
+</script>*@
 
  

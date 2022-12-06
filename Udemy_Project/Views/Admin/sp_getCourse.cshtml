@@ -1,30 +1,30 @@
 ﻿@model IEnumerable<Udemy_Project.Models.sp_getCourse_Result>
 
-@{
-    ViewBag.Title = "sp_getCourse";
-}
 
-<h2>sp_getCourse</h2>
+<h2 style="font-size:40px; margin-left:370px;"> All Available Courses</h2>
 
-<table class="table">
-    <tr>
-        <th>
+<table  class="table" style="border:1px solid black;margin-top:30px;text-align:center">
+    <tr style="border:1px solid black">
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseDescription)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseLevels)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseLanguage)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseSkills)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CousrePrice)
+        </th>
+        <th style="text-align: center; border:1px solid black">
+            Actions
         </th>
 
 
@@ -34,25 +34,25 @@
     {
         <tr>
 
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseName)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseDescription)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseLevels)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseLanguage)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseSkills)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CousrePrice)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.ActionLink("Edit", "EditCourse", new { CourseId = item.CourseId }) |
                 @Html.ActionLink("Delete", "Delete3", new { CourseId = item.CourseId }) |
                 @Html.ActionLink("ShowUserReviews", "GetFeedback", new { id = item.CourseId })

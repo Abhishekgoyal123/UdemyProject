@@ -4,37 +4,37 @@
     ViewBag.Title = "ShowCourseFeedback";
 }
 
-<h2>ShowCourseFeedback</h2>
+<h2 style="font-size:40px; margin-left:310px;">Your Valuable Feedback</h2>
 
-<table class="table">
-    <tr>
+<table class="table" style="border:1px solid black;margin-top:30px;text-align:center">
+    <tr style="border:1px solid black">
 
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseReviews)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseRatings)
         </th>
 
-        <th></th>
+        <th style="text-align: center;  border:1px solid black"> Action </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
 
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseReviews)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseRatings)
             </td>
 
-            <td>
+            <td style="border:1px solid black">
                 @Html.ActionLink("Edit FeedBack", "EditCourseFeedback", new { courseid = item.CourseId })
             </td>
 
-            <td onclick="deleteFeedback()">
+            <td style="border:1px solid black" onclick="deleteFeedback()">
                 @Html.ActionLink("Delete Feedback", "DeleteCourseFeedBack", new { courseid = item.CourseId })
             </td>
         </tr>
@@ -42,7 +42,8 @@
 
 </table>
 
-<div>
+<div style="font-size:large; padding:10px; border:1px solid black ;display:inline-block">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
     @Html.ActionLink("Back to Courses", "GetPurchasedCourses")
 </div>
 

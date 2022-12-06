@@ -4,71 +4,77 @@
     ViewBag.Title = "GetPublishedCourse";
 }
 
-@*<h3>
-    Welcome @TempData["UserName"].ToString()
-</h3>*@
 <h2>GetPublishedCourse</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddCourse")
+    @Html.ActionLink("Add New Course", "AddCourse")
 </p>
-<table class="table">
-    <tr>
+<table class="table" style="border:1px solid black;margin-top:30px;text-align:center">
+    <tr style="border:1px solid black">
        
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseDescription)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseLevels)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseLanguage)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseSkills)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CousrePrice)
         </th>
 
-        <th></th>
+        <th style="text-align:center;border:1px solid black"> Actions </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseName)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseDescription)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseLevels)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseLanguage)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseSkills)
             </td>
-            <td>
+            <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CousrePrice)
             </td>
 
-            <td>
+            <td style="border:1px solid black">
                 @Html.ActionLink("Edit", "EditCourse", new { courseId = item.CourseId }) |
                 @Html.ActionLink("Delete", "Delete3", new { courseId = item.CourseId })|
                 @Html.ActionLink("CourseStats", "CourseStats", new { courseId = item.CourseId })
-               
+                @using (Html.BeginForm("GetFeedback", "Trainer", new { courseId = item.CourseId }))
+                {
+                    <input type="submit" value="Course Feedback" id="btnGet" />
+                }
+
             </td>
-            <td onclick="validateFeedBack()">
-                @Html.ActionLink("Course Feedback", "GetFeedback", new { courseId = item.CourseId })
-            </td>
+            <!--<td>-->
+                @*@Html.ActionLink("Course Feedback", "GetFeedback", new { courseId = item.CourseId })*@
+
+                <!--@using (Html.BeginForm("GetFeedback", "Trainer", new { courseId = item.CourseId }))
+                {
+                    <input type="submit" value="Course Feedback" id="btnGet" />
+                }
+            </td>-->
         </tr>
     }
 

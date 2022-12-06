@@ -13,7 +13,7 @@ namespace Udemy_Project.Controllers
         UdemyEntities4 context = new UdemyEntities4();
         // GET: User
 
-        ListModel lm = new ListModel();
+       // ListModel lm = new ListModel();
 
         [Authorize(Roles = "User")]
         public ActionResult UserHomePage()                                          
@@ -40,17 +40,8 @@ namespace Udemy_Project.Controllers
                 return RedirectToAction("ListAllCourses");
 
             }
-            //TempData.Keep();
-            //return View();
-            //return RedirectToAction("GetPurchasedCourses");
-
+            
         }
-
-        //public ActionResult SearchCourses()
-        //{
-
-        //}
-
         public ActionResult ListAllCourses()
         {
             string UserName = TempData["UserName"].ToString();
@@ -58,7 +49,6 @@ namespace Udemy_Project.Controllers
             var CourseList = context.CourseTrainers.ToList();
 
             return View(CourseList);
-
         }
 
         public ActionResult AddCourseFeedBack(int? courseId)
@@ -73,7 +63,6 @@ namespace Udemy_Project.Controllers
             }
             return View("Error");
         }
-
 
         public ActionResult GetPurchasedCourses()
         {
@@ -109,7 +98,6 @@ namespace Udemy_Project.Controllers
         [HttpPost]
         public ActionResult AddCourseFeedBack(int? courseId, CourseFeedBack courseFeedback)
         {
-            
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
 
@@ -127,25 +115,22 @@ namespace Udemy_Project.Controllers
 
             }
             else
-                return View("Error");
+                return RedirectToAction("GetPurchasedCourses");
         }
 
         public ActionResult DeleteCourseFeedBack(int? courseId)
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
-            var res = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
-           
-            //9960008446
-            var isFeedbackExist = (from courseFeedBack in context.CourseFeedBacks
+            var recordToDelete = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
+
+            var FeedbackExist = (from courseFeedBack in context.CourseFeedBacks
                                    where courseFeedBack.CourseId == courseId
                                    select courseFeedBack).Count();
 
-            if (isFeedbackExist!=0)
+            if (FeedbackExist!=0)
             {
-                
-                //var recordToDelete = context.CourseFeedBacks.Find(res);
-                context.CourseFeedBacks.Remove(res);
+                context.CourseFeedBacks.Remove(recordToDelete);
                 context.SaveChanges();
                 return RedirectToAction("GetPurchasedCourses");
             }
@@ -175,10 +160,9 @@ namespace Udemy_Project.Controllers
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
-            var record = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
+            var recordToEdit = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
            
-            return View(record);
-
+            return View(recordToEdit);
         }
 
         [HttpPost]
@@ -187,8 +171,6 @@ namespace Udemy_Project.Controllers
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
             var recordToUpdate = context.CourseFeedBacks.Where(a => a.CourseId == courseId && a.UserId == userId).FirstOrDefault();
-
-            //TempData["RecordToUpdate"] = recordToUpdate.CourseReviews;
 
             recordToUpdate.CourseReviews = courseFeedBack.CourseReviews;
             recordToUpdate.CourseRatings = courseFeedBack.CourseRatings;
@@ -222,23 +204,20 @@ namespace Udemy_Project.Controllers
 
         public ActionResult BuyCourse(CourseMapping courseMapping)
         {
-            //List<CourseTrainer> trainers = TempData["Cart"];
-           // int? totalPrice = 0;
             int userId = Convert.ToInt32(TempData["UserId"]);
             TempData.Keep();
 
-            var cart = (IEnumerable<CourseTrainer>)TempData["CartList"];
+            var cartList = (IEnumerable<CourseTrainer>)TempData["CartList"];
             TempData.Keep();
            
             var purchasedCourseList = (IEnumerable<CourseTrainer>)TempData["purchasedCourse"];
-            foreach (var item in cart)
+            foreach (var item in cartList)
             {
                 courseMapping.UserId = userId;
                 courseMapping.CourseId = item.CourseId;
                 context.CourseMappings.Add(courseMapping);
                 context.SaveChanges();
             }
-
             return RedirectToAction("GetPurchasedCourses");
         }
 
@@ -248,7 +227,7 @@ namespace Udemy_Project.Controllers
             TempData["courseId"] = courseId;
             var courseInCart = context.CourseTrainers.Where(m => m.CourseId == courseId).FirstOrDefault();
             var abc = (IEnumerable<CourseTrainer>)TempData["purchasedCourse"];
-            
+            TempData.Keep();
             foreach(var item in abc)
             {
                 if (courseInCart.CourseId == item.CourseId)
@@ -267,10 +246,8 @@ namespace Udemy_Project.Controllers
 
         }
 
-
         public ActionResult ViewCart()
         {
-            // work on remove from cart functionality
             int?totalPrice = 0;
 
             foreach(var item in ListModel.ctList)
@@ -288,8 +265,7 @@ namespace Udemy_Project.Controllers
         public ActionResult RemoveFromCart(int courseId)
         {
             var courseToRemove = ListModel.ctList.Where(m => m.CourseId == courseId).FirstOrDefault();
-             bool isremoved = ListModel.ctList.Remove(courseToRemove);
-            
+             
             return RedirectToAction("ViewCart");
         }
 
@@ -327,12 +303,8 @@ namespace Udemy_Project.Controllers
                         resultList.Add(item);
                     }
                 }
-
             }
             return View(resultList.Distinct());
         }
-
-       
-
     }
 }

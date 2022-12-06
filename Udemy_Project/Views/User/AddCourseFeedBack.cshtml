@@ -1,22 +1,17 @@
 ﻿@model Udemy_Project.Models.CourseFeedBack
 
-@{
-    ViewBag.Title = "AddCourseFeedBack";
-}
 
-<h2>AddCourseFeedBack</h2>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>CourseFeedBack</h4>
-        <hr />
+    <div class="form-horizontal" style="display:flex; flex-direction:column; width:80vw;height:70vh;align-items:center;justify-content:space-evenly">
+        <h2 style="display:flex; justify-content:space-between; width:70%">Your FeedBack Is Invaluable For Us.</h2>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
-        <div class="form-group">
+        <div class="form-group" style="display:flex; justify-content:space-between; width:70%">
             @Html.LabelFor(model => model.CourseReviews, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CourseReviews, new { htmlAttributes = new { @class = "form-control" } })
@@ -24,7 +19,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="display:flex; justify-content:space-between; width:70%">
             @Html.LabelFor(model => model.CourseRatings, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CourseRatings, new { htmlAttributes = new { @class = "form-control" } })
@@ -32,24 +27,30 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="display:flex; justify-content:space-between; width:70%">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" id="btnGet" onclick="addFeddback()"/>
+                <input type="submit" value="Add Feddback" class="btn btn-default" id="btnGet" onclick="addFeddback()" />
             </div>
         </div>
     </div>
-}
 
-<div>
+}
+<img src="https://www.pngmart.com/files/7/Rating-Star-PNG-HD.png" style="position:absolute;right:280px;bottom:200px;" height="300" width="250" />
+<div style="font-size:large; padding:10px; border:1px solid black ;display:inline-block">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
     @Html.ActionLink("Back to Course List", "GetPurchasedCourses")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
 @*<script type="text/javascript">
 
     function addFeddback() {
         var signupButton = document.getElementById("btnGet");
         var a = @Convert.ToInt32(TempData["noOfFeedback"]);
-        
+
 
         if (a != 0) {
             signupButton.disabled = true;
@@ -58,7 +59,7 @@
 
             alert('Added feedback successfully.');
         }
-            
+
         }
     </script>*@
 

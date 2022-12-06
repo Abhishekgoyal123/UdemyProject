@@ -4,58 +4,58 @@
     ViewBag.Title = "SearchCourses";
 }
 
-<h2>SearchCourses</h2>
+<h2 style="font-size:40px; margin-left:310px;">Search Courses</h2>
 
 
-        <table class="table">
-            <tr>
+        <table class="table" style="border:1px solid black;margin-top:30px;text-align:center">
+            <tr style="border:1px solid black">
                 
-                <th>
+                <th style="border:1px solid black">
                     @Html.DisplayNameFor(model => model.CourseName)
                 </th>
-                <th>
+                <th style="border:1px solid black">
                     @Html.DisplayNameFor(model => model.CourseDescription)
                 </th>
-                <th>
+                <th style="border:1px solid black">
                     @Html.DisplayNameFor(model => model.CourseLevels)
                 </th>
-                <th>
+                <th style="border:1px solid black">
                     @Html.DisplayNameFor(model => model.CourseLanguage)
                 </th>
-                <th>
+                <th style="border:1px solid black">
                     @Html.DisplayNameFor(model => model.CourseSkills)
                 </th>
-                <th>
+                <th style="border:1px solid black">
                     @Html.DisplayNameFor(model => model.CousrePrice)
                 </th>
                 
-                <th></th>
+                <th style="border:1px solid black"> Action </th>
             </tr>
 
             @foreach (var item in Model)
             {
                 <tr>
                   
-                    <td>
+                    <td style="border:1px solid black">
                         @Html.DisplayFor(modelItem => item.CourseName)
                     </td>
-                    <td>
+                    <td style="border:1px solid black">
                         @Html.DisplayFor(modelItem => item.CourseDescription)
                     </td>
-                    <td>
+                    <td style="border:1px solid black">
                         @Html.DisplayFor(modelItem => item.CourseLevels)
                     </td>
-                    <td>
+                    <td style="border:1px solid black">
                         @Html.DisplayFor(modelItem => item.CourseLanguage)
                     </td>
-                    <td>
+                    <td style="border:1px solid black">
                         @Html.DisplayFor(modelItem => item.CourseSkills)
                     </td>
-                    <td>
+                    <td style="border:1px solid black">
                         @Html.DisplayFor(modelItem => item.CousrePrice)
                     </td>
                    
-                    <td>
+                    <td style="border:1px solid black">
                         
                         @Html.ActionLink("Buy Now", "AddToCart", new { courseId = item.CourseId })
                     </td>

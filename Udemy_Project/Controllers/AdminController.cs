@@ -10,6 +10,7 @@ namespace Udemy_Project.Controllers
     {
         UdemyEntities4 context = new UdemyEntities4();
         // GET: Admin
+        [Authorize(Roles ="Admin")]
         public ActionResult AdminHomePage()
         {
             ViewBag.Message = "Welcome to Admin Home Page";
@@ -45,17 +46,6 @@ namespace Udemy_Project.Controllers
                 return View();
         }
 
-        [HttpGet]
-
-        //public ActionResult GetAllCourse()
-        //{
-        //    // use tuple to get result both from courseTrainer and CourseUserFeedbacks table
-        //    var CourseList = context.CourseTrainers.ToList();
-        //    //var CourseuserFeedBack = context.CourseUserFeedbacks.ToList();
-        //    return View(CourseList);
-        //}
-        
-
         public ActionResult sp_getCourse()
         {
             var CourseList = context.sp_getCourse();
@@ -67,15 +57,6 @@ namespace Udemy_Project.Controllers
             var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == id);
             return View(CourseuserFeedBack);
         }
-
-        //[HttpPost]
-
-        //public ActionResult AddCourse(CourseTrainer entity)
-        //{
-        //    var result = context.CourseTrainers.Add(entity);
-        //    context.SaveChanges();
-        //    return View();
-        //}
 
         public ActionResult Delete3(int? CourseId)
         {
@@ -90,7 +71,6 @@ namespace Udemy_Project.Controllers
 
             if (noOfStudentEnrolled == 0)
             {
-
                 context.CourseTrainers.Remove(record);
                 context.SaveChanges();
                 return RedirectToAction("sp_getCourse");
@@ -99,7 +79,6 @@ namespace Udemy_Project.Controllers
             {
                 return View(record);
             }
-            
         }
 
         public ActionResult EditCourse(int? courseId)
@@ -138,8 +117,6 @@ namespace Udemy_Project.Controllers
 
             return Json(courseDetail, JsonRequestBehavior.AllowGet);
         }
-
-
 
     }
 }

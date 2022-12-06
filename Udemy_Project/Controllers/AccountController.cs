@@ -47,7 +47,6 @@ namespace Udemy_Project.Controllers
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
 
-            //TempData["LoginStatus"] = isvalid.ToString().ToLower();
             
             FormsAuthentication.SetAuthCookie(model.UserName, false);
             if (isvalid)
@@ -56,7 +55,6 @@ namespace Udemy_Project.Controllers
                               where user.UserName == localusername
                               select user.UserId).FirstOrDefault();
                 
-
                 if (Roles.IsUserInRole(model.UserName,"Trainer"))
                 {
                     TempData["UserName"] = model.UserName;
@@ -81,36 +79,30 @@ namespace Udemy_Project.Controllers
             {
                 int abc = 1;
                 TempData["abc"] = abc;
-                
+               
                 return View("Login");
             }
-                
-           // TempData.Keep();
-            //return RedirectToAction("UserHomePage", "User");
+
         }
        
-        
         [HttpPost]
         public ActionResult Signup(User model,RoleMapping roleMapping, Role role1)
         {
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
 
-            //role.UserId = model.UserId;
             context.Users.Add(model);
             context.SaveChanges();
 
             var roleId = (from role in context.Roles
                          where role.RoleName == role1.RoleName
                          select role.RoleId).First();
-            //role.user_id = model.id;
+
             roleMapping.UserId = model.UserId;
             roleMapping.RoleId = roleId;
 
             context.RoleMappings.Add(roleMapping);
             context.SaveChanges();
-            //context.UserRoles.Add(role);
-            //context.SaveChanges();
-
+            
             return RedirectToAction("login");
         }
 

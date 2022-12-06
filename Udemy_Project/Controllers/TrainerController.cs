@@ -72,7 +72,7 @@ namespace Udemy_Project.Controllers
 
         public ActionResult GetFeedback(int? courseId)
         {
-            var CourseuserFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId);
+            var CourseFeedBack = context.CourseFeedBacks.ToList().Where(a => a.CourseId == courseId);
 
             var feedbackCount = (from courseFeedBack in context.CourseFeedBacks
                                  where courseFeedBack.CourseId == courseId 
@@ -80,13 +80,17 @@ namespace Udemy_Project.Controllers
 
             if(feedbackCount == 0)
             {
-                return Json(feedbackCount,JsonRequestBehavior.AllowGet);
+                return RedirectToAction("GetPublishedCourse");
             }
-            return View(CourseuserFeedBack);
+            else
+            {
+                return View(CourseFeedBack);
+
+            }
+           
         }
 
         [HttpPost]
-
         public ActionResult AddCourse(CourseTrainer entity, CourseMapping courseMapping)
         {
             int userId = Convert.ToInt32(TempData["UserId"]);
@@ -94,7 +98,7 @@ namespace Udemy_Project.Controllers
             TempData.Keep();
             if (ModelState.IsValid)
             {
-                var result = context.CourseTrainers.Add(entity);
+                var courseTOAdd = context.CourseTrainers.Add(entity);
                 context.SaveChanges();
 
                 courseMapping.UserId = userId;
@@ -108,7 +112,7 @@ namespace Udemy_Project.Controllers
         
         public ActionResult Delete3(int? CourseId)
         {
-            var record = context.CourseTrainers.Find(CourseId);
+            var recordToDelete = context.CourseTrainers.Find(CourseId);
             var noOfStudentEnrolled = (from CourseMapping in context.CourseMappings
                                        where CourseMapping.CourseId == CourseId
                                        select CourseMapping).Count();
@@ -119,13 +123,13 @@ namespace Udemy_Project.Controllers
 
             if (noOfStudentEnrolled == 0)
             {
-                context.CourseTrainers.Remove(record);
+                context.CourseTrainers.Remove(recordToDelete);
                 context.SaveChanges();
                 return RedirectToAction("GetPublishedCourse");
             }
             else
             {
-                return View(record);
+                return View(recordToDelete);
             }
          
         }
@@ -196,7 +200,6 @@ namespace Udemy_Project.Controllers
             TempData.Keep();
             return Json(AverageRatings, JsonRequestBehavior.AllowGet);
         }
-
-        
+ 
     }
 }
