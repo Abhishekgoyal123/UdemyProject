@@ -10,70 +10,71 @@
 
 <table class="table" style="border:1px solid black;margin-top:30px;text-align:center">
     <thead>
-    <tr style="border:1px solid black">
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CourseName)
-        </th>
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CourseDescription)
-        </th>
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CourseLevels)
-        </th>
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CourseLanguage)
-        </th>
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CourseSkills)
-        </th>
-        <th style="border:1px solid black">
-            @Html.DisplayNameFor(model => model.CousrePrice)
-        </th>
-        <th style="text-align: center; border:1px solid black" > Action </th>
-       
-    </tr>
-        </thead>
+        <tr style="border:1px solid black">
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CourseId)
+            </th>
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CourseDescription)
+            </th>
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CourseLevels)
+            </th>
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CourseLanguage)
+            </th>
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CourseSkills)
+            </th>
+            <th style="border:1px solid black">
+                @Html.DisplayNameFor(model => model.CousrePrice)
+            </th>
+            <th style="text-align: center; border:1px solid black"> Action </th>
+
+        </tr>
+    </thead>
     <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CourseLevels)
-        </td>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CourseLanguage)
-        </td>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CourseSkills)
-        </td>
-        <td style="border:1px solid black">
-            @Html.DisplayFor(modelItem => item.CousrePrice)
-        </td>
-        <td style="border:1px solid black" onclick="RemoveFromCart()">
-            @Html.ActionLink("Remove From Cart", "RemoveFromCart", new { courseId = item.CourseId })
-        </td>
-    </tr>
-}
-</tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CourseId)
+                </td>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CourseDescription)
+                </td>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CourseLevels)
+                </td>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CourseLanguage)
+                </td>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CourseSkills)
+                </td>
+                <td style="border:1px solid black">
+                    @Html.DisplayFor(modelItem => item.CousrePrice)
+                </td>
+                <td style="border:1px solid black" onclick="RemoveFromCart()">
+                    @Html.ActionLink("Remove From Cart", "RemoveFromCart", new { courseId = item.CourseId })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 <div style="display:flex; justify-content:flex-end">
     <h3 style="border:1px solid black ; padding:5px;">
         Total price =  @TempData["Total Price"]
     </h3>
 </div>
-<div style="display:flex; justify-content:center;align-items:center" >
+<div style="display:flex; justify-content:center;align-items:center">
     <button style="padding:6px" id="PayNow" onload="abc()">
         @Html.ActionLink("Pay Now", "Payment")
     </button>
@@ -100,4 +101,11 @@
             abc.disabled = false;
     }
 
-    </script>
+</script>
+
+<div style="font-size:large; padding:10px; border:1px solid black ;display:inline-block">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    @Html.ActionLink("Back to Course List", "GetPurchasedCourses")
+</div>
+
+

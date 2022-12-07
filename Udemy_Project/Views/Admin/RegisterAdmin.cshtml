@@ -1,15 +1,13 @@
 ﻿@model Udemy_Project.Models.User
 
-@{
-    ViewBag.Title = "RegisterAdmin";
-}
 
-<h2>RegisterAdmin</h2>
 
-@using (Html.BeginForm()) 
+<h2>Register Admin</h2>
+
+@using (Html.BeginForm())
 {
-   <div class="form-horizontal">
-       
+    <div class="form-horizontal">
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.FistName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" , @onblur = "validateUserName()" } })
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,12 +43,42 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Sign Up" class="btn btn-default" id="signUp" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<dialog id="dialog" style="position:absolute;top:50px;right:20px; padding:8px;color:red"></dialog>
+
+<script type="text/javascript">
+            const setDialog = (msg) => {
+                const dialog = document.getElementById("dialog");
+                dialog.innerHTML = msg;
+                dialog.open=true
+                setTimeout(() => { dialog.open=false; }, 6000)
+            }
+             
+            let signUpButton = document.getElementById("signUp");
+            function validateUserName() {
+                var userName = document.getElementById("UserName");
+
+                var a = @Html.Raw(Json.Encode(TempData["UsernameList"]));
+
+
+                    if (a.includes(userName.value)) {
+                        setDialog("Username Already Exists");
+                        signUpButton.disabled = true;
+                    } else {
+                        signUpButton.disabled = false;
+                    }
+            }
+
+
+</script>
+    
+<div style="font-size:large; padding:10px; border:1px solid black ;display:inline-block">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    @Html.ActionLink("Back to Course List", "sp_getCourse")
 </div>
+

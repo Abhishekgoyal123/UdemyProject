@@ -25,6 +25,7 @@ namespace Udemy_Project.Models
         [Required]
         public int UserId { get; set; }
         [Required]
+        
         public string FistName { get; set; }
         [Required]
         public string LastName { get; set; }

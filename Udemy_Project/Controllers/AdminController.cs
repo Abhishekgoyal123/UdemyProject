@@ -21,6 +21,11 @@ namespace Udemy_Project.Controllers
 
         public ActionResult RegisterAdmin()
         {
+            var usernameList = (from user in context.Users
+                                select user.UserName).ToArray();
+
+            TempData["UsernameList"] = usernameList;
+
             return View();
         }
 
@@ -87,24 +92,8 @@ namespace Udemy_Project.Controllers
             var record = context.CourseTrainers.Where(a => a.CourseId == courseId).FirstOrDefault();
             return View(record);
         }
-        //[HttpPost]
-        //public ActionResult EditCourse(int? courseId, CourseTrainer courseDetail)
-        //{
-        //    var record = context.CourseTrainers.Find(courseId);
-        //    record.CourseName = courseDetail.CourseName;
-        //    record.CourseDescription = courseDetail.CourseDescription;
-        //    record.CourseLevels = courseDetail.CourseLevels;
-        //    record.CourseLanguage = courseDetail.CourseLanguage;
-        //    record.CourseSkills = courseDetail.CourseSkills;
-        //    record.CousrePrice = courseDetail.CousrePrice;
-
-        //    context.SaveChanges();
-
-        //    return RedirectToAction("sp_getCourse");
-        //}
-
         [HttpPost]
-        public JsonResult EditCourse1(int? courseId, CourseTrainer courseDetail)
+        public ActionResult EditCourse(int? courseId, CourseTrainer courseDetail)
         {
             var record = context.CourseTrainers.Find(courseId);
             record.CourseName = courseDetail.CourseName;
@@ -116,8 +105,10 @@ namespace Udemy_Project.Controllers
 
             context.SaveChanges();
 
-            return Json(courseDetail, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("sp_getCourse");
         }
+
+
 
     }
 }

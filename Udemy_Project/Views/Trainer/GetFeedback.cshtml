@@ -7,26 +7,26 @@
 <h2>Users Feedback</h2>
 
 
-<table class="table">
-    <tr>
+<table class="table" style="border:1px solid black;margin-top:30px;text-align:center">
+    <tr style="border:1px solid black">
         
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseReviews)
         </th>
-        <th>
+        <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseRatings)
         </th>
         
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         
-        <td>
+        <td style="border:1px solid black">
             @Html.DisplayFor(modelItem => item.CourseReviews)
         </td>
-        <td>
+        <td style="border:1px solid black">
             @Html.DisplayFor(modelItem => item.CourseRatings)
         </td>
         

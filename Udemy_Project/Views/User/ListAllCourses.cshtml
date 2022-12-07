@@ -22,7 +22,7 @@
 </p>
 <table class="table" style="border:1px solid black;margin-top:30px;text-align:center">
     <tr style="border:1px solid black">
-       
+
         <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CourseName)
         </th>
@@ -40,8 +40,8 @@
         </th>
         <th style="border:1px solid black">
             @Html.DisplayNameFor(model => model.CousrePrice)
-        </th >
-        <th style="text-align: center; border:1px solid black" >
+        </th>
+        <th style="text-align: center; border:1px solid black">
             Action
         </th>
     </tr>
@@ -49,7 +49,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            
+
             <td style="border:1px solid black">
                 @Html.DisplayFor(modelItem => item.CourseName)
             </td>
@@ -72,7 +72,7 @@
                 @*@Html.ActionLink("Add To Cart", "AddToCart", new { courseId = item.CourseId })*@
                 @using (Html.BeginForm("AddToCart", "User", new { courseId = item.CourseId }))
                 {
-                    <input type="submit" value="Add To Cart"  id="btnGet" />
+                    <input type="submit" value="Add To Cart" id="btnGet" />
                 }
             </td>
 
@@ -80,7 +80,7 @@
     }
 
 </table>
-<script type="text/javascript">
+@*<script type="text/javascript">
 
     function addedToCart() {
         var a = @Convert.ToInt32(TempData["flag"]);
@@ -91,5 +91,12 @@
             alert('Added To Cart Successfully.');
         }
     }
-</script>
+</script>*@
+
+<div style="font-size:large; padding:10px; border:1px solid black ;display:inline-block">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    @Html.ActionLink("Back to Course List", "GetPurchasedCourses")
+</div>
+
+
 

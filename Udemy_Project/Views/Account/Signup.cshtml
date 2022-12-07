@@ -96,10 +96,10 @@
             function validateUserName() {
                 var userName = document.getElementById("UserName");
 
-                var a = @Html.Raw(Json.Encode(TempData["UsernameList"]));
+                var usernameList = @Html.Raw(Json.Encode(TempData["UsernameList"]));
 
 
-                    if (a.includes(userName.value)) {
+                    if (usernameList.includes(userName.value)) {
                         setDialog("Username Already Exists");
                         signUpButton.disabled = true;
                     } else {

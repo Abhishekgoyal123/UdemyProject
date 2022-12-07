@@ -90,6 +90,7 @@ namespace Udemy_Project.Controllers
             }
 
             TempData["purchasedCourse"] = purchasedCourse;
+            //ViewBag.test = 1;
             
             return View(purchasedCourse);
         }
@@ -217,6 +218,7 @@ namespace Udemy_Project.Controllers
                 context.CourseMappings.Add(courseMapping);
                 context.SaveChanges();
             }
+            
             return RedirectToAction("GetPurchasedCourses");
         }
 
@@ -228,7 +230,7 @@ namespace Udemy_Project.Controllers
             var abc = (IEnumerable<CourseTrainer>)TempData["purchasedCourse"];
             TempData.Keep();
 
-            if(abc == null)
+            if (abc == null)
             {
                 ListModel.ctList.Add((CourseTrainer)courseInCart);
             }
@@ -241,7 +243,15 @@ namespace Udemy_Project.Controllers
                         flag = 1;
                         break;
                     }
+                }
 
+                foreach(var item in ListModel.ctList)
+                {
+                    if(courseInCart.CourseId == item.CourseId)
+                    {
+                        flag = 1;
+                        break;
+                    }
                 }
                 TempData["flag"] = flag;
                 if (flag == 0)
@@ -249,6 +259,7 @@ namespace Udemy_Project.Controllers
                     ListModel.ctList.Add((CourseTrainer)courseInCart);
                 }
             }
+
            
             return RedirectToAction("ListAllCourses");
 
@@ -277,10 +288,10 @@ namespace Udemy_Project.Controllers
             return RedirectToAction("ViewCart");
         }
 
-        //public ActionResult SearchCourses()
-        //{
-        //    return View();
-        //}
+        public ActionResult SearchCourses()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult SearchCourses(string ProductName)

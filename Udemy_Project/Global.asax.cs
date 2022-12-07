@@ -17,7 +17,6 @@ namespace Udemy_Project
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            
         }
 
         protected void Application_BeginRequest()

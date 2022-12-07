@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace Udemy_Project.Controllers
 {
-    [AllowAnonymous]
+    
     public class AccountController : Controller
     {
         UdemyEntities4 context = new UdemyEntities4();
@@ -32,10 +32,10 @@ namespace Udemy_Project.Controllers
             ViewData["RoleName"] = new SelectList(rolelist, "RoleName", "RoleName");
 
            
-            var abc = (from user in context.Users
+            var usernameList = (from user in context.Users
                        select user.UserName).ToArray();
 
-            TempData["UsernameList"] = abc;
+            TempData["UsernameList"] = usernameList;
 
             return View();
         }
@@ -48,7 +48,6 @@ namespace Udemy_Project.Controllers
             model.UserPassword = PasswordEncrypt.Encrypt(model.UserPassword);
             bool isvalid = context.Users.Any(x => x.UserName == model.UserName && x.UserPassword == model.UserPassword);
 
-            
             FormsAuthentication.SetAuthCookie(model.UserName, false);
             if (isvalid)
             {
